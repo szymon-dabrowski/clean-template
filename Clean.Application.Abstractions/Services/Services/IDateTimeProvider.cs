@@ -1,4 +1,4 @@
-﻿namespace Clean.Application.Common.Interfaces.DateTimeProvider;
+﻿namespace Clean.Application.Abstractions.Services.Services;
 public interface IDateTimeProvider
 {
     DateTime UtcNow { get; }

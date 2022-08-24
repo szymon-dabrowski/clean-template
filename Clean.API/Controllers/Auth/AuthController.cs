@@ -26,10 +26,10 @@ public class AuthController : ControllerBase
             request.Password);
 
         return new AuthResponse(
-            authResult.Id,
-            authResult.FirstName,
-            authResult.LastName,
-            authResult.Email,
+            authResult.User.Id,
+            authResult.User.FirstName,
+            authResult.User.LastName,
+            authResult.User.Email,
             authResult.Token);
     }
 
@@ -41,10 +41,10 @@ public class AuthController : ControllerBase
             request.Password);
 
         return new AuthResponse(
-            authResult.Id,
-            authResult.FirstName,
-            authResult.LastName,
-            authResult.Email,
+            authResult.User.Id,
+            authResult.User.FirstName,
+            authResult.User.LastName,
+            authResult.User.Email,
             authResult.Token);
     }
 }

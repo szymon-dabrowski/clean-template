@@ -1,7 +1,6 @@
-﻿namespace Clean.Application.Services.Auth.Model;
+﻿using Clean.Domain.Entities.User;
+
+namespace Clean.Application.Services.Auth.Model;
 public record AuthResult(
-    Guid Id,
-    string FirstName,
-    string LastName,
-    string Email,
+    UserEntity User,
     string Token);

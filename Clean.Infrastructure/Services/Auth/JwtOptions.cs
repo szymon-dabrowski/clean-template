@@ -1,4 +1,4 @@
-﻿namespace Clean.Infrastructure.Auth;
+﻿namespace Clean.Infrastructure.Services.Auth;
 public class JwtOptions
 {
     public const string Jwt = "jwt";

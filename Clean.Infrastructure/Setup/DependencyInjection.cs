@@ -1,6 +1,9 @@
-﻿using Clean.Application.Common.Interfaces.Auth;
-using Clean.Application.Common.Interfaces.DateTimeProvider;
-using Clean.Infrastructure.Auth;
+﻿using Clean.Application.Abstractions.Persistance.User;
+using Clean.Application.Abstractions.Services.Auth;
+using Clean.Application.Abstractions.Services.Services;
+using Clean.Infrastructure.Persistance.User;
+using Clean.Infrastructure.Services.Auth;
+using Clean.Infrastructure.Services.DateTimeProvider;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,7 +16,9 @@ public static class DependencyInjection
         services.Configure<JwtOptions>(config.GetSection(JwtOptions.Jwt));
 
         services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
-        services.AddSingleton<IDateTimeProvider, DateTimeProvider.DateTimeProvider>();
+        services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+
+        services.AddScoped<IUserRepository, UserRepository>();
 
         return services;
     }

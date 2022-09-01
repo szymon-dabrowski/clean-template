@@ -1,7 +1,9 @@
 ﻿using Clean.Application.Abstractions.Persistance.User;
 using Clean.Application.Abstractions.Services.Auth;
+using Clean.Application.Common.Errors.Auth;
 using Clean.Application.Services.Auth.Model;
 using Clean.Domain.Entities.User;
+using OneOf;
 
 namespace Clean.Application.Services.Auth;
 
@@ -18,13 +20,13 @@ public class AuthService : IAuthService
         this.userRepository = userRepository;
     }
 
-    public AuthResult Login(string email, string password)
+    public OneOf<AuthResult, InvalidCredentialsError> Login(string email, string password)
     {
         var user = userRepository.GetUserByEmail(email);
 
         if (user == null || user.Password != password)
         {
-            throw new Exception("Invalid credentials!");
+            return new InvalidCredentialsError();
         }
 
         var token = jwtTokenGenerator.GenerateJwtToken(user);
@@ -32,11 +34,11 @@ public class AuthService : IAuthService
         return new AuthResult(user, token);
     }
 
-    public AuthResult Register(string firstName, string lastName, string email, string password)
+    public OneOf<AuthResult, DuplicatedEmailError> Register(string firstName, string lastName, string email, string password)
     {
         if (userRepository.GetUserByEmail(email) != null)
         {
-            throw new Exception("User with given email already exists.");
+            return new DuplicatedEmailError();
         }
 
         var user = new UserEntity()

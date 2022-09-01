@@ -8,10 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+    <PackageReference Include="OneOf" Version="3.0.223" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Clean.Application.Abstractions\Clean.Application.Abstractions.csproj" />
+    <ProjectReference Include="..\Clean.Common\Clean.Common.csproj" />
     <ProjectReference Include="..\Clean.Domain\Clean.Domain.csproj" />
   </ItemGroup>
 

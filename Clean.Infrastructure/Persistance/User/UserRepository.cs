@@ -1,4 +1,4 @@
-﻿using Clean.Application.Abstractions.Persistance.User;
+﻿using Clean.Application.Common.Interfaces.Persistance;
 using Clean.Domain.Entities.User;
 
 namespace Clean.Infrastructure.Persistance.User;

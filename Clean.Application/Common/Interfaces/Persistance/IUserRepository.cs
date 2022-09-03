@@ -1,6 +1,6 @@
 ﻿using Clean.Domain.Entities.User;
 
-namespace Clean.Application.Abstractions.Persistance.User;
+namespace Clean.Application.Common.Interfaces.Persistance;
 public interface IUserRepository
 {
     UserEntity? GetUserByEmail(string email);

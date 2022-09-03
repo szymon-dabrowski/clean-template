@@ -1,6 +1,6 @@
-﻿using Clean.Application.Abstractions.Persistance.User;
-using Clean.Application.Abstractions.Services.Auth;
-using Clean.Application.Abstractions.Services.Services;
+﻿using Clean.Application.Common.Interfaces.Auth;
+using Clean.Application.Common.Interfaces.Persistance;
+using Clean.Application.Common.Interfaces.Services;
 using Clean.Infrastructure.Persistance.User;
 using Clean.Infrastructure.Services.Auth;
 using Clean.Infrastructure.Services.DateTimeProvider;

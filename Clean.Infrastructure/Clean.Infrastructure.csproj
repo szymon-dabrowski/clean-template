@@ -14,7 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Clean.Application.Abstractions\Clean.Application.Abstractions.csproj" />
     <ProjectReference Include="..\Clean.Application\Clean.Application.csproj" />
   </ItemGroup>
 

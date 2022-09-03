@@ -1,5 +1,5 @@
-﻿using Clean.Application.Abstractions.Services.Auth;
-using Clean.Application.Abstractions.Services.Services;
+﻿using Clean.Application.Common.Interfaces.Auth;
+using Clean.Application.Common.Interfaces.Services;
 using Clean.Domain.Entities.User;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;

@@ -1,7 +1,9 @@
-﻿using Clean.Application.Services.Auth;
-using Clean.Application.Services.Auth.Model;
+﻿using Clean.Application.Auth.Commands;
+using Clean.Application.Auth.Model;
+using Clean.Application.Auth.Queries;
 using Clean.Contracts.Auth.Requests;
 using Clean.Contracts.Auth.Responses;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clean.API.Controllers.Auth;
@@ -9,21 +11,20 @@ namespace Clean.API.Controllers.Auth;
 [Route("[controller]")]
 public class AuthController : ApiController
 {
-    private readonly IAuthService authService;
+    private readonly IMediator mediator;
 
-    public AuthController(IAuthService authService)
+    public AuthController(IMediator mediator)
     {
-        this.authService = authService;
+        this.mediator = mediator;
     }
 
     [HttpPost("register")]
-    public IActionResult Register(RegisterRequest request)
+    public async Task<IActionResult> Register(RegisterRequest request)
     {
-        var authResult = authService.Register(
-            request.FirstName,
+        var authResult = await mediator.Send(new RegisterUserCommand(request.FirstName,
             request.LastName,
             request.Email,
-            request.Password);
+            request.Password));
 
         return authResult.Match(
             authResult => Ok(MapAuthResult(authResult)),
@@ -31,11 +32,11 @@ public class AuthController : ApiController
     }
 
     [HttpPost("login")]
-    public IActionResult Login(LoginRequest request)
+    public async Task<IActionResult> Login(LoginRequest request)
     {
-        var authResult = authService.Login(
+        var authResult = await mediator.Send(new GetTokenQuery(
             request.Email,
-            request.Password);
+            request.Password));
 
         return authResult.Match(
             authResult => Ok(MapAuthResult(authResult)),

@@ -1,4 +1,4 @@
-﻿using Clean.Application.Services.Auth;
+﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Clean.Application.Setup;
@@ -6,7 +6,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        services.AddScoped<IAuthService, AuthService>();
+        services.AddMediatR(typeof(DependencyInjection).Assembly);
 
         return services;
     }

@@ -1,6 +1,6 @@
 ﻿using Clean.Common.Errors;
 
-namespace Clean.Application.Common.Errors.Auth;
+namespace Clean.Application.Auth.Errors;
 public class InvalidCredentialsError : IError
 {
     public string Code => "Auth.InvalidCredentials";

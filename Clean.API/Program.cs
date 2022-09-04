@@ -1,19 +1,14 @@
-using Clean.API.Errors;
+using Clean.API;
+using Clean.API.Controllers.Error;
 using Clean.Application.Setup;
 using Clean.Infrastructure.Setup;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 {
-    builder.Services.AddControllers();
-
-    builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
-
-    builder.Services.AddApplication();
-    builder.Services.AddInfrastructure(builder.Configuration);
-
-    builder.Services.AddSingleton<ProblemDetailsFactory, CleanApiProblemDetailsFactory>();
+    builder.Services
+        .AddPresentation()
+        .AddApplication()
+        .AddInfrastructure(builder.Configuration);
 }
 
 var app = builder.Build();
@@ -24,7 +19,7 @@ var app = builder.Build();
         app.UseSwaggerUI();
     }
 
-    app.UseExceptionHandler("/errors");
+    app.UseExceptionHandler(ErrorsController.Route);
 
     app.UseHttpsRedirection();
 

@@ -27,6 +27,8 @@ public class GetTokenQueryHandler : IRequestHandler<GetTokenQuery, OneOf<AuthRes
 
     public async Task<OneOf<AuthResult, InvalidCredentialsError>> Handle(GetTokenQuery query, CancellationToken cancellationToken)
     {
+        await Task.CompletedTask;
+
         var user = userRepository.GetUserByEmail(query.Email);
 
         if (user == null || user.Password != query.Password)

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
 using System.Diagnostics;
 
-namespace Clean.API.Errors;
+namespace Clean.API.Common.Errors;
 
 // forked from: https://github.com/dotnet/aspnetcore/blob/v6.0.8/src/Mvc/Mvc.Core/src/Infrastructure/DefaultProblemDetailsFactory.cs
 public class CleanApiProblemDetailsFactory : ProblemDetailsFactory

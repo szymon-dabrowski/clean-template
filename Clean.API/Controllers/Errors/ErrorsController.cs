@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace Clean.API.Controllers.Error;
 
 [ApiController]
-[Route("[controller]")]
+[Route(Route)]
 public class ErrorsController : ControllerBase
 {
+    public const string Route = "/errors";
+
     [HttpGet]
     public IActionResult Error()
     {

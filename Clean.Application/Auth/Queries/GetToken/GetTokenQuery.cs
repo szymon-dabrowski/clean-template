@@ -2,17 +2,17 @@
 using Clean.Application.Auth.Model;
 using Clean.Application.Common.Interfaces.Auth;
 using Clean.Application.Common.Interfaces.Persistance;
+using Clean.Common.Errors;
 using MediatR;
-using OneOf;
 
-namespace Clean.Application.Auth.Queries;
+namespace Clean.Application.Auth.Queries.GetToken;
 
 public record GetTokenQuery(
     string Email,
-    string Password) : IRequest<OneOf<AuthResult, InvalidCredentialsError>>;
+    string Password) : IRequest<ErrorOr<AuthResult>>;
 
 
-public class GetTokenQueryHandler : IRequestHandler<GetTokenQuery, OneOf<AuthResult, InvalidCredentialsError>>
+public class GetTokenQueryHandler : IRequestHandler<GetTokenQuery, ErrorOr<AuthResult>>
 {
     private readonly IJwtTokenGenerator jwtTokenGenerator;
     private readonly IUserRepository userRepository;
@@ -25,7 +25,7 @@ public class GetTokenQueryHandler : IRequestHandler<GetTokenQuery, OneOf<AuthRes
         this.userRepository = userRepository;
     }
 
-    public async Task<OneOf<AuthResult, InvalidCredentialsError>> Handle(GetTokenQuery query, CancellationToken cancellationToken)
+    public async Task<ErrorOr<AuthResult>> Handle(GetTokenQuery query, CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
 
@@ -33,7 +33,7 @@ public class GetTokenQueryHandler : IRequestHandler<GetTokenQuery, OneOf<AuthRes
 
         if (user == null || user.Password != query.Password)
         {
-            return new InvalidCredentialsError();
+            return AuthErrors.InvalidCredentials;
         }
 
         var token = jwtTokenGenerator.GenerateJwtToken(user);

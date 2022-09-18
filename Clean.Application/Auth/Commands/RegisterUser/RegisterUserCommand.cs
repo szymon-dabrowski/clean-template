@@ -2,19 +2,19 @@
 using Clean.Application.Auth.Model;
 using Clean.Application.Common.Interfaces.Auth;
 using Clean.Application.Common.Interfaces.Persistance;
+using Clean.Common.Errors;
 using Clean.Domain.Entities.User;
 using MediatR;
-using OneOf;
 
-namespace Clean.Application.Auth.Commands;
+namespace Clean.Application.Auth.Commands.RegisterUser;
 
 public record RegisterUserCommand(
     string FirstName,
     string LastName,
     string Email,
-    string Password) : IRequest<OneOf<AuthResult, DuplicatedEmailError>>;
+    string Password) : IRequest<ErrorOr<AuthResult>>;
 
-public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, OneOf<AuthResult, DuplicatedEmailError>>
+public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, ErrorOr<AuthResult>>
 {
     private readonly IJwtTokenGenerator jwtTokenGenerator;
     private readonly IUserRepository userRepository;
@@ -27,13 +27,13 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, O
         this.userRepository = userRepository;
     }
 
-    public async Task<OneOf<AuthResult, DuplicatedEmailError>> Handle(RegisterUserCommand command, CancellationToken cancellationToken)
+    public async Task<ErrorOr<AuthResult>> Handle(RegisterUserCommand command, CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
 
         if (userRepository.GetUserByEmail(command.Email) != null)
         {
-            return new DuplicatedEmailError();
+            return AuthErrors.DuplicateEmail;
         }
 
         var user = new UserEntity()

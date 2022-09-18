@@ -1,8 +1,11 @@
 ﻿using Clean.Common.Errors;
 
 namespace Clean.Application.Auth.Errors;
-public class InvalidCredentialsError : IError
+
+public static partial class AuthErrors
 {
-    public string Code => "Auth.InvalidCredentials";
-    public string Description => "Invalid credentials!";
+    public static Error InvalidCredentials => Error.Custom(
+        "Auth.InvalidCredentials",
+        "Invalid credentials!",
+        ErrorType.Failure);
 }

@@ -1,6 +1,6 @@
-﻿using Clean.Application.Auth.Commands;
+﻿using Clean.Application.Auth.Commands.RegisterUser;
 using Clean.Application.Auth.Model;
-using Clean.Application.Auth.Queries;
+using Clean.Application.Auth.Queries.GetToken;
 using Clean.Contracts.Auth.Requests;
 using Clean.Contracts.Auth.Responses;
 using Mapster;

@@ -1,7 +1,7 @@
-﻿using Clean.Application.Auth.Commands;
-using Clean.Application.Auth.Model;
-using Clean.Application.Auth.Queries;
+﻿using Clean.Application.Auth.Commands.RegisterUser;
+using Clean.Application.Auth.Queries.GetToken;
 using Clean.Contracts.Auth.Requests;
+using Clean.Contracts.Auth.Responses;
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -26,8 +26,8 @@ public class AuthController : ApiController
         var authResult = await mediator.Send(mapper.Map<RegisterUserCommand>(request));
 
         return authResult.Match(
-            authResult => Ok(mapper.Map<AuthResult>(authResult)),
-            error => Problem(StatusCodes.Status409Conflict, error));
+            authResult => Ok(mapper.Map<AuthResponse>(authResult)),
+            errors => Problem(errors));
     }
 
     [HttpPost("login")]
@@ -36,7 +36,7 @@ public class AuthController : ApiController
         var authResult = await mediator.Send(mapper.Map<GetTokenQuery>(request));
 
         return authResult.Match(
-            authResult => Ok(mapper.Map<AuthResult>(authResult)),
-            error => Problem(StatusCodes.Status401Unauthorized, error));
+            authResult => Ok(mapper.Map<AuthResponse>(authResult)),
+            errors => Problem(errors, StatusCodes.Status401Unauthorized));
     }
 }

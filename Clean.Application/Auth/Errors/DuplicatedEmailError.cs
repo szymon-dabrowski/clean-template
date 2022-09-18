@@ -1,8 +1,11 @@
 ﻿using Clean.Common.Errors;
 
 namespace Clean.Application.Auth.Errors;
-public class DuplicatedEmailError : IError
+
+public static partial class AuthErrors
 {
-    public string Code => "Auth.DuplicatedEmail";
-    public string Description => "User with given email already exists.";
+    public static Error DuplicateEmail => Error.Custom(
+        "Auth.DuplicatedEmail",
+        "User with given email already exists.",
+        ErrorType.Conflict);
 }

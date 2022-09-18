@@ -1,4 +1,5 @@
 ﻿using Clean.API.Controllers;
+using Clean.Common.Errors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -92,10 +93,10 @@ public class CleanApiProblemDetailsFactory : ProblemDetailsFactory
             problemDetails.Extensions["traceId"] = traceId;
         }
 
-        var errorCode = httpContext?.Items[ApiController.HttpContextErrorCodeITemKey] as string;
-        if (!string.IsNullOrWhiteSpace(errorCode))
+        var errors = httpContext?.Items[ApiController.HttpContextErrorsItemKey] as IReadOnlyCollection<Error>;
+        if (errors?.Any() == true)
         {
-            problemDetails.Extensions[ApiController.HttpContextErrorCodeITemKey] = errorCode;
+            problemDetails.Extensions[ApiController.HttpContextErrorsItemKey] = errors;
         }
     }
 }

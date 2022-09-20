@@ -1,8 +1,6 @@
-﻿using Clean.Application.Common.Interfaces.Auth;
-using Clean.Application.Common.Interfaces.Persistance;
+﻿using Clean.Application.Common.Interfaces.Persistance;
 using Clean.Application.Common.Interfaces.Services;
 using Clean.Infrastructure.Persistance.User;
-using Clean.Infrastructure.Services.Auth;
 using Clean.Infrastructure.Services.DateTimeProvider;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,9 +11,10 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration config)
     {
-        services.Configure<JwtOptions>(config.GetSection(JwtOptions.Jwt));
+        services.AddAuth(config);
 
-        services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
+        services.AddSwagger();
+
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
         services.AddScoped<IUserRepository, UserRepository>();

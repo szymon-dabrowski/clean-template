@@ -4,10 +4,12 @@ using Clean.Contracts.Auth.Requests;
 using Clean.Contracts.Auth.Responses;
 using MapsterMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clean.API.Controllers.Auth;
 
+[AllowAnonymous]
 [Route("[controller]")]
 public class AuthController : ApiController
 {

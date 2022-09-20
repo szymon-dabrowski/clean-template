@@ -2,6 +2,7 @@ using Clean.API;
 using Clean.API.Controllers.Error;
 using Clean.Application.Setup;
 using Clean.Infrastructure.Setup;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -23,6 +24,7 @@ var app = builder.Build();
 
     app.UseHttpsRedirection();
 
+    app.UseAuthentication();
     app.UseAuthorization();
 
     app.MapControllers();

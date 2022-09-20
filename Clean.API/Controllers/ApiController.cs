@@ -1,10 +1,12 @@
 ﻿using Clean.Common.Errors;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using ApplicationError = Clean.Common.Errors.Error;
 
 namespace Clean.API.Controllers;
 
+[Authorize]
 [ApiController]
 public class ApiController : ControllerBase
 {

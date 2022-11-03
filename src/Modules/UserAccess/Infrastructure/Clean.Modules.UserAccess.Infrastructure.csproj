@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.10" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.25.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.25.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Application\Clean.Modules.Shared.Application.csproj" />
+    <ProjectReference Include="..\..\Shared\Infrastructure\Clean.Modules.Shared.Infrastructure.csproj" />
+    <ProjectReference Include="..\Application\Clean.Modules.UserAccess.Application.csproj" />
+    <ProjectReference Include="..\Domain\Clean.Modules.UserAccess.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

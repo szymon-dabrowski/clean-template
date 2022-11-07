@@ -1,6 +1,7 @@
-using Clean.API.Controllers.Errors;
-using Clean.API.Setup;
 using Clean.Modules.Shared.Application.Setup;
+using Clean.Web.API;
+using Clean.Web.API.Common.Controllers.Errors;
+using Clean.Web.API.Modules;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,7 @@ app.UseExceptionHandler(ErrorsController.Route);
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllers();

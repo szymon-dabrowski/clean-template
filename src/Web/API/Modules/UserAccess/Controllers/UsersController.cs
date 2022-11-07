@@ -1,6 +1,6 @@
-﻿using Clean.API.Controllers;
-using Clean.Modules.UserAccess.DTO.Commands;
+﻿using Clean.Modules.UserAccess.DTO.Commands;
 using Clean.Modules.UserAccess.DTO.Queries;
+using Clean.Web.API.Common.Controllers;
 using Clean.Web.DTO.UserAccess.Requests;
 using Clean.Web.DTO.UserAccess.Responses;
 using MapsterMapper;
@@ -8,7 +8,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Clean.Web.API.Controllers.UserAccess;
+namespace Clean.Web.API.Modules.UserAccess.Controllers;
 
 [AllowAnonymous]
 [Route("[controller]")]

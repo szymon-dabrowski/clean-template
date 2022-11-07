@@ -5,7 +5,7 @@ using Clean.Web.DTO.UserAccess.Requests;
 using Clean.Web.DTO.UserAccess.Responses;
 using Mapster;
 
-namespace Clean.Web.API.Controllers.UserAccess;
+namespace Clean.Web.API.Modules.UserAccess.Controllers;
 
 public class UserAccessMappingConfig : IRegister
 {

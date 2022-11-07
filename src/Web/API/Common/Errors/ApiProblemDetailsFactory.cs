@@ -1,5 +1,5 @@
-﻿using Clean.API.Controllers;
-using Clean.Modules.Shared.Common.Errors;
+﻿using Clean.Modules.Shared.Common.Errors;
+using Clean.Web.API.Common.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -9,11 +9,11 @@ using System.Diagnostics;
 namespace Clean.API.Common.Errors;
 
 // forked from: https://github.com/dotnet/aspnetcore/blob/v6.0.8/src/Mvc/Mvc.Core/src/Infrastructure/DefaultProblemDetailsFactory.cs
-internal class CleanApiProblemDetailsFactory : ProblemDetailsFactory
+internal class ApiProblemDetailsFactory : ProblemDetailsFactory
 {
     private readonly ApiBehaviorOptions _options;
 
-    public CleanApiProblemDetailsFactory(IOptions<ApiBehaviorOptions> options)
+    public ApiProblemDetailsFactory(IOptions<ApiBehaviorOptions> options)
     {
         _options = options?.Value ?? throw new ArgumentNullException(nameof(options));
     }

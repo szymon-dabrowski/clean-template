@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace Clean.API.Controllers;
+namespace Clean.Web.API.Common.Controllers;
 
 [Authorize]
 [ApiController]

@@ -1,8 +1,8 @@
 ﻿using Clean.Modules.UserAccess.Infrastructure.Setup;
 
-namespace Clean.API.Setup;
+namespace Clean.Web.API.Modules;
 
-internal static class ModulesSetup
+internal static class DependencyInjection
 {
     internal static IServiceCollection AddModules(
         this IServiceCollection services,

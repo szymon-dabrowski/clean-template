@@ -1,5 +1,5 @@
 ﻿namespace Clean.Modules.UserAccess.Application;
 
-public class AssemblyMarker
+internal class AssemblyMarker
 {
 }

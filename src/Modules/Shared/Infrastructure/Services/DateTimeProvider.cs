@@ -1,6 +1,6 @@
 ﻿using Clean.Modules.Shared.Application.Interfaces.Services;
 
-namespace Clean.Modules.Shared.Infrastructur.Services;
+namespace Clean.Modules.Shared.Infrastructure.Services;
 
 public class DateTimeProvider : IDateTimeProvider
 {

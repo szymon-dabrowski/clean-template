@@ -1,5 +1,5 @@
 ﻿using Clean.Modules.Shared.Application.Interfaces.Services;
-using Clean.Modules.Shared.Infrastructur.Services;
+using Clean.Modules.Shared.Infrastructure.Services;
 using Clean.Modules.UserAccess.Application;
 using Clean.Modules.UserAccess.Application.Interfaces.Persistance;
 using Clean.Modules.UserAccess.Infrastructure.Persistance.User;
@@ -16,7 +16,7 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfiguration config)
     {
-        services.AddMediatR(typeof(AssemblyMarker));
+        services.AddMediatR(typeof(Application.AssemblyMarker));
 
         services.AddAuth(config);
 

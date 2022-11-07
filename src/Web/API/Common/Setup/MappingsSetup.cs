@@ -2,7 +2,7 @@
 using MapsterMapper;
 using System.Reflection;
 
-namespace Clean.API.Setup;
+namespace Clean.Web.API.Common.Setup;
 
 internal static class MappingsSetup
 {

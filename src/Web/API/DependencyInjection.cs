@@ -1,7 +1,8 @@
 ﻿using Clean.API.Common.Errors;
+using Clean.Web.API.Common.Setup;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 
-namespace Clean.API.Setup;
+namespace Clean.Web.API;
 
 internal static class DependencyInjection
 {
@@ -10,11 +11,12 @@ internal static class DependencyInjection
         services.AddControllers();
 
         services.AddEndpointsApiExplorer();
+
         services.AddSwagger();
 
         services.AddMappings();
 
-        services.AddSingleton<ProblemDetailsFactory, CleanApiProblemDetailsFactory>();
+        services.AddSingleton<ProblemDetailsFactory, ApiProblemDetailsFactory>();
 
         return services;
     }

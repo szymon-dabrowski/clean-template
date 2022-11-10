@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0" />
+    <PackageReference Include="NetArchTest.Rules" Version="1.3.2" />
+    <PackageReference Include="xunit" Version="2.4.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Modules\Shared\Application\Clean.Modules.Shared.Application.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Shared\Common\Clean.Modules.Shared.Common.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Shared\Domain\Clean.Modules.Shared.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Shared\Infrastructure\Clean.Modules.Shared.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Modules\UserAccess\Application\Clean.Modules.UserAccess.Application.csproj" />
+    <ProjectReference Include="..\..\src\Modules\UserAccess\Domain\Clean.Modules.UserAccess.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Modules\UserAccess\DTO\Clean.Modules.UserAccess.DTO.csproj" />
+    <ProjectReference Include="..\..\src\Modules\UserAccess\Infrastructure\Clean.Modules.UserAccess.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Web\API\Clean.Web.API.csproj" />
+    <ProjectReference Include="..\..\src\Web\DTO\Clean.Web.DTO.csproj" />
+    <ProjectReference Include="..\Modules\Shared\ArchTests\Clean.Modules.Shared.ArchTests.csproj" />
+    <ProjectReference Include="..\Modules\UserAccess\ArchTests\Clean.Modules.UserAccess.ArchTests.csproj" />
+  </ItemGroup>
+	
+</Project>

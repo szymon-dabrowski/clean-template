@@ -1,41 +1,13 @@
-﻿using Clean.Modules.Shared.ArchTests.WorkSetup;
-using NetArchTest.Rules;
-using Xunit;
+﻿using Clean.Modules.Shared.ArchTests.SeedWork;
+using System.Reflection;
 
 namespace Clean.Modules.Shared.ArchTests.Module;
 
-public class LayersTests : TestBase
+public class LayersTests : LayersTestsBase
 {
-    [Fact]
-    public void DomainLayer_DoesNotHaveDependency_ToApplicationLayer()
-    {
-        var result = Types.InAssembly(DomainAssembly)
-            .Should()
-            .NotHaveDependencyOn(ApplicationAssembly.GetName().Name)
-            .GetResult();
+    protected override Assembly ApplicationAssembly => typeof(Application.AssemblyMarker).Assembly;
 
-        AssertArchTestResult(result);
-    }
+    protected override Assembly DomainAssembly => typeof(Domain.AssemblyMarker).Assembly;
 
-    [Fact]
-    public void DomainLayer_DoesNotHaveDependency_ToInfrastructureLayer()
-    {
-        var result = Types.InAssembly(DomainAssembly)
-            .Should()
-            .NotHaveDependencyOn(InfrastructureAssembly.GetName().Name)
-            .GetResult();
-
-        AssertArchTestResult(result);
-    }
-
-    [Fact]
-    public void ApplicationLayer_DoesNotHaveDependency_ToInfrastructureLayer()
-    {
-        var result = Types.InAssembly(ApplicationAssembly)
-            .Should()
-            .NotHaveDependencyOn(InfrastructureAssembly.GetName().Name)
-            .GetResult();
-
-        AssertArchTestResult(result);
-    }
+    protected override Assembly InfrastructureAssembly => typeof(Infrastructure.AssemblyMarker).Assembly;
 }

@@ -20,6 +20,7 @@
     <ProjectReference Include="..\..\..\..\src\Modules\UserAccess\Application\Clean.Modules.UserAccess.Application.csproj" />
     <ProjectReference Include="..\..\..\..\src\Modules\UserAccess\Domain\Clean.Modules.UserAccess.Domain.csproj" />
     <ProjectReference Include="..\..\..\..\src\Modules\UserAccess\Infrastructure\Clean.Modules.UserAccess.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Shared\ArchTests\Clean.Modules.Shared.ArchTests.csproj" />
   </ItemGroup>
 	
 </Project>

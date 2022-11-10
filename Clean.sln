@@ -54,6 +54,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UserAccess", "UserAccess", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clean.Modules.UserAccess.ArchTests", "test\Modules\UserAccess\ArchTests\Clean.Modules.UserAccess.ArchTests.csproj", "{8783E349-6A2C-4D30-895B-060F6188B2BF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ArchTests", "ArchTests", "{02A764E6-A58B-4430-A532-3AC083EECDFF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clean.ArchTests", "test\ArchTests\Clean.ArchTests.csproj", "{A5A57A65-70F6-4C86-BB29-0AA6AD58F8D3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -108,6 +112,10 @@ Global
 		{8783E349-6A2C-4D30-895B-060F6188B2BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8783E349-6A2C-4D30-895B-060F6188B2BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8783E349-6A2C-4D30-895B-060F6188B2BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5A57A65-70F6-4C86-BB29-0AA6AD58F8D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5A57A65-70F6-4C86-BB29-0AA6AD58F8D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5A57A65-70F6-4C86-BB29-0AA6AD58F8D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5A57A65-70F6-4C86-BB29-0AA6AD58F8D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -133,6 +141,8 @@ Global
 		{4D47DA84-FF42-4754-A76F-CF1AD4165C71} = {FB128849-235B-469E-9EE3-BCC80BA7A957}
 		{8D5489EE-905B-416D-BA0F-3ACDCA0D1162} = {315F69F8-4801-4EA6-8732-D9AAC0634CDA}
 		{8783E349-6A2C-4D30-895B-060F6188B2BF} = {8D5489EE-905B-416D-BA0F-3ACDCA0D1162}
+		{02A764E6-A58B-4430-A532-3AC083EECDFF} = {F4D5105B-8161-4D4D-BCA2-21B0E43C0D5B}
+		{A5A57A65-70F6-4C86-BB29-0AA6AD58F8D3} = {02A764E6-A58B-4430-A532-3AC083EECDFF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E3AB1580-B64C-43E2-A285-FA8409F36B03}

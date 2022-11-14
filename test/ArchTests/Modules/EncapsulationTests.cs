@@ -1,11 +1,6 @@
 ﻿using Clean.ArchTests.SeedWork;
 using NetArchTest.Rules;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Clean.ArchTests.Modules;
@@ -30,7 +25,8 @@ public class EncapsulationTests : TestBase
         {
             typeof(Clean.Modules.UserAccess.Application.AssemblyMarker).Assembly,
             typeof(Clean.Modules.UserAccess.Domain.AssemblyMarker).Assembly,
-            typeof(Clean.Modules.UserAccess.Infrastructure.AssemblyMarker).Assembly
+            typeof(Clean.Modules.UserAccess.Infrastructure.AssemblyMarker).Assembly,
+            typeof(Clean.Modules.UserAccess.DTO.AssemblyMarker).Assembly,
         };
 
         var types = Types.InAssemblies(usersAccessAssemblies)

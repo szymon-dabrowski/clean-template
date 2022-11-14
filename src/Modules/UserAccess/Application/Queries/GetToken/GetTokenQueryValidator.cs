@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Clean.Modules.UserAccess.Application.Queries.GetToken;
 
-public class GetTokenQueryValidator : AbstractValidator<GetTokenQuery>
+internal class GetTokenQueryValidator : AbstractValidator<GetTokenQuery>
 {
     public GetTokenQueryValidator()
     {

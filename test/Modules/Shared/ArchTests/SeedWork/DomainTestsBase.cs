@@ -4,9 +4,7 @@ namespace Clean.Modules.Shared.ArchTests.SeedWork;
 public abstract class DomainTestsBase
 {
     protected abstract Assembly ApplicationAssembly { get; }
-
     protected abstract Assembly DomainAssembly { get; }
-
     protected abstract Assembly InfrastructureAssembly { get; }
 
     // TODO

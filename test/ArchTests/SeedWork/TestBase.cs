@@ -9,4 +9,6 @@ public abstract class TestBase
     public const string CRMNamespace = "Clean.Modules.CRM";
 
     public const string UserAccessNamespace = "Clean.Modules.UserAccess";
+
+    public const string SharedNamespace = "Clean.Modules.Shared";
 }

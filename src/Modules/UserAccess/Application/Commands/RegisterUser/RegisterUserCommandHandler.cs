@@ -1,15 +1,16 @@
 ﻿using Clean.Application.Auth.Errors;
+using Clean.Modules.Shared.Application.Interfaces.Messaging;
 using Clean.Modules.Shared.Common.Errors;
 using Clean.Modules.UserAccess.Application.Interfaces.Persistance;
 using Clean.Modules.UserAccess.Application.Interfaces.Services;
 using Clean.Modules.UserAccess.Domain.Entities.User;
 using Clean.Modules.UserAccess.DTO.Commands;
 using Clean.Modules.UserAccess.DTO.Model;
-using MediatR;
 
 namespace Clean.Modules.UserAccess.Application.Commands.RegisterUser;
 
-public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, ErrorOr<AuthResult>>
+internal class RegisterUserCommandHandler
+    : ICommandHandler<RegisterUserCommand, ErrorOr<AuthResult>>
 {
     private readonly IJwtTokenGenerator jwtTokenGenerator;
     private readonly IUserRepository userRepository;

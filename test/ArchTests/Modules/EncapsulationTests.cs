@@ -21,7 +21,7 @@ public class EncapsulationTests : TestBase
     [Fact]
     public void UsersAccessModule_DoesNotHave_Dependency_On_Other_Modules()
     {
-        var otherModules = new List<string>
+        var otherModules = new string[]
         {
             CRMNamespace
         };
@@ -40,7 +40,37 @@ public class EncapsulationTests : TestBase
             //    .And().DoNotHaveNameEndingWith("IntegrationEventHandler")
             //    .And().DoNotHaveName("EventsBusStartup")
             .Should()
-            .NotHaveDependencyOnAny(otherModules.ToArray())
+            .NotHaveDependencyOnAny(otherModules)
+            .GetResult()
+            .FailingTypes;
+
+        types.AssertFailingTypes();
+    }
+
+    [Fact]
+    public void SharedModule_DoesNotHave_Dependency_On_Other_Modules()
+    {
+        var otherModules = new string[]
+        {
+            CRMNamespace, UserAccessNamespace
+        };
+
+        var sharedAssemblies = new List<Assembly>
+        {
+            typeof(Clean.Modules.Shared.Application.AssemblyMarker).Assembly,
+            typeof(Clean.Modules.Shared.Domain.AssemblyMarker).Assembly,
+            typeof(Clean.Modules.Shared.Infrastructure.AssemblyMarker).Assembly,
+            typeof(Clean.Modules.Shared.Common.AssemblyMarker).Assembly
+        };
+
+        var types = Types.InAssemblies(sharedAssemblies)
+            // TODO
+            //.That()
+            //    .DoNotImplementInterface(typeof(INotificationHandler<>))
+            //    .And().DoNotHaveNameEndingWith("IntegrationEventHandler")
+            //    .And().DoNotHaveName("EventsBusStartup")
+            .Should()
+            .NotHaveDependencyOnAny(otherModules)
             .GetResult()
             .FailingTypes;
 

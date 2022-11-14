@@ -1,14 +1,14 @@
 ﻿using Clean.Application.Auth.Errors;
+using Clean.Modules.Shared.Application.Interfaces.Messaging;
 using Clean.Modules.Shared.Common.Errors;
 using Clean.Modules.UserAccess.Application.Interfaces.Persistance;
 using Clean.Modules.UserAccess.Application.Interfaces.Services;
 using Clean.Modules.UserAccess.DTO.Model;
 using Clean.Modules.UserAccess.DTO.Queries;
-using MediatR;
 
 namespace Clean.Modules.UserAccess.Application.Queries.GetToken;
 
-public class GetTokenQueryHandler : IRequestHandler<GetTokenQuery, ErrorOr<AuthResult>>
+internal class GetTokenQueryHandler : IQueryHandler<GetTokenQuery, ErrorOr<AuthResult>>
 {
     private readonly IJwtTokenGenerator jwtTokenGenerator;
     private readonly IUserRepository userRepository;
@@ -41,6 +41,6 @@ public class GetTokenQueryHandler : IRequestHandler<GetTokenQuery, ErrorOr<AuthR
             user.FirstName,
             user.LastName,
             user.Email,
-            token); ;
+            token);
     }
 }

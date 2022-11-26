@@ -13,8 +13,6 @@ public abstract class DTOTestsBase
     [Fact]
     public void DTO_DoesNotHaveDependency_ToOtherLayers()
     {
-        if (DTOAssembly == null) return;
-
         var types = Types.InAssembly(DTOAssembly)
             .Should()
             .NotHaveDependencyOn(ApplicationAssembly.GetName().Name)

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -7,20 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MediatR" Version="11.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\Application\Clean.Modules.Shared.Application.csproj" />
-    <ProjectReference Include="..\..\Shared\Common\Clean.Modules.Shared.Common.csproj" />
+    <ProjectReference Include="..\Application\Clean.Modules.Shared.Application.csproj" />
+    <ProjectReference Include="..\Domain\Clean.Modules.Shared.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-      <_Parameter1>Clean.Modules.UserAccess.ArchTests</_Parameter1>
+      <_Parameter1>Clean.Modules.Shared.ArchTests</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
-	
+
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
       <_Parameter1>Clean.ArchTests</_Parameter1>

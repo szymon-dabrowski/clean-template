@@ -1,4 +1,4 @@
-﻿namespace Clean.Modules.UserAccess.Infrastructure.Services;
+﻿namespace Clean.Modules.UserAccess.Infrastructure.Services.Jwt;
 
 public class JwtOptions
 {

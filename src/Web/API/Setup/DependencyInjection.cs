@@ -1,12 +1,14 @@
 ﻿using Clean.API.Common.Errors;
-using Clean.Web.API.Common.Setup;
+using Clean.Modules.Shared.Infrastructure.Outbox;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 
-namespace Clean.Web.API;
+namespace Clean.Web.API.Setup;
 
 internal static class DependencyInjection
 {
-    public static IServiceCollection AddPresentation(this IServiceCollection services)
+    public static IServiceCollection AddPresentation(
+        this IServiceCollection services,
+        IConfiguration config)
     {
         services.AddControllers();
 
@@ -17,6 +19,10 @@ internal static class DependencyInjection
         services.AddMappings();
 
         services.AddSingleton<ProblemDetailsFactory, ApiProblemDetailsFactory>();
+
+        services.AddAuth(config);
+
+        services.AddOutboxMessagesProcessingJob();
 
         return services;
     }

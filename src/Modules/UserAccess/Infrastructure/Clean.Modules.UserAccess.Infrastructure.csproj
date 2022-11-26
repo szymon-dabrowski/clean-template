@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -11,6 +11,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="7.0.0" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.25.0" />
+    <PackageReference Include="Quartz.Extensions.DependencyInjection" Version="3.5.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.25.0" />
   </ItemGroup>
 
@@ -19,6 +20,7 @@
     <ProjectReference Include="..\..\Shared\Infrastructure\Clean.Modules.Shared.Infrastructure.csproj" />
     <ProjectReference Include="..\Application\Clean.Modules.UserAccess.Application.csproj" />
     <ProjectReference Include="..\Domain\Clean.Modules.UserAccess.Domain.csproj" />
+    <ProjectReference Include="..\Persistence\Clean.Modules.UserAccess.Persistence.csproj" />
   </ItemGroup>
 	
   <ItemGroup>

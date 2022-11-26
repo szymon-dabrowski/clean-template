@@ -1,13 +1,11 @@
-using Clean.Modules.Shared.Application.Setup;
-using Clean.Web.API;
 using Clean.Web.API.Common.Controllers.Errors;
 using Clean.Web.API.Modules;
+using Clean.Web.API.Setup;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
-    .AddPresentation()
-    .AddApplication()
+    .AddPresentation(builder.Configuration)
     .AddModules(builder.Configuration);
 
 var app = builder.Build();

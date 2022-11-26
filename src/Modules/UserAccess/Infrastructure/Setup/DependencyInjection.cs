@@ -1,26 +1,28 @@
 ﻿using Clean.Modules.Shared.Application.Interfaces.Services;
 using Clean.Modules.Shared.Infrastructure.Services;
-using Clean.Modules.UserAccess.Application;
-using Clean.Modules.UserAccess.Application.Interfaces.Persistance;
-using Clean.Modules.UserAccess.Infrastructure.Persistance.User;
-using MediatR;
+using Clean.Modules.UserAccess.Application.Interfaces.Persistence;
+using Clean.Modules.UserAccess.Application.Interfaces.Services;
+using Clean.Modules.UserAccess.Infrastructure.Services.Jwt;
+using Clean.Modules.UserAccess.Persistence.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Options;
 
 namespace Clean.Modules.UserAccess.Infrastructure.Setup;
 
-public static class DependencyInjection
+internal static class DependencyInjection
 {
-    public static IServiceCollection AddUserAccessModule(
+    internal static IServiceCollection AddInfrastructure(
         this IServiceCollection services,
         IConfiguration config)
     {
-        services.AddMediatR(typeof(Application.AssemblyMarker));
+        var jwtOptions = config.GetJwtOptions();
 
-        services.AddAuth(config);
+        services.AddSingleton(Options.Create(jwtOptions));
 
-        services.TryAddSingleton<IDateTimeProvider, DateTimeProvider>();
+        services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
+
+        services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
         services.AddScoped<IUserRepository, UserRepository>();
 

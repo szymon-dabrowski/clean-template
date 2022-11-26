@@ -1,7 +1,7 @@
-﻿using Clean.Modules.UserAccess.Application.Interfaces.Persistance;
+﻿using Clean.Modules.UserAccess.Application.Interfaces.Persistence;
 using Clean.Modules.UserAccess.Domain.Entities.User;
 
-namespace Clean.Modules.UserAccess.Infrastructure.Persistance.User;
+namespace Clean.Modules.UserAccess.Persistence.Repositories;
 
 public class UserRepository : IUserRepository
 {

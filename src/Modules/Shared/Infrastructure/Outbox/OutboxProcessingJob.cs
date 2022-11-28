@@ -5,6 +5,7 @@ using Clean.Modules.Shared.Persistence.Outbox;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Polly;
 using Quartz;
 using System.Text.Json;
 
@@ -13,7 +14,9 @@ namespace Clean.Modules.Shared.Infrastructure.Outbox;
 [DisallowConcurrentExecution]
 public abstract class OutboxProcessingJob : IJob
 {
-    private const int outboxProcessingCount = 20;
+    private const int ProcessingCount = 20;
+    private const int DelayIntervalMs = 50;
+    private const int RetryCount = 3;
 
     private readonly IModuleServiceProvider moduleServiceProvider;
 
@@ -33,7 +36,7 @@ public abstract class OutboxProcessingJob : IJob
         await ProcessOutboxMessages(dbContext, dateTimeProvider, publisher, context);
     }
 
-    private static async Task ProcessOutboxMessages(
+    private async Task ProcessOutboxMessages(
         DbContext dbContext,
         IDateTimeProvider dateTimeProvider,
         IPublisher publisher,
@@ -42,10 +45,16 @@ public abstract class OutboxProcessingJob : IJob
         var messages = await dbContext
             .Set<OutboxMessage>()
             .Where(m => m.ProcessedOn == null)
-            .Take(outboxProcessingCount)
+            .Take(ProcessingCount)
             .ToListAsync(context.CancellationToken);
 
         var processedOn = dateTimeProvider.UtcNow;
+
+        var retryPolicy = Policy
+            .Handle<Exception>()
+            .WaitAndRetryAsync(
+                RetryCount,
+                attempt => TimeSpan.FromMilliseconds(attempt * DelayIntervalMs));
 
         foreach (var message in messages)
         {
@@ -53,8 +62,13 @@ public abstract class OutboxProcessingJob : IJob
 
             if (domainEvent == null) continue;
 
-            await publisher.Publish(domainEvent, context.CancellationToken);
+            var result = await retryPolicy.ExecuteAndCaptureAsync(() =>
+                publisher.Publish(
+                    domainEvent,
+                    context.CancellationToken)
+            );
 
+            message.Error = result.FinalException?.ToString();
             message.ProcessedOn = processedOn;
         }
 

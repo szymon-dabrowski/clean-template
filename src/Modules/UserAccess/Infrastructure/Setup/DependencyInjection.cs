@@ -1,4 +1,5 @@
 ﻿using Clean.Modules.Shared.Application.Interfaces.Services;
+using Clean.Modules.Shared.Infrastructure.Idempotency;
 using Clean.Modules.Shared.Infrastructure.Services;
 using Clean.Modules.UserAccess.Application.Interfaces.Persistence;
 using Clean.Modules.UserAccess.Application.Interfaces.Services;
@@ -25,6 +26,8 @@ internal static class DependencyInjection
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
         services.AddScoped<IUserRepository, UserRepository>();
+
+        services.DecorateEventHandlersWithIdempotency();
 
         return services;
     }

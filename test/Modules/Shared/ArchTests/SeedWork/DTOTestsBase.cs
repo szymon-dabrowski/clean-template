@@ -8,6 +8,7 @@ public abstract class DTOTestsBase
     protected abstract Assembly ApplicationAssembly { get; }
     protected abstract Assembly DomainAssembly { get; }
     protected abstract Assembly InfrastructureAssembly { get; }
+    protected abstract Assembly PersistenceAssembly { get; }
     protected abstract Assembly DTOAssembly { get; }
 
     [Fact]
@@ -20,6 +21,8 @@ public abstract class DTOTestsBase
             .NotHaveDependencyOn(DomainAssembly.GetName().Name)
             .And()
             .NotHaveDependencyOn(InfrastructureAssembly.GetName().Name)
+            .And()
+            .NotHaveDependencyOn(PersistenceAssembly.GetName().Name)
             .GetResult()
             .FailingTypes;
 

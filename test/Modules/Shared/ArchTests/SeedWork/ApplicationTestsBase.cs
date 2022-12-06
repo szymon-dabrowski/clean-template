@@ -10,7 +10,9 @@ namespace Clean.Modules.Shared.ArchTests.SeedWork;
 public abstract partial class ApplicationTestsBase
 {
     protected abstract Assembly ApplicationAssembly { get; }
+
     protected abstract Assembly DomainAssembly { get; }
+
     protected abstract Assembly InfrastructureAssembly { get; }
 
     [Fact]

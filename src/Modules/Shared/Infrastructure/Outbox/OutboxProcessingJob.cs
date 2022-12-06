@@ -75,8 +75,7 @@ public abstract class OutboxProcessingJob : IJob
             var result = await retryPolicy.ExecuteAndCaptureAsync(() =>
                 publisher.Publish(
                     domainEvent,
-                    context.CancellationToken)
-            );
+                    context.CancellationToken));
 
             message.Error = result.FinalException?.ToString();
             message.ProcessedOn = processedOn;

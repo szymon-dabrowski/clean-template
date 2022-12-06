@@ -1,10 +1,7 @@
 ﻿namespace Clean.Modules.Shared.Domain;
-#pragma warning disable S4035 // Classes implementing "IEquatable<T>" should be sealed
-public abstract class ValueObject : IEquatable<ValueObject>
-#pragma warning restore S4035 // Classes implementing "IEquatable<T>" should be sealed
-{
-    protected abstract IEnumerable<object> GetEqualityComponents();
 
+public abstract class ValueObject : IEquatable<ValueObject>
+{
     public override bool Equals(object? obj)
     {
         if (obj == null || obj.GetType() != GetType())
@@ -35,6 +32,7 @@ public abstract class ValueObject : IEquatable<ValueObject>
         {
             return false;
         }
+
         return ReferenceEquals(left, right) || (left?.Equals(right) ?? false);
     }
 
@@ -42,4 +40,6 @@ public abstract class ValueObject : IEquatable<ValueObject>
     {
         return !EqualOperator(left, right);
     }
+
+    protected abstract IEnumerable<object> GetEqualityComponents();
 }

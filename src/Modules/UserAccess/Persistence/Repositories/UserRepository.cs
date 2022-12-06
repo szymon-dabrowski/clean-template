@@ -5,15 +5,15 @@ namespace Clean.Modules.UserAccess.Persistence.Repositories;
 
 public class UserRepository : IUserRepository
 {
-    private static readonly List<UserEntity> users = new();
+    private static readonly List<UserEntity> Users = new();
 
     public void AddUser(UserEntity user)
     {
-        users.Add(user);
+        Users.Add(user);
     }
 
     public UserEntity? GetUserByEmail(string email)
     {
-        return users.FirstOrDefault(u => u.Email == email);
+        return Users.FirstOrDefault(u => u.Email == email);
     }
 }

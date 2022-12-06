@@ -4,12 +4,12 @@ public class Entity<TId> : IEquatable<Entity<TId>>
     where TId : notnull
 #pragma warning restore S4035 // Classes implementing "IEquatable<T>" should be sealed
 {
-    public TId Id { get; protected set; }
-
     protected Entity(TId id)
     {
         Id = id;
     }
+
+    public TId Id { get; protected set; }
 
     public override bool Equals(object? obj)
     {
@@ -32,6 +32,7 @@ public class Entity<TId> : IEquatable<Entity<TId>>
         {
             return false;
         }
+
         return ReferenceEquals(left, right) || (left?.Equals(right) ?? false);
     }
 

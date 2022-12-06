@@ -10,7 +10,7 @@ public class ApiTests : TestBase
     {
         var otherModules = new List<string>
         {
-            UserAccessNamespace
+            UserAccessNamespace,
         };
 
         var types = Types.InAssembly(ApiAssembly)
@@ -29,7 +29,7 @@ public class ApiTests : TestBase
     {
         var otherModules = new List<string>
         {
-            CRMNamespace
+            CRMNamespace,
         };
 
         var types = Types.InAssembly(ApiAssembly)

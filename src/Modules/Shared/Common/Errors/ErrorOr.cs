@@ -6,22 +6,22 @@ public readonly struct ErrorOr<TValue> : IErrorOr
 {
     private readonly OneOf<TValue, IReadOnlyCollection<Error>> result;
 
-    public IReadOnlyCollection<Error> Errors => result.AsT1;
+    public ErrorOr(IEnumerable<Error> errors)
+    {
+        result = errors.ToArray();
+    }
 
     private ErrorOr(Error error)
     {
         result = new[] { error };
     }
 
-    public ErrorOr(IEnumerable<Error> errors)
-    {
-        result = errors.ToArray();
-    }
-
     private ErrorOr(TValue value)
     {
         result = value;
     }
+
+    public IReadOnlyCollection<Error> Errors => result.AsT1;
 
     public static implicit operator ErrorOr<TValue>(TValue value)
     {

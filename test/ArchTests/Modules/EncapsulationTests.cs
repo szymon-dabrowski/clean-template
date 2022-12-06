@@ -11,6 +11,7 @@ public class EncapsulationTests : TestBase
     public void CRMModule_DoesNotHave_Dependency_On_Other_Modules()
     {
         // TODO
+        Assert.True(true);
     }
 
     [Fact]
@@ -18,7 +19,7 @@ public class EncapsulationTests : TestBase
     {
         var otherModules = new string[]
         {
-            CRMNamespace
+            CRMNamespace,
         };
 
         var usersAccessAssemblies = new List<Assembly>
@@ -48,7 +49,8 @@ public class EncapsulationTests : TestBase
     {
         var otherModules = new string[]
         {
-            CRMNamespace, UserAccessNamespace
+            CRMNamespace,
+            UserAccessNamespace,
         };
 
         var sharedAssemblies = new List<Assembly>
@@ -56,7 +58,7 @@ public class EncapsulationTests : TestBase
             typeof(Clean.Modules.Shared.Application.AssemblyMarker).Assembly,
             typeof(Clean.Modules.Shared.Domain.AssemblyMarker).Assembly,
             typeof(Clean.Modules.Shared.Infrastructure.AssemblyMarker).Assembly,
-            typeof(Clean.Modules.Shared.Common.AssemblyMarker).Assembly
+            typeof(Clean.Modules.Shared.Common.AssemblyMarker).Assembly,
         };
 
         var types = Types.InAssemblies(sharedAssemblies)

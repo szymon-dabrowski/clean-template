@@ -39,7 +39,7 @@ internal class RegisterUserCommandHandler
             Email = command.Email,
             FirstName = command.FirstName,
             LastName = command.LastName,
-            Password = command.Password
+            Password = command.Password,
         };
 
         userRepository.AddUser(user);

@@ -9,4 +9,3 @@ public record RegisterUserCommand(
     string LastName,
     string Email,
     string Password) : ICommand<ErrorOr<AuthResult>>;
-

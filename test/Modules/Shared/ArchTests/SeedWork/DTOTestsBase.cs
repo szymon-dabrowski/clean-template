@@ -6,9 +6,13 @@ namespace Clean.Modules.Shared.ArchTests.SeedWork;
 public abstract class DTOTestsBase
 {
     protected abstract Assembly ApplicationAssembly { get; }
+
     protected abstract Assembly DomainAssembly { get; }
+
     protected abstract Assembly InfrastructureAssembly { get; }
+
     protected abstract Assembly PersistenceAssembly { get; }
+
     protected abstract Assembly DTOAssembly { get; }
 
     [Fact]

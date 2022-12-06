@@ -4,16 +4,17 @@ public class AggregateRoot<TId> : Entity<TId>, IAggregateRoot
 {
     private readonly List<IDomainEvent> domainEvents = new();
 
-    protected AggregateRoot(TId id) : base(id)
+    protected AggregateRoot(TId id)
+        : base(id)
     {
-    }
-
-    protected void RaiseDomainEvent(IDomainEvent domainEvent)
-    {
-        domainEvents.Add(domainEvent);
     }
 
     public IReadOnlyCollection<IDomainEvent> GetDomainEvents() => domainEvents.ToArray();
 
     public void ClearDomainEvents() => domainEvents.Clear();
+
+    protected void RaiseDomainEvent(IDomainEvent domainEvent)
+    {
+        domainEvents.Add(domainEvent);
+    }
 }

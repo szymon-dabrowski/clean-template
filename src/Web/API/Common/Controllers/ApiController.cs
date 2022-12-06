@@ -13,9 +13,15 @@ public class ApiController : ControllerBase
 
     protected IActionResult Problem(IReadOnlyCollection<Error> errors, int? statusCode = null)
     {
-        if (!errors.Any()) return Problem();
+        if (!errors.Any())
+        {
+            return Problem();
+        }
 
-        if (errors.All(e => e.Type == ErrorType.Validation)) return ValidationProblem(errors);
+        if (errors.All(e => e.Type == ErrorType.Validation))
+        {
+            return ValidationProblem(errors);
+        }
 
         var problemStatusCode = GetProblemStatusCode(statusCode, errors.First());
 

@@ -1,17 +1,20 @@
 ﻿namespace Clean.Modules.Shared.Common.Errors;
 public readonly record struct Error
 {
-    public string Code { get; }
-    public string Description { get; }
-    public ErrorType Type { get; }
-    public string TypeName => Type.ToString();
-
     private Error(string code, string description, ErrorType type)
     {
         Code = code;
         Description = description;
         Type = type;
     }
+
+    public string Code { get; }
+
+    public string Description { get; }
+
+    public ErrorType Type { get; }
+
+    public string TypeName => Type.ToString();
 
     public static Error NotFound(
         string code = "General.NotFound",

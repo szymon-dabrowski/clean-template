@@ -228,9 +228,9 @@ public abstract class DomainTestsBase
     }
 
     // TODO
-    //[Fact]
-    //public void BusinessRule_Should_Have_RulePostfix()
-    //{
+    // [Fact]
+    // public void BusinessRule_Should_Have_RulePostfix()
+    // {
     //    var types = Types.InAssembly(DomainAssembly)
     //        .That()
     //        .ImplementInterface(typeof(IBusinessRule))
@@ -239,5 +239,5 @@ public abstract class DomainTestsBase
     //        .FailingTypes;
 
     //    types.AssertFailingTypes();
-    //}
+    // }
 }

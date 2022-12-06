@@ -1,7 +1,7 @@
 ﻿using Xunit;
 
 namespace Clean.ArchTests.SeedWork;
-internal static class TestsBaseExtensions
+internal static class TestBaseExtensions
 {
     internal static void AssertFailingTypes(this IEnumerable<Type> types)
     {

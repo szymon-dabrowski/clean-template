@@ -5,7 +5,8 @@ namespace Clean.Modules.UserAccess.Infrastructure.Outbox;
 
 internal class UserAccessModuleOutboxProcessingJob : OutboxProcessingJob
 {
-    public UserAccessModuleOutboxProcessingJob() : base(new UserAccessServiceProvider())
+    public UserAccessModuleOutboxProcessingJob()
+        : base(new UserAccessServiceProvider())
     {
     }
 }

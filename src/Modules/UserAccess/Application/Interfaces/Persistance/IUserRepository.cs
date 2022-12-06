@@ -5,5 +5,6 @@ namespace Clean.Modules.UserAccess.Application.Interfaces.Persistence;
 public interface IUserRepository
 {
     UserEntity? GetUserByEmail(string email);
+
     void AddUser(UserEntity user);
 }

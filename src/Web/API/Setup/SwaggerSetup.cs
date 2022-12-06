@@ -15,7 +15,7 @@ internal static class SwaggerSetup
                 Name = "Authorization",
                 In = ParameterLocation.Header,
                 Type = SecuritySchemeType.ApiKey,
-                Scheme = JwtBearerDefaults.AuthenticationScheme
+                Scheme = JwtBearerDefaults.AuthenticationScheme,
             });
 
             c.AddSecurityRequirement(new OpenApiSecurityRequirement()
@@ -26,14 +26,13 @@ internal static class SwaggerSetup
                         Reference = new OpenApiReference
                         {
                             Type = ReferenceType.SecurityScheme,
-                            Id = JwtBearerDefaults.AuthenticationScheme
+                            Id = JwtBearerDefaults.AuthenticationScheme,
                         },
                         Name = JwtBearerDefaults.AuthenticationScheme,
                         In = ParameterLocation.Header,
-
                     },
                     new List<string>()
-                }
+                },
             });
         });
 

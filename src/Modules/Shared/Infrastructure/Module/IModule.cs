@@ -4,6 +4,8 @@ namespace Clean.Modules.Shared.Infrastructure;
 public interface IModule
 {
     Task ExecuteCommand(ICommand command);
+
     Task<TResponse> ExecuteCommand<TResponse>(ICommand<TResponse> command);
+
     Task<TResult> ExecuteQuery<TResult>(IQuery<TResult> query);
 }

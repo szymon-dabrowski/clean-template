@@ -11,11 +11,11 @@ namespace Clean.API.Common.Errors;
 // forked from: https://github.com/dotnet/aspnetcore/blob/v6.0.8/src/Mvc/Mvc.Core/src/Infrastructure/DefaultProblemDetailsFactory.cs
 internal class ApiProblemDetailsFactory : ProblemDetailsFactory
 {
-    private readonly ApiBehaviorOptions _options;
+    private readonly ApiBehaviorOptions options;
 
     public ApiProblemDetailsFactory(IOptions<ApiBehaviorOptions> options)
     {
-        _options = options?.Value ?? throw new ArgumentNullException(nameof(options));
+        this.options = options?.Value ?? throw new ArgumentNullException(nameof(options));
     }
 
     public override ProblemDetails CreateProblemDetails(
@@ -81,7 +81,7 @@ internal class ApiProblemDetailsFactory : ProblemDetailsFactory
     {
         problemDetails.Status ??= statusCode;
 
-        if (_options.ClientErrorMapping.TryGetValue(statusCode, out var clientErrorData))
+        if (options.ClientErrorMapping.TryGetValue(statusCode, out var clientErrorData))
         {
             problemDetails.Title ??= clientErrorData.Title;
             problemDetails.Type ??= clientErrorData.Link;

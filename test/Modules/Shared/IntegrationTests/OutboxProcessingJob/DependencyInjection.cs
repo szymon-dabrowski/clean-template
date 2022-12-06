@@ -16,10 +16,12 @@ internal static class DependencyInjection
 
         services.AddSingleton<IDateTimeProvider, TestDateTimeProvider>();
 
-        services.AddDbContext<DbContext, TestDbContext>(options =>
-        {
-            options.UseInMemoryDatabase(Guid.NewGuid().ToString());
-        }, ServiceLifetime.Singleton);
+        services.AddDbContext<DbContext, TestDbContext>(
+            options =>
+            {
+                options.UseInMemoryDatabase(Guid.NewGuid().ToString());
+            },
+            ServiceLifetime.Singleton);
 
         services.AddSingleton<List<IDomainEvent>>();
 

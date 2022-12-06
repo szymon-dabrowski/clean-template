@@ -6,7 +6,10 @@ namespace Clean.Modules.Shared.ArchTests.Module;
 public class LayersTests : LayersTestsBase
 {
     protected override Assembly ApplicationAssembly => typeof(Application.AssemblyMarker).Assembly;
+
     protected override Assembly DomainAssembly => typeof(Domain.AssemblyMarker).Assembly;
+
     protected override Assembly InfrastructureAssembly => typeof(Infrastructure.AssemblyMarker).Assembly;
+
     protected override Assembly PersistenceAssembly => typeof(Persistence.AssemblyMarker).Assembly;
 }

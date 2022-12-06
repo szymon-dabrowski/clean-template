@@ -5,14 +5,15 @@ namespace Clean.Modules.Shared.IntegrationTests.SeedWork.Domain;
 
 internal class TestAggregateRoot : AggregateRoot<Guid>
 {
-    public string TestProperty { get; set; }
-
-    private TestAggregateRoot(Guid id, string testProperty) : base(id)
+    private TestAggregateRoot(Guid id, string testProperty)
+        : base(id)
     {
         TestProperty = testProperty;
 
         RaiseDomainEvent(new TestAggregateRootCreatedDomainEvent(id, testProperty));
     }
+
+    public string TestProperty { get; set; }
 
     internal static TestAggregateRoot Create(string testProperty)
     {

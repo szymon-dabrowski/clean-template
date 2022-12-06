@@ -5,14 +5,19 @@ using Microsoft.EntityFrameworkCore;
 namespace Clean.Modules.Shared.IntegrationTests.SeedWork;
 internal class TestDbContext : DbContext
 {
-    public DbSet<OutboxMessage> OutboxMessages { get; set; }
-    public DbSet<OutboxMessageHandle> OutboxMessageHandles { get; set; }
-    public DbSet<TestAggregateRoot> TestAggregateRoots { get; set; }
-
     public TestDbContext(DbContextOptions<TestDbContext> options)
         : base(options)
     {
+        OutboxMessages = Set<OutboxMessage>();
+        OutboxMessageHandles = Set<OutboxMessageHandle>();
+        TestAggregateRoots = Set<TestAggregateRoot>();
     }
+
+    public DbSet<OutboxMessage> OutboxMessages { get; set; }
+
+    public DbSet<OutboxMessageHandle> OutboxMessageHandles { get; set; }
+
+    public DbSet<TestAggregateRoot> TestAggregateRoots { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

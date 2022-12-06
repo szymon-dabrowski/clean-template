@@ -1,4 +1,4 @@
-﻿using Clean.Modules.Shared.Infrastructure.Module;
+﻿using Clean.Modules.Shared.Infrastructure;
 using Clean.Modules.UserAccess.Infrastructure.Module;
 using Clean.Modules.UserAccess.Infrastructure.Setup;
 

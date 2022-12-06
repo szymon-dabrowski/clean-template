@@ -2,12 +2,12 @@
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Clean.Modules.Shared.Infrastructure.Module;
+namespace Clean.Modules.Shared.Infrastructure;
 public abstract class Module : IModule
 {
     private readonly IModuleServiceProvider moduleServiceProvider;
 
-    public Module(IModuleServiceProvider moduleServiceProvider)
+    protected Module(IModuleServiceProvider moduleServiceProvider)
     {
         this.moduleServiceProvider = moduleServiceProvider;
     }

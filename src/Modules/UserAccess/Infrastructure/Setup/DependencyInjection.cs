@@ -1,4 +1,5 @@
 ﻿using Clean.Modules.Shared.Application.Interfaces.Services;
+using Clean.Modules.Shared.Infrastructure;
 using Clean.Modules.Shared.Infrastructure.Idempotency;
 using Clean.Modules.Shared.Infrastructure.Services;
 using Clean.Modules.UserAccess.Application.Interfaces.Persistence;
@@ -28,6 +29,9 @@ internal static class DependencyInjection
         services.AddScoped<IUserRepository, UserRepository>();
 
         services.DecorateEventHandlersWithIdempotency();
+
+        services.AddSingleton<IDomainEventTypeMapping>(_ =>
+            new DomainEventTypeMapping(typeof(Domain.AssemblyMarker).Assembly));
 
         return services;
     }

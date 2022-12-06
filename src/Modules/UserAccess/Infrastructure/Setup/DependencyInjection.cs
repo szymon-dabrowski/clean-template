@@ -1,5 +1,5 @@
 ﻿using Clean.Modules.Shared.Application.Interfaces.Services;
-using Clean.Modules.Shared.Infrastructure;
+using Clean.Modules.Shared.Infrastructure.DomainEventTypeMapping;
 using Clean.Modules.Shared.Infrastructure.Idempotency;
 using Clean.Modules.Shared.Infrastructure.Services;
 using Clean.Modules.UserAccess.Application.Interfaces.Persistence;

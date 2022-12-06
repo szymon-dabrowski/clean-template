@@ -1,6 +1,6 @@
 ﻿using Clean.Modules.Shared.Application.Interfaces.Services;
 using Clean.Modules.Shared.Domain;
-using Clean.Modules.Shared.Infrastructure;
+using Clean.Modules.Shared.Infrastructure.DomainEventTypeMapping;
 using Clean.Modules.Shared.IntegrationTests.SeedWork;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

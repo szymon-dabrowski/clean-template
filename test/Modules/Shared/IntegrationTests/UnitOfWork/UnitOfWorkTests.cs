@@ -1,7 +1,7 @@
 ﻿using Clean.Modules.Shared.IntegrationTests.SeedWork;
 using Clean.Modules.Shared.IntegrationTests.SeedWork.Domain;
 using Clean.Modules.Shared.IntegrationTests.SeedWork.Domain.Events;
-using Clean.Modules.Shared.Persistence;
+using Clean.Modules.Shared.Persistence.UnitOfWork;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json;
 using Xunit;

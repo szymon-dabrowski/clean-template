@@ -1,4 +1,4 @@
-﻿using Clean.Modules.Shared.Infrastructure;
+﻿using Clean.Modules.Shared.Infrastructure.Module;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Clean.Modules.UserAccess.Infrastructure.Module;

@@ -1,12 +1,13 @@
 ﻿using Clean.Modules.Shared.Application.Interfaces.Services;
 using Clean.Modules.Shared.Domain;
-using Clean.Modules.Shared.Infrastructure;
+using Clean.Modules.Shared.Infrastructure.DomainEventTypeMapping;
 using Clean.Modules.Shared.Infrastructure.Idempotency;
 using Clean.Modules.Shared.IntegrationTests.SeedWork;
-using Clean.Modules.Shared.Persistence;
+using Clean.Modules.Shared.Persistence.UnitOfWork;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using UoW = Clean.Modules.Shared.Persistence.UnitOfWork.UnitOfWork;
 
 namespace Clean.Modules.Shared.IntegrationTests.Idempotency;
 internal static class DependencyInjection
@@ -26,7 +27,7 @@ internal static class DependencyInjection
             },
             ServiceLifetime.Singleton);
 
-        services.AddTransient<IUnitOfWork, Persistence.UnitOfWork>();
+        services.AddTransient<IUnitOfWork, UoW>();
 
         services.AddSingleton<List<IDomainEvent>>();
 

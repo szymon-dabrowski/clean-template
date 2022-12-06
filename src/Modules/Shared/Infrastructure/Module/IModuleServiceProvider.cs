@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Clean.Modules.Shared.Infrastructure;
+namespace Clean.Modules.Shared.Infrastructure.Module;
 
 public interface IModuleServiceProvider
 {

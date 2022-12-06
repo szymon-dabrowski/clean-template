@@ -1,8 +1,9 @@
 ﻿using Clean.Modules.Shared.Application.Interfaces.Services;
 using Clean.Modules.Shared.IntegrationTests.SeedWork;
-using Clean.Modules.Shared.Persistence;
+using Clean.Modules.Shared.Persistence.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using UoW = Clean.Modules.Shared.Persistence.UnitOfWork.UnitOfWork;
 
 namespace Clean.Modules.Shared.IntegrationTests.UnitOfWork;
 internal static class DependencyInjection
@@ -16,7 +17,7 @@ internal static class DependencyInjection
         {
             options.UseInMemoryDatabase(Guid.NewGuid().ToString());
         });
-        services.AddTransient<IUnitOfWork, Persistence.UnitOfWork>();
+        services.AddTransient<IUnitOfWork, UoW>();
 
         return services.BuildServiceProvider();
     }

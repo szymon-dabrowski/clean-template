@@ -4,6 +4,7 @@ using Clean.Modules.Shared.IntegrationTests.SeedWork.Domain;
 using Clean.Modules.Shared.IntegrationTests.SeedWork.Domain.Events;
 using Clean.Modules.Shared.Persistence;
 using Clean.Modules.Shared.Persistence.Outbox;
+using Clean.Modules.Shared.Persistence.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;

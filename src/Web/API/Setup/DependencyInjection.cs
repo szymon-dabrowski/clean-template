@@ -1,5 +1,4 @@
 ﻿using Clean.API.Common.Errors;
-using Clean.Modules.Shared.Infrastructure.Outbox;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace Clean.Web.API.Setup;

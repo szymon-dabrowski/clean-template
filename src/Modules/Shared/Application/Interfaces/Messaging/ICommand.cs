@@ -1,5 +1,4 @@
-﻿using Clean.Modules.Shared.Common.Errors;
-using MediatR;
+﻿using MediatR;
 
 namespace Clean.Modules.Shared.Application.Interfaces.Messaging;
 

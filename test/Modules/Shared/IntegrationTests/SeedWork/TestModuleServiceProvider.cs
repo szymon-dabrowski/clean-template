@@ -1,0 +1,18 @@
+﻿using Clean.Modules.Shared.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace Clean.Modules.Shared.IntegrationTests.SeedWork;
+internal class TestModuleServiceProvider : IModuleServiceProvider
+{
+    private readonly IServiceProvider serviceProvider;
+
+    public TestModuleServiceProvider(IServiceProvider serviceProvider)
+    {
+        this.serviceProvider = serviceProvider;
+    }
+
+    public IServiceScope BeginLifetimeScope()
+    {
+        return serviceProvider.CreateScope();
+    }
+}

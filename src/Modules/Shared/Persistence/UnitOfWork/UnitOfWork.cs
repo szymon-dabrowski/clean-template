@@ -4,7 +4,7 @@ using Clean.Modules.Shared.Persistence.Outbox;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 
-namespace Clean.Modules.Shared.Persistence.UnitOfWork;
+namespace Clean.Modules.Shared.Persistence;
 public class UnitOfWork : IUnitOfWork
 {
     private readonly DbContext dbContext;
@@ -37,7 +37,9 @@ public class UnitOfWork : IUnitOfWork
             .Select(domainEvent => new OutboxMessage()
             {
                 Id = Guid.NewGuid(),
-                Content = JsonSerializer.Serialize(domainEvent),
+                Content = JsonSerializer.Serialize(
+                    domainEvent,
+                    domainEvent.GetType()),
                 OccuredOn = dateTimeProvider.UtcNow,
                 Type = domainEvent.GetType().Name,
             })

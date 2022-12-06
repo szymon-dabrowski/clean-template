@@ -5,7 +5,7 @@ namespace Clean.Modules.UserAccess.Persistence.Repositories;
 
 public class UserRepository : IUserRepository
 {
-    private readonly static List<UserEntity> users = new();
+    private static readonly List<UserEntity> users = new();
 
     public void AddUser(UserEntity user)
     {

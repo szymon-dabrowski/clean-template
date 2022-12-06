@@ -76,7 +76,7 @@ public abstract class DomainTestsBase
             .GetTypes()
             .ToList();
 
-        const BindingFlags bindingFlags = 
+        const BindingFlags bindingFlags =
             BindingFlags.DeclaredOnly |
             BindingFlags.NonPublic |
             BindingFlags.Instance;

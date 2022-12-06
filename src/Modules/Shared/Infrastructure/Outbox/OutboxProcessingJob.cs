@@ -1,6 +1,5 @@
 ﻿using Clean.Modules.Shared.Application.Interfaces.Services;
 using Clean.Modules.Shared.Domain;
-using Clean.Modules.Shared.Infrastructure.Module;
 using Clean.Modules.Shared.Persistence.Outbox;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -32,14 +31,22 @@ public abstract class OutboxProcessingJob : IJob
         var dbContext = scope.ServiceProvider.GetRequiredService<DbContext>();
         var publisher = scope.ServiceProvider.GetRequiredService<IPublisher>();
         var dateTimeProvider = scope.ServiceProvider.GetRequiredService<IDateTimeProvider>();
+        var domainEventTypeMapping = scope.ServiceProvider
+            .GetRequiredService<IDomainEventTypeMapping>();
 
-        await ProcessOutboxMessages(dbContext, dateTimeProvider, publisher, context);
+        await ProcessOutboxMessages(
+            dbContext,
+            dateTimeProvider,
+            publisher,
+            domainEventTypeMapping,
+            context);
     }
 
     private async Task ProcessOutboxMessages(
         DbContext dbContext,
         IDateTimeProvider dateTimeProvider,
         IPublisher publisher,
+        IDomainEventTypeMapping domainEventTypeMapping,
         IJobExecutionContext context)
     {
         var messages = await dbContext
@@ -58,9 +65,12 @@ public abstract class OutboxProcessingJob : IJob
 
         foreach (var message in messages)
         {
-            var domainEvent = JsonSerializer.Deserialize<IDomainEvent>(message.Content);
-
-            if (domainEvent == null) continue;
+            if (JsonSerializer.Deserialize(
+                message.Content,
+                domainEventTypeMapping.Map(message.Type)) is not IDomainEvent domainEvent)
+            {
+                continue;
+            }
 
             var result = await retryPolicy.ExecuteAndCaptureAsync(() =>
                 publisher.Publish(

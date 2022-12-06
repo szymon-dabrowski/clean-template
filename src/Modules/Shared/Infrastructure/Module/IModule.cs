@@ -1,6 +1,6 @@
 ﻿using Clean.Modules.Shared.Application.Interfaces.Messaging;
 
-namespace Clean.Modules.Shared.Infrastructure.Module;
+namespace Clean.Modules.Shared.Infrastructure;
 public interface IModule
 {
     Task ExecuteCommand(ICommand command);

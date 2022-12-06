@@ -62,6 +62,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clean.Modules.Shared.Persis
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clean.Modules.UserAccess.Persistence", "src\Modules\UserAccess\Persistence\Clean.Modules.UserAccess.Persistence.csproj", "{77A59091-9D77-4B5F-ADA9-3B361A8BA6F3}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clean.Modules.Shared.IntegrationTests", "test\Modules\Shared\IntegrationTests\Clean.Modules.Shared.IntegrationTests.csproj", "{E1DEA069-9412-46C1-B3FE-F4BA0A8D6207}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -128,6 +130,10 @@ Global
 		{77A59091-9D77-4B5F-ADA9-3B361A8BA6F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77A59091-9D77-4B5F-ADA9-3B361A8BA6F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77A59091-9D77-4B5F-ADA9-3B361A8BA6F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1DEA069-9412-46C1-B3FE-F4BA0A8D6207}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1DEA069-9412-46C1-B3FE-F4BA0A8D6207}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1DEA069-9412-46C1-B3FE-F4BA0A8D6207}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1DEA069-9412-46C1-B3FE-F4BA0A8D6207}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -157,6 +163,7 @@ Global
 		{A5A57A65-70F6-4C86-BB29-0AA6AD58F8D3} = {02A764E6-A58B-4430-A532-3AC083EECDFF}
 		{02613422-9059-4CED-BD89-34DCC60031C0} = {E23CCA08-9511-4920-AE8C-F726011D71C2}
 		{77A59091-9D77-4B5F-ADA9-3B361A8BA6F3} = {D203F174-DF9C-4DDC-9E3F-138FC9114657}
+		{E1DEA069-9412-46C1-B3FE-F4BA0A8D6207} = {FB128849-235B-469E-9EE3-BCC80BA7A957}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E3AB1580-B64C-43E2-A285-FA8409F36B03}

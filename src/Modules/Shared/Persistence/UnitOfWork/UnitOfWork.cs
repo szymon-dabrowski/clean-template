@@ -4,7 +4,7 @@ using Clean.Modules.Shared.Persistence.Outbox;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 
-namespace Clean.Modules.Shared.Persistence;
+namespace Clean.Modules.Shared.Persistence.UnitOfWork;
 public class UnitOfWork : IUnitOfWork
 {
     private readonly DbContext dbContext;

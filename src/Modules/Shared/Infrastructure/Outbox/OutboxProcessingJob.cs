@@ -1,5 +1,7 @@
 ﻿using Clean.Modules.Shared.Application.Interfaces.Services;
 using Clean.Modules.Shared.Domain;
+using Clean.Modules.Shared.Infrastructure.DomainEventTypeMapping;
+using Clean.Modules.Shared.Infrastructure.Module;
 using Clean.Modules.Shared.Persistence.Outbox;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

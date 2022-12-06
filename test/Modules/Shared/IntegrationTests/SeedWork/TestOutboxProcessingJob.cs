@@ -1,4 +1,4 @@
-﻿using Clean.Modules.Shared.Infrastructure;
+﻿using Clean.Modules.Shared.Infrastructure.Module;
 
 namespace Clean.Modules.Shared.IntegrationTests.SeedWork;
 internal class TestOutboxProcessingJob : Infrastructure.Outbox.OutboxProcessingJob

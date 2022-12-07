@@ -17,9 +17,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Modules\Shared\Application\Clean.Modules.Shared.Application.csproj" />
-    <ProjectReference Include="..\..\Modules\UserAccess\DTO\Clean.Modules.UserAccess.DTO.csproj" />
+    <ProjectReference Include="..\..\Modules\UserAccess\Dto\Clean.Modules.UserAccess.Dto.csproj" />
     <ProjectReference Include="..\..\Modules\UserAccess\Infrastructure\Clean.Modules.UserAccess.Infrastructure.csproj" />
-    <ProjectReference Include="..\DTO\Clean.Web.DTO.csproj" />
+    <ProjectReference Include="..\Dto\Clean.Web.Dto.csproj" />
   </ItemGroup>
 
   <ItemGroup>

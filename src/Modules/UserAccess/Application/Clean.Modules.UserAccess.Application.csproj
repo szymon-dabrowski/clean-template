@@ -8,7 +8,7 @@
     <ItemGroup>
         <ProjectReference Include="..\..\Shared\Common\Clean.Modules.Shared.Common.csproj" />
         <ProjectReference Include="..\Domain\Clean.Modules.UserAccess.Domain.csproj" />
-        <ProjectReference Include="..\DTO\Clean.Modules.UserAccess.DTO.csproj" />
+        <ProjectReference Include="..\Dto\Clean.Modules.UserAccess.Dto.csproj" />
     </ItemGroup>
 
     <ItemGroup>

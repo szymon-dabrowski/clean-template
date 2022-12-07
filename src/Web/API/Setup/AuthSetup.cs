@@ -1,7 +1,7 @@
 ﻿using Clean.Modules.UserAccess.Infrastructure.Services.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
-namespace Clean.Web.API.Setup;
+namespace Clean.Web.Api.Setup;
 
 public static class AuthSetup
 {

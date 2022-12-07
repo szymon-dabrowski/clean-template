@@ -2,7 +2,7 @@
 using Clean.Modules.UserAccess.Infrastructure.Module;
 using Clean.Modules.UserAccess.Infrastructure.Setup;
 
-namespace Clean.Web.API.Modules;
+namespace Clean.Web.Api.Modules;
 
 internal static class DependencyInjection
 {

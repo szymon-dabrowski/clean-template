@@ -1,7 +1,7 @@
-﻿using Clean.Web.API.Common.Controllers;
+﻿using Clean.Web.Api.Common.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Clean.Web.API.Modules.CRM.Controllers;
+namespace Clean.Web.Api.Modules.Crm.Controllers;
 
 [Route("[controller]")]
 public class CustomersController : ApiController

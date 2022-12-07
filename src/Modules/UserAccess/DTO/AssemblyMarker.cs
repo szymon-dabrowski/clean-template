@@ -1,4 +1,4 @@
-﻿namespace Clean.Modules.UserAccess.DTO;
+﻿namespace Clean.Modules.UserAccess.Dto;
 
 internal class AssemblyMarker
 {

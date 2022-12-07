@@ -1,6 +1,6 @@
-using Clean.Web.API.Common.Controllers.Errors;
-using Clean.Web.API.Modules;
-using Clean.Web.API.Setup;
+using Clean.Web.Api.Common.Controllers.Errors;
+using Clean.Web.Api.Modules;
+using Clean.Web.Api.Setup;
 
 var builder = WebApplication.CreateBuilder(args);
 

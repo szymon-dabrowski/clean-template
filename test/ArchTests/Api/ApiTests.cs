@@ -6,7 +6,7 @@ namespace Clean.ArchTests.Api;
 public class ApiTests : TestBase
 {
     [Fact]
-    public void CRMController_DoesNotHaveDependency_ToOtherModules()
+    public void CrmController_DoesNotHaveDependency_ToOtherModules()
     {
         var otherModules = new List<string>
         {
@@ -15,7 +15,7 @@ public class ApiTests : TestBase
 
         var types = Types.InAssembly(ApiAssembly)
             .That()
-            .ResideInNamespace("Clean.Web.API.Modules.CRM")
+            .ResideInNamespace("Clean.Web.Api.Modules.Crm")
             .Should()
             .NotHaveDependencyOnAny(otherModules.ToArray())
             .GetResult()
@@ -29,12 +29,12 @@ public class ApiTests : TestBase
     {
         var otherModules = new List<string>
         {
-            CRMNamespace,
+            CrmNamespace,
         };
 
         var types = Types.InAssembly(ApiAssembly)
             .That()
-            .ResideInNamespace("Clean.Web.API.Modules.UserAccess")
+            .ResideInNamespace("Clean.Web.Api.Modules.UserAccess")
             .Should()
             .NotHaveDependencyOnAny(otherModules.ToArray())
             .GetResult()

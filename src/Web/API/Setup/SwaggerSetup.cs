@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 
-namespace Clean.Web.API.Setup;
+namespace Clean.Web.Api.Setup;
 
 internal static class SwaggerSetup
 {

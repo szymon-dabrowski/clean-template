@@ -2,7 +2,7 @@
 using System.Reflection;
 
 namespace Clean.Modules.UserAccess.ArchTests.Module;
-public class DTOTests : DTOTestsBase
+public class DtoTests : DtoTestsBase
 {
     protected override Assembly ApplicationAssembly => typeof(UserAccess.Application.AssemblyMarker).Assembly;
 
@@ -12,5 +12,5 @@ public class DTOTests : DTOTestsBase
 
     protected override Assembly PersistenceAssembly => typeof(Persistence.AssemblyMarker).Assembly;
 
-    protected override Assembly DTOAssembly => typeof(DTO.AssemblyMarker).Assembly;
+    protected override Assembly DtoAssembly => typeof(Dto.AssemblyMarker).Assembly;
 }

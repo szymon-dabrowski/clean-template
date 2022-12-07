@@ -8,7 +8,7 @@ namespace Clean.ArchTests.Modules;
 public class EncapsulationTests : TestBase
 {
     [Fact]
-    public void CRMModule_DoesNotHave_Dependency_On_Other_Modules()
+    public void CrmModule_DoesNotHave_Dependency_On_Other_Modules()
     {
         // TODO
         Assert.True(true);
@@ -19,7 +19,7 @@ public class EncapsulationTests : TestBase
     {
         var otherModules = new string[]
         {
-            CRMNamespace,
+            CrmNamespace,
         };
 
         var usersAccessAssemblies = new List<Assembly>
@@ -27,7 +27,7 @@ public class EncapsulationTests : TestBase
             typeof(Clean.Modules.UserAccess.Application.AssemblyMarker).Assembly,
             typeof(Clean.Modules.UserAccess.Domain.AssemblyMarker).Assembly,
             typeof(Clean.Modules.UserAccess.Infrastructure.AssemblyMarker).Assembly,
-            typeof(Clean.Modules.UserAccess.DTO.AssemblyMarker).Assembly,
+            typeof(Clean.Modules.UserAccess.Dto.AssemblyMarker).Assembly,
         };
 
         var types = Types.InAssemblies(usersAccessAssemblies)
@@ -49,7 +49,7 @@ public class EncapsulationTests : TestBase
     {
         var otherModules = new string[]
         {
-            CRMNamespace,
+            CrmNamespace,
             UserAccessNamespace,
         };
 

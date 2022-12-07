@@ -1,8 +1,8 @@
 ﻿using Clean.Modules.Shared.Application.Interfaces.Messaging;
 using Clean.Modules.Shared.Common.Errors;
-using Clean.Modules.UserAccess.DTO.Model;
+using Clean.Modules.UserAccess.Dto.Model;
 
-namespace Clean.Modules.UserAccess.DTO.Commands;
+namespace Clean.Modules.UserAccess.Dto.Commands;
 
 public record RegisterUserCommand(
     string FirstName,

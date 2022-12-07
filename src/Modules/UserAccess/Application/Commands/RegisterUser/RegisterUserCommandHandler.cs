@@ -4,8 +4,8 @@ using Clean.Modules.Shared.Common.Errors;
 using Clean.Modules.UserAccess.Application.Interfaces.Persistence;
 using Clean.Modules.UserAccess.Application.Interfaces.Services;
 using Clean.Modules.UserAccess.Domain.Entities.User;
-using Clean.Modules.UserAccess.DTO.Commands;
-using Clean.Modules.UserAccess.DTO.Model;
+using Clean.Modules.UserAccess.Dto.Commands;
+using Clean.Modules.UserAccess.Dto.Model;
 
 namespace Clean.Modules.UserAccess.Application.Commands.RegisterUser;
 

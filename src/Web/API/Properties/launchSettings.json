@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "Clean.API": {
+    "Clean.Api": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

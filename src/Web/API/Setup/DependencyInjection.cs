@@ -1,7 +1,7 @@
-﻿using Clean.API.Common.Errors;
+﻿using Clean.Api.Common.Errors;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 
-namespace Clean.Web.API.Setup;
+namespace Clean.Web.Api.Setup;
 
 internal static class DependencyInjection
 {

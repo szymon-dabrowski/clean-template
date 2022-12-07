@@ -1,14 +1,14 @@
-﻿using Clean.Modules.UserAccess.DTO.Commands;
-using Clean.Modules.UserAccess.DTO.Queries;
+﻿using Clean.Modules.UserAccess.Dto.Commands;
+using Clean.Modules.UserAccess.Dto.Queries;
 using Clean.Modules.UserAccess.Infrastructure.Module;
-using Clean.Web.API.Common.Controllers;
-using Clean.Web.DTO.UserAccess.Requests;
-using Clean.Web.DTO.UserAccess.Responses;
+using Clean.Web.Api.Common.Controllers;
+using Clean.Web.Dto.UserAccess.Requests;
+using Clean.Web.Dto.UserAccess.Responses;
 using MapsterMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Clean.Web.API.Modules.UserAccess.Controllers;
+namespace Clean.Web.Api.Modules.UserAccess.Controllers;
 
 [AllowAnonymous]
 [Route("[controller]")]

@@ -1,4 +1,4 @@
 ﻿namespace Clean.Web.Api;
-internal class AssemblyMarker
+public class AssemblyMarker
 {
 }

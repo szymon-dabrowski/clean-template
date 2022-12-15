@@ -10,8 +10,32 @@ public class EncapsulationTests : TestBase
     [Fact]
     public void CrmModule_DoesNotHave_Dependency_On_Other_Modules()
     {
-        // TODO
-        Assert.True(true);
+        var otherModules = new string[]
+        {
+            UserAccessNamespace,
+        };
+
+        var crmAssemblies = new List<Assembly>
+        {
+            typeof(Clean.Modules.Crm.Application.AssemblyMarker).Assembly,
+            typeof(Clean.Modules.Crm.Domain.AssemblyMarker).Assembly,
+            typeof(Clean.Modules.Crm.Infrastructure.AssemblyMarker).Assembly,
+            typeof(Clean.Modules.Crm.Dto.AssemblyMarker).Assembly,
+            typeof(Clean.Modules.Crm.Persistence.AssemblyMarker).Assembly,
+        };
+
+        var types = Types.InAssemblies(crmAssemblies)
+            // TODO
+            //.That()
+            //    .DoNotImplementInterface(typeof(INotificationHandler<>))
+            //    .And().DoNotHaveNameEndingWith("IntegrationEventHandler")
+            //    .And().DoNotHaveName("EventsBusStartup")
+            .Should()
+            .NotHaveDependencyOnAny(otherModules)
+            .GetResult()
+            .FailingTypes;
+
+        types.AssertFailingTypes();
     }
 
     [Fact]
@@ -28,6 +52,7 @@ public class EncapsulationTests : TestBase
             typeof(Clean.Modules.UserAccess.Domain.AssemblyMarker).Assembly,
             typeof(Clean.Modules.UserAccess.Infrastructure.AssemblyMarker).Assembly,
             typeof(Clean.Modules.UserAccess.Dto.AssemblyMarker).Assembly,
+            typeof(Clean.Modules.UserAccess.Persistence.AssemblyMarker).Assembly,
         };
 
         var types = Types.InAssemblies(usersAccessAssemblies)
@@ -59,6 +84,7 @@ public class EncapsulationTests : TestBase
             typeof(Clean.Modules.Shared.Domain.AssemblyMarker).Assembly,
             typeof(Clean.Modules.Shared.Infrastructure.AssemblyMarker).Assembly,
             typeof(Clean.Modules.Shared.Common.AssemblyMarker).Assembly,
+            typeof(Clean.Modules.Shared.Persistence.AssemblyMarker).Assembly,
         };
 
         var types = Types.InAssemblies(sharedAssemblies)

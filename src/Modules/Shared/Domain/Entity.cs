@@ -1,8 +1,8 @@
-﻿namespace Clean.Modules.Shared.Domain;
-#pragma warning disable S4035 // Classes implementing "IEquatable<T>" should be sealed
+﻿using Clean.Modules.Shared.Common.Errors;
+
+namespace Clean.Modules.Shared.Domain;
 public class Entity<TId> : IEquatable<Entity<TId>>
     where TId : notnull
-#pragma warning restore S4035 // Classes implementing "IEquatable<T>" should be sealed
 {
     protected Entity(TId id)
     {
@@ -39,5 +39,20 @@ public class Entity<TId> : IEquatable<Entity<TId>>
     protected static bool NotEqualOperator(Entity<TId> left, Entity<TId> right)
     {
         return !EqualOperator(left, right);
+    }
+
+    protected static async Task<ErrorOr<bool>> Check(params IBussinesRule[] rules)
+    {
+        foreach (var rule in rules)
+        {
+            var isBroken = await rule.IsBroken();
+
+            if (isBroken)
+            {
+                return Error.BusinessRuleBroken(description: rule.Message);
+            }
+        }
+
+        return true;
     }
 }

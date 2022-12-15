@@ -1,4 +1,4 @@
 ﻿namespace Clean.Modules.Shared.Domain;
-internal class AssemblyMarker
+public class AssemblyMarker
 {
 }

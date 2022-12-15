@@ -1,4 +1,4 @@
-﻿using Clean.Modules.UserAccess.DTO.Commands;
+﻿using Clean.Modules.UserAccess.Dto.Commands;
 using FluentValidation;
 
 namespace Clean.Modules.UserAccess.Application.Commands.RegisterUser;

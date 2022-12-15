@@ -1,4 +1,4 @@
-﻿namespace Clean.Web.DTO.UserAccess.Requests;
+﻿namespace Clean.Web.Dto.UserAccess.Requests;
 
 public record LoginRequest(
     string Email,

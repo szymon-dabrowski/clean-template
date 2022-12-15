@@ -1,4 +1,5 @@
 ﻿using OneOf;
+using System.Collections.ObjectModel;
 
 namespace Clean.Modules.Shared.Common.Errors;
 
@@ -21,27 +22,26 @@ public readonly struct ErrorOr<TValue> : IErrorOr
         result = value;
     }
 
+    public TValue Value => result.AsT0;
+
     public IReadOnlyCollection<Error> Errors => result.AsT1;
 
+    public bool IsError => result.IsT1 ? Errors.Any() : false;
+
     public static implicit operator ErrorOr<TValue>(TValue value)
-    {
-        return new ErrorOr<TValue>(value);
-    }
+        => new(value);
 
     public static implicit operator ErrorOr<TValue>(Error error)
-    {
-        return new ErrorOr<TValue>(error);
-    }
+        => new(error);
 
     public static implicit operator ErrorOr<TValue>(List<Error> errors)
-    {
-        return new ErrorOr<TValue>(errors);
-    }
+        => new(errors);
 
     public static implicit operator ErrorOr<TValue>(Error[] errors)
-    {
-        return new ErrorOr<TValue>(errors);
-    }
+        => new(errors);
+
+    public static implicit operator ErrorOr<TValue>(ReadOnlyCollection<Error> errors)
+        => new(errors);
 
     public TResult Match<TResult>(
         Func<TValue, TResult> valueMatch,

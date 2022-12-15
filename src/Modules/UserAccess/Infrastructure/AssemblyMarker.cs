@@ -1,4 +1,4 @@
 ﻿namespace Clean.Modules.UserAccess.Infrastructure;
-internal class AssemblyMarker
+public class AssemblyMarker
 {
 }

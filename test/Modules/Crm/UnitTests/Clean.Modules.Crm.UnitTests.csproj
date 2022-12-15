@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="6.8.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0" />
+    <PackageReference Include="Moq" Version="4.18.3" />
+    <PackageReference Include="NetArchTest.Rules" Version="1.3.2" />
+    <PackageReference Include="xunit" Version="2.4.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\src\Modules\Crm\Application\Clean.Modules.Crm.Application.csproj" />
+    <ProjectReference Include="..\..\..\..\src\Modules\Crm\Domain\Clean.Modules.Crm.Domain.csproj" />
+    <ProjectReference Include="..\..\..\..\src\Modules\Crm\Dto\Clean.Modules.Crm.Dto.csproj" />
+    <ProjectReference Include="..\..\..\..\src\Modules\Crm\Infrastructure\Clean.Modules.Crm.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\..\src\Modules\Crm\Persistence\Clean.Modules.Crm.Persistence.csproj" />
+    <ProjectReference Include="..\..\Shared\ArchTests\Clean.Modules.Shared.ArchTests.csproj" />
+  </ItemGroup>
+
+</Project>

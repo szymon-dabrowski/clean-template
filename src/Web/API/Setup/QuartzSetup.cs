@@ -1,7 +1,7 @@
 ﻿using Clean.Modules.UserAccess.Infrastructure.Setup;
 using Quartz;
 
-namespace Clean.Web.API.Setup;
+namespace Clean.Web.Api.Setup;
 
 internal static class QuartzSetup
 {

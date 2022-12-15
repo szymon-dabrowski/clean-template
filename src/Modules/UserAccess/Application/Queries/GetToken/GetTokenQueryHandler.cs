@@ -3,8 +3,8 @@ using Clean.Modules.Shared.Application.Interfaces.Messaging;
 using Clean.Modules.Shared.Common.Errors;
 using Clean.Modules.UserAccess.Application.Interfaces.Persistence;
 using Clean.Modules.UserAccess.Application.Interfaces.Services;
-using Clean.Modules.UserAccess.DTO.Model;
-using Clean.Modules.UserAccess.DTO.Queries;
+using Clean.Modules.UserAccess.Dto.Model;
+using Clean.Modules.UserAccess.Dto.Queries;
 
 namespace Clean.Modules.UserAccess.Application.Queries.GetToken;
 

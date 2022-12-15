@@ -8,17 +8,5 @@
     <ProjectReference Include="..\Application\Clean.Modules.Shared.Application.csproj" />
     <ProjectReference Include="..\Domain\Clean.Modules.Shared.Domain.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-      <_Parameter1>Clean.Modules.Shared.ArchTests</_Parameter1>
-    </AssemblyAttribute>
-  </ItemGroup>
-
-  <ItemGroup>
-    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-      <_Parameter1>Clean.ArchTests</_Parameter1>
-    </AssemblyAttribute>
-  </ItemGroup>
 	
 </Project>

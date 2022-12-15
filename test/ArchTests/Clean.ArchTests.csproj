@@ -11,16 +11,23 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\src\Modules\Crm\Application\Clean.Modules.Crm.Application.csproj" />
+		<ProjectReference Include="..\..\src\Modules\Crm\Domain\Clean.Modules.Crm.Domain.csproj" />
+		<ProjectReference Include="..\..\src\Modules\Crm\Dto\Clean.Modules.Crm.Dto.csproj" />
+		<ProjectReference Include="..\..\src\Modules\Crm\Infrastructure\Clean.Modules.Crm.Infrastructure.csproj" />
+		<ProjectReference Include="..\..\src\Modules\Crm\Persistence\Clean.Modules.Crm.Persistence.csproj" />
 		<ProjectReference Include="..\..\src\Modules\Shared\Application\Clean.Modules.Shared.Application.csproj" />
 		<ProjectReference Include="..\..\src\Modules\Shared\Common\Clean.Modules.Shared.Common.csproj" />
 		<ProjectReference Include="..\..\src\Modules\Shared\Domain\Clean.Modules.Shared.Domain.csproj" />
 		<ProjectReference Include="..\..\src\Modules\Shared\Infrastructure\Clean.Modules.Shared.Infrastructure.csproj" />
+		<ProjectReference Include="..\..\src\Modules\Shared\Persistence\Clean.Modules.Shared.Persistence.csproj" />
 		<ProjectReference Include="..\..\src\Modules\UserAccess\Application\Clean.Modules.UserAccess.Application.csproj" />
 		<ProjectReference Include="..\..\src\Modules\UserAccess\Domain\Clean.Modules.UserAccess.Domain.csproj" />
-		<ProjectReference Include="..\..\src\Modules\UserAccess\DTO\Clean.Modules.UserAccess.DTO.csproj" />
+		<ProjectReference Include="..\..\src\Modules\UserAccess\Dto\Clean.Modules.UserAccess.Dto.csproj" />
 		<ProjectReference Include="..\..\src\Modules\UserAccess\Infrastructure\Clean.Modules.UserAccess.Infrastructure.csproj" />
-		<ProjectReference Include="..\..\src\Web\API\Clean.Web.API.csproj" />
-		<ProjectReference Include="..\..\src\Web\DTO\Clean.Web.DTO.csproj" />
+		<ProjectReference Include="..\..\src\Modules\UserAccess\Persistence\Clean.Modules.UserAccess.Persistence.csproj" />
+		<ProjectReference Include="..\..\src\Web\Api\Clean.Web.Api.csproj" />
+		<ProjectReference Include="..\..\src\Web\Dto\Clean.Web.Dto.csproj" />
 		<ProjectReference Include="..\Modules\Shared\ArchTests\Clean.Modules.Shared.ArchTests.csproj" />
 		<ProjectReference Include="..\Modules\UserAccess\ArchTests\Clean.Modules.UserAccess.ArchTests.csproj" />
 	</ItemGroup>

@@ -1,12 +1,12 @@
 ﻿using Clean.Modules.Shared.Common.Errors;
-using Clean.Web.API.Common.Controllers;
+using Clean.Web.Api.Common.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
 using System.Diagnostics;
 
-namespace Clean.API.Common.Errors;
+namespace Clean.Api.Common.Errors;
 
 // forked from: https://github.com/dotnet/aspnetcore/blob/v6.0.8/src/Mvc/Mvc.Core/src/Infrastructure/DefaultProblemDetailsFactory.cs
 internal class ApiProblemDetailsFactory : ProblemDetailsFactory

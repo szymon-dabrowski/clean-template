@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Clean.Web.API.Common.Controllers.Errors;
+namespace Clean.Web.Api.Common.Controllers.Errors;
 
 [ApiController]
 [Route(Route)]

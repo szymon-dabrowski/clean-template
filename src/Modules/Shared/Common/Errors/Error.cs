@@ -36,9 +36,19 @@ public readonly record struct Error
         string description = "A conflict error has occurred.")
         => new(code, description, ErrorType.Conflict);
 
+    public static Error BusinessRuleBroken(
+        string code = "General.BussinesRuleBroken",
+        string description = "A business rule broken error has occured.")
+        => new(code, description, ErrorType.BusinessRuleBroken);
+
     public static Error Custom(
         string code,
         string description,
         ErrorType errorType)
         => new(code, description, errorType);
+
+    public static Error From(ErrorOr<bool> result)
+        => result.Errors
+            .Select(e => new Error(e.Code, e.Description, e.Type))
+            .First();
 }

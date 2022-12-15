@@ -3,7 +3,7 @@ using System.Reflection;
 using Xunit;
 
 namespace Clean.Modules.Shared.ArchTests.SeedWork;
-public abstract class DTOTestsBase
+public abstract class DtoTestsBase
 {
     protected abstract Assembly ApplicationAssembly { get; }
 
@@ -13,12 +13,12 @@ public abstract class DTOTestsBase
 
     protected abstract Assembly PersistenceAssembly { get; }
 
-    protected abstract Assembly DTOAssembly { get; }
+    protected abstract Assembly DtoAssembly { get; }
 
     [Fact]
-    public void DTO_DoesNotHaveDependency_ToOtherLayers()
+    public void Dto_DoesNotHaveDependency_ToOtherLayers()
     {
-        var types = Types.InAssembly(DTOAssembly)
+        var types = Types.InAssembly(DtoAssembly)
             .Should()
             .NotHaveDependencyOn(ApplicationAssembly.GetName().Name)
             .And()

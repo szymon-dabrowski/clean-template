@@ -1,4 +1,4 @@
-﻿namespace Clean.Web.DTO.UserAccess.Responses;
+﻿namespace Clean.Web.Dto.UserAccess.Responses;
 
 public record AuthResponse(
     Guid Id,

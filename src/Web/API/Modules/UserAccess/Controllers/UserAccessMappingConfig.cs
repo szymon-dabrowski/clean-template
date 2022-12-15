@@ -1,11 +1,11 @@
-﻿using Clean.Modules.UserAccess.DTO.Commands;
-using Clean.Modules.UserAccess.DTO.Model;
-using Clean.Modules.UserAccess.DTO.Queries;
-using Clean.Web.DTO.UserAccess.Requests;
-using Clean.Web.DTO.UserAccess.Responses;
+﻿using Clean.Modules.UserAccess.Dto.Commands;
+using Clean.Modules.UserAccess.Dto.Model;
+using Clean.Modules.UserAccess.Dto.Queries;
+using Clean.Web.Dto.UserAccess.Requests;
+using Clean.Web.Dto.UserAccess.Responses;
 using Mapster;
 
-namespace Clean.Web.API.Modules.UserAccess.Controllers;
+namespace Clean.Web.Api.Modules.UserAccess.Controllers;
 
 public class UserAccessMappingConfig : IRegister
 {

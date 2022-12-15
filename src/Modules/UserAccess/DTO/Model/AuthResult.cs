@@ -1,4 +1,4 @@
-﻿namespace Clean.Modules.UserAccess.DTO.Model;
+﻿namespace Clean.Modules.UserAccess.Dto.Model;
 
 public record AuthResult(
     Guid Id,

@@ -41,6 +41,12 @@ public readonly record struct Error
         string description = "A business rule broken error has occured.")
         => new(code, description, ErrorType.BusinessRuleBroken);
 
+    public static Error EntityNotFound(
+        Guid entityId,
+        string code = "General.NotFound",
+        string description = "Entity with Id {0} not found.")
+        => new(code, string.Format(description, entityId), ErrorType.NotFound);
+
     public static Error Custom(
         string code,
         string description,

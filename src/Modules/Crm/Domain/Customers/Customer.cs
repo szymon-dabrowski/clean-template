@@ -14,8 +14,8 @@ public class Customer : AggregateRoot<Guid>
         string address,
         string postalCode,
         string city,
-        IEnumerable<string> phones,
-        IEnumerable<string> emails)
+        List<string> phones,
+        List<string> emails)
         : base(id)
     {
         Name = name;
@@ -43,14 +43,14 @@ public class Customer : AggregateRoot<Guid>
 
     public IReadOnlyCollection<string> Emails { get; private set; }
 
-    internal static async Task<ErrorOr<Customer>> Create(
+    public static async Task<ErrorOr<Customer>> Create(
         string name,
         string taxId,
         string address,
         string postalCode,
         string city,
-        IEnumerable<string> phones,
-        IEnumerable<string> emails,
+        List<string> phones,
+        List<string> emails,
         ICustomerNameUniquenessChecker customerNameUniquenessService,
         ICustomerTaxIdUniquenessChecker customerTaxIdUniquenessChecker)
     {
@@ -74,14 +74,14 @@ public class Customer : AggregateRoot<Guid>
             emails);
     }
 
-    internal async Task<ErrorOr<Customer>> Update(
+    public async Task<ErrorOr<Customer>> Update(
         string name,
         string taxId,
         string address,
         string postalCode,
         string city,
-        IEnumerable<string> phones,
-        IEnumerable<string> emails,
+        List<string> phones,
+        List<string> emails,
         ICustomerNameUniquenessChecker customerNameUniquenessService,
         ICustomerTaxIdUniquenessChecker customerTaxIdUniquenessChecker)
     {
@@ -122,7 +122,7 @@ public class Customer : AggregateRoot<Guid>
         return this;
     }
 
-    internal void Delete()
+    public void Delete()
     {
         IsDeleted = true;
     }

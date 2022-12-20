@@ -2,6 +2,7 @@
 using Clean.Modules.Shared.IntegrationTests.SeedWork;
 using Clean.Modules.Shared.IntegrationTests.SeedWork.Domain;
 using Clean.Modules.Shared.IntegrationTests.SeedWork.Domain.Events;
+using Clean.Modules.Shared.IntegrationTests.SeedWork.Infrastructure;
 using Clean.Modules.Shared.Persistence;
 using Clean.Modules.Shared.Persistence.Outbox;
 using Clean.Modules.Shared.Persistence.UnitOfWork;
@@ -25,7 +26,7 @@ public class IdempotencyEventHandlerTests
 
         var testAggregate = TestAggregateRoot.Create("TestPropertyValue");
         dbContext.Set<TestAggregateRoot>().Add(testAggregate);
-        await unitOfWork.CommitAsync();
+        await unitOfWork.Commit();
 
         await outboxProcessingJob.Execute(new Mock<IJobExecutionContext>().Object);
 
@@ -46,7 +47,7 @@ public class IdempotencyEventHandlerTests
 
         var testAggregate = TestAggregateRoot.Create("TestPropertyValue");
         dbContext.Set<TestAggregateRoot>().Add(testAggregate);
-        await unitOfWork.CommitAsync();
+        await unitOfWork.Commit();
 
         await outboxProcessingJob.Execute(new Mock<IJobExecutionContext>().Object);
         await outboxProcessingJob.Execute(new Mock<IJobExecutionContext>().Object);

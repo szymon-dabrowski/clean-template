@@ -1,6 +1,10 @@
 ﻿using Clean.Modules.Shared.Application.Interfaces.Services;
-using Clean.Modules.Shared.IntegrationTests.SeedWork;
+using Clean.Modules.Shared.Infrastructure.DependencyInjection;
+using Clean.Modules.Shared.IntegrationTests.SeedWork.Domain;
+using Clean.Modules.Shared.IntegrationTests.SeedWork.Infrastructure;
+using Clean.Modules.Shared.IntegrationTests.SeedWork.Persistence;
 using Clean.Modules.Shared.Persistence.UnitOfWork;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using UoW = Clean.Modules.Shared.Persistence.UnitOfWork.UnitOfWork;
@@ -12,12 +16,20 @@ internal static class DependencyInjection
     {
         var services = new ServiceCollection();
 
+        var assembly = typeof(DependencyInjection).Assembly;
+
         services.AddSingleton<IDateTimeProvider, TestDateTimeProvider>();
         services.AddDbContext<DbContext, TestDbContext>(options =>
         {
             options.UseInMemoryDatabase(Guid.NewGuid().ToString());
         });
-        services.AddTransient<IUnitOfWork, UoW>();
+        services.AddScoped<IUnitOfWork, UoW>();
+        services.AddScoped<ITestAggregateRootRepository, TestAggregateRootRepository>();
+        services.AddMediatR(assembly);
+
+        services
+            .RegisterCommandHandlersAsClosedTypes(assembly)
+            .DecorateCommandHandlersWithUnitOfWork();
 
         return services.BuildServiceProvider();
     }

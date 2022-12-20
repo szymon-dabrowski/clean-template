@@ -2,7 +2,7 @@
 using Clean.Modules.Shared.Persistence.Outbox;
 using Microsoft.EntityFrameworkCore;
 
-namespace Clean.Modules.Shared.IntegrationTests.SeedWork;
+namespace Clean.Modules.Shared.IntegrationTests.SeedWork.Persistence;
 internal class TestDbContext : DbContext
 {
     public TestDbContext(DbContextOptions<TestDbContext> options)

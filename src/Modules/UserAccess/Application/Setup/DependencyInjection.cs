@@ -4,9 +4,9 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Clean.Modules.UserAccess.Application.Setup;
-internal static class DependencyInjection
+public static class DependencyInjection
 {
-    internal static IServiceCollection AddApplication(this IServiceCollection services)
+    public static IServiceCollection AddApplication(this IServiceCollection services)
     {
         var applicationAssembly = typeof(AssemblyMarker).Assembly;
 

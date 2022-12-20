@@ -26,7 +26,7 @@ public readonly struct ErrorOr<TValue> : IErrorOr
 
     public IReadOnlyCollection<Error> Errors => result.AsT1;
 
-    public bool IsError => result.IsT1 ? Errors.Any() : false;
+    public bool IsError => result.IsT1 && Errors.Any();
 
     public static implicit operator ErrorOr<TValue>(TValue value)
         => new(value);

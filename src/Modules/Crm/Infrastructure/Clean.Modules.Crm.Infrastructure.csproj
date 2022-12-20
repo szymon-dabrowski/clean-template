@@ -1,3 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
+  <ItemGroup>
+    <PackageReference Include="Mapster" Version="7.3.0" />
+    <PackageReference Include="Mapster.DependencyInjection" Version="1.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Infrastructure\Clean.Modules.Shared.Infrastructure.csproj" />
+    <ProjectReference Include="..\Application\Clean.Modules.Crm.Application.csproj" />
+    <ProjectReference Include="..\Dto\Clean.Modules.Crm.Dto.csproj" />
+  </ItemGroup>
 </Project>

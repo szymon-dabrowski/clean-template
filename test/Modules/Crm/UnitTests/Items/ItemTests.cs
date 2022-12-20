@@ -1,6 +1,5 @@
 ﻿using Clean.Modules.Crm.Domain.Items;
 using Clean.Modules.Crm.Domain.Items.Services;
-using Clean.Modules.Crm.Domain.Money;
 using Clean.Modules.Shared.Common.Errors;
 using FluentAssertions;
 using Moq;
@@ -14,22 +13,24 @@ public class ItemTests
     {
         var name = "testItem";
         var desc = "testDesc";
-        var price = PriceValueObject.Create(value: 100, currency: "eur");
+        var basePrice = 100;
+        var baseCurrency = "eur";
 
         var itemUniquenessChecker = MockItemUniquenessChecker(withResult: true);
 
         var item = await Item.Create(
             name,
             desc,
-            price,
+            basePrice,
+            baseCurrency,
             itemUniquenessChecker);
 
         item.IsError.Should().BeFalse();
         item.Value.Should().NotBeNull();
         item.Value.Name.Should().Be(name);
         item.Value.Description.Should().Be(desc);
-        item.Value.BasePrice.Value.Should().Be(price.Value);
-        item.Value.BasePrice.Currency.Should().Be(price.Currency);
+        item.Value.BasePrice.Should().Be(basePrice);
+        item.Value.BaseCurrency.Should().Be(baseCurrency);
     }
 
     [Fact]
@@ -49,20 +50,22 @@ public class ItemTests
 
         var name = "testItem";
         var desc = "testDesc";
-        var price = PriceValueObject.Create(value: 100, currency: "eur");
+        var basePrice = 77;
+        var baseCurrency = "usd";
 
         await item.Value.Update(
             name,
             desc,
-            price,
+            basePrice,
+            baseCurrency,
             itemUniquenessChecker);
 
         item.IsError.Should().BeFalse();
         item.Value.Should().NotBeNull();
         item.Value.Name.Should().Be(name);
         item.Value.Description.Should().Be(desc);
-        item.Value.BasePrice.Value.Should().Be(price.Value);
-        item.Value.BasePrice.Currency.Should().Be(price.Currency);
+        item.Value.BasePrice.Should().Be(basePrice);
+        item.Value.BaseCurrency.Should().Be(baseCurrency);
     }
 
     [Fact]
@@ -74,9 +77,10 @@ public class ItemTests
         item.Value.Delete();
 
         var updateResult = await item.Value.Update(
-            name: "item",
-            description: "desc",
-            basePrice: PriceValueObject.Create(value: 100, currency: "eur"),
+            item.Value.Name,
+            item.Value.Description,
+            item.Value.BasePrice,
+            item.Value.BaseCurrency,
             itemUniquenessChecker);
 
         updateResult.IsError.Should().BeTrue();
@@ -90,9 +94,10 @@ public class ItemTests
         var item = await CreateTestItem(successItemUniquenessChecker);
 
         var updateResult = await item.Value.Update(
-            name: "item",
-            description: "desc",
-            basePrice: PriceValueObject.Create(value: 100, currency: "eur"),
+            item.Value.Name,
+            item.Value.Description,
+            item.Value.BasePrice,
+            item.Value.BaseCurrency,
             failingItemUniquenessChecker);
 
         updateResult.IsError.Should().BeTrue();
@@ -112,12 +117,11 @@ public class ItemTests
     private async Task<ErrorOr<Item>> CreateTestItem(
         IItemUniquenessChecker itemUniquenessChecker)
     {
-        var basePrice = PriceValueObject.Create(value: 123, currency: "eur");
-
         var item = await Item.Create(
             name: "test",
             description: "test",
-            basePrice,
+            basePrice: 123,
+            baseCurrency: "eur",
             itemUniquenessChecker);
 
         return item;

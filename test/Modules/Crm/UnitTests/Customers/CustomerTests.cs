@@ -17,8 +17,8 @@ public class CustomerTests
         var address = "testAddress";
         var postalCode = "12345";
         var city = "testCity";
-        var phones = new string[] { "1234567890", "1234567891" };
-        var emails = new string[] { "email1@domain.com", "email2@domain.com" };
+        var phones = new List<string> { "1234567890", "1234567891" };
+        var emails = new List<string> { "email1@domain.com", "email2@domain.com" };
 
         var customerNameUniquenessChecker = MockCustomerNameUniquenessChecker(withResult: true);
         var customerTaxIdUniquenessChecker = MockCustomerTaxIdUniquenessChecker(withResult: true);
@@ -83,8 +83,8 @@ public class CustomerTests
         var address = "testAddress";
         var postalCode = "12345";
         var city = "testCity";
-        var phones = new string[] { "1234567890", "1234567891" };
-        var emails = new string[] { "email1@domain.com", "email2@domain.com" };
+        var phones = new List<string> { "1234567890", "1234567891" };
+        var emails = new List<string> { "email1@domain.com", "email2@domain.com" };
 
         await customer.Value.Update(
             name,
@@ -125,8 +125,8 @@ public class CustomerTests
             "address",
             "postalCode",
             "city",
-            phones: Array.Empty<string>(),
-            emails: Array.Empty<string>(),
+            phones: new List<string>(),
+            emails: new List<string>(),
             customerNameUniquenessChecker,
             customerTaxIdUniquenessChecker);
 
@@ -150,8 +150,8 @@ public class CustomerTests
             "test",
             "test",
             "test",
-            phones: Array.Empty<string>(),
-            emails: Array.Empty<string>(),
+            phones: new List<string>(),
+            emails: new List<string>(),
             failingCustomerNameUniquenessChecker,
             customerTaxIdUniquenessChecker);
 
@@ -175,8 +175,8 @@ public class CustomerTests
             "test",
             "test",
             "test",
-            phones: Array.Empty<string>(),
-            emails: Array.Empty<string>(),
+            phones: new List<string>(),
+            emails: new List<string>(),
             customerNameUniquenessChecker,
             failingCustomerTaxIdUniquenessChecker);
 
@@ -215,8 +215,8 @@ public class CustomerTests
             address: "test",
             postalCode: "test",
             city: "test",
-            phones: Array.Empty<string>(),
-            emails: Array.Empty<string>(),
+            phones: new List<string>(),
+            emails: new List<string>(),
             customerNameUniquenessChecker,
             customerTaxIdUniquenessChecker);
 

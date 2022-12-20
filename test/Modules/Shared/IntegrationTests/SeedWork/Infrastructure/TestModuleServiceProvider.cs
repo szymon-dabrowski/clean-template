@@ -1,7 +1,7 @@
 ﻿using Clean.Modules.Shared.Infrastructure.Module;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Clean.Modules.Shared.IntegrationTests.SeedWork;
+namespace Clean.Modules.Shared.IntegrationTests.SeedWork.Infrastructure;
 internal class TestModuleServiceProvider : IModuleServiceProvider
 {
     private readonly IServiceProvider serviceProvider;

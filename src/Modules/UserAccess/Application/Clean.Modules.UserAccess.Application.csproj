@@ -10,11 +10,5 @@
         <ProjectReference Include="..\Domain\Clean.Modules.UserAccess.Domain.csproj" />
         <ProjectReference Include="..\Dto\Clean.Modules.UserAccess.Dto.csproj" />
     </ItemGroup>
-
-    <ItemGroup>
-        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-            <_Parameter1>Clean.Modules.UserAccess.Infrastructure</_Parameter1>
-        </AssemblyAttribute>
-    </ItemGroup>
-
+	
 </Project>

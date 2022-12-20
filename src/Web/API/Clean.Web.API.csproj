@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Modules\Crm\Infrastructure\Clean.Modules.Crm.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Modules\Shared\Application\Clean.Modules.Shared.Application.csproj" />
     <ProjectReference Include="..\..\Modules\UserAccess\Dto\Clean.Modules.UserAccess.Dto.csproj" />
     <ProjectReference Include="..\..\Modules\UserAccess\Infrastructure\Clean.Modules.UserAccess.Infrastructure.csproj" />

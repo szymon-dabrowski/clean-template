@@ -16,7 +16,7 @@ public class UnitOfWork : IUnitOfWork
         this.dateTimeProvider = dateTimeProvider;
     }
 
-    public async Task<int> CommitAsync(CancellationToken cancellationToken = default)
+    public async Task<int> Commit(CancellationToken cancellationToken = default)
     {
         AddDomainEventsToOutbox();
 

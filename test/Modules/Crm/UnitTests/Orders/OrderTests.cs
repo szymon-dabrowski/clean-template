@@ -1,5 +1,4 @@
-﻿using Clean.Modules.Crm.Domain.Money;
-using Clean.Modules.Crm.Domain.Orders;
+﻿using Clean.Modules.Crm.Domain.Orders;
 using Clean.Modules.Crm.Domain.Orders.Services;
 using Clean.Modules.Shared.Common.Errors;
 using FluentAssertions;
@@ -16,22 +15,19 @@ public class OrderTests
         var orderItem1 = OrderItem.Create(
             orderItem1id,
             quanity: 100,
-            PriceValueObject.Create(value: 100, currency: "eur"));
+            pricePerUnit: 100);
 
         var orderItem2id = Guid.NewGuid();
         var orderItem2 = OrderItem.Create(
             orderItem2id,
             quanity: 200,
-            PriceValueObject.Create(value: 200, currency: "eur"));
+            pricePerUnit: 200);
 
         var customerId = Guid.NewGuid();
         var orderDate = DateTime.Now;
         var orderNumber = "testOrder123";
-        var orderItems = new OrderItem[]
-        {
-            orderItem1,
-            orderItem2,
-        };
+        var currency = "eur";
+        var orderItems = new List<OrderItem>() { orderItem1, orderItem2 };
 
         var orderNumberUniquenessChecker = MockOrderNameUniquenessChecker(withResult: true);
         var customerExistenceChecker = MockCustomerExistenceChecker(withResult: true);
@@ -42,6 +38,7 @@ public class OrderTests
             customerId,
             orderDate,
             orderNumber,
+            currency,
             orderItems,
             orderNumberUniquenessChecker,
             customerExistenceChecker,
@@ -52,7 +49,7 @@ public class OrderTests
         order.Value.OrderNumber.Should().Be(orderNumber);
         order.Value.OrderDate.Should().Be(orderDate);
         order.Value.CustomerId.Should().Be(customerId);
-        order.Value.OrderItems.Should().HaveCount(orderItems.Length);
+        order.Value.OrderItems.Should().HaveCount(orderItems.Count);
         AssertOrderItem(order.Value.OrderItems.Single(i => i.ItemId == orderItem1id), orderItem1);
         AssertOrderItem(order.Value.OrderItems.Single(i => i.ItemId == orderItem2id), orderItem2);
     }
@@ -85,18 +82,15 @@ public class OrderTests
         var orderItem = OrderItem.Create(
             itemId: Guid.NewGuid(),
             quanity: 100,
-            PriceValueObject.Create(value: 100, currency: "eur"));
+            pricePerUnit: 100);
 
-        var orderItems = new OrderItem[]
-        {
-            orderItem,
-            orderItem,
-        };
+        var orderItems = new List<OrderItem>() { orderItem, orderItem };
 
         var order = await Order.Create(
             customerId: Guid.NewGuid(),
             orderDate: DateTime.Now,
             orderNumber: "TestOrderNumber",
+            currency: "eur",
             orderItems,
             orderNumberUniquenessChecker,
             customerExistenceChecker,
@@ -154,7 +148,7 @@ public class OrderTests
             customerExistenceChecker,
             itemExistenceChecker,
             orderNumberGenerator,
-            orderNumber: null);
+            orderNumber: string.Empty);
 
         order.Value.OrderNumber.Should().Be(generatedOrderNumber);
     }
@@ -177,27 +171,25 @@ public class OrderTests
         var orderItem1 = OrderItem.Create(
             orderItem1id,
             quanity: 100,
-            PriceValueObject.Create(value: 100, currency: "eur"));
+            pricePerUnit: 100);
 
         var orderItem2id = Guid.NewGuid();
         var orderItem2 = OrderItem.Create(
             orderItem2id,
             quanity: 200,
-            PriceValueObject.Create(value: 200, currency: "eur"));
+            pricePerUnit: 200);
 
         var customerId = Guid.NewGuid();
         var orderDate = new DateTime(2022, 12, 15);
         var orderNumber = "testOrder123";
-        var orderItems = new OrderItem[]
-        {
-            orderItem1,
-            orderItem2,
-        };
+        var currency = "usd";
+        var orderItems = new List<OrderItem>() { orderItem1, orderItem2 };
 
         var updateResult = await order.Value.Update(
             customerId,
             orderDate,
-            orderNumber: orderNumber,
+            orderNumber,
+            currency,
             orderItems,
             orderNumberUniquenessChecker,
             customerExistenceChecker,
@@ -207,7 +199,7 @@ public class OrderTests
         updateResult.Value.OrderNumber.Should().Be(orderNumber);
         updateResult.Value.OrderDate.Should().Be(orderDate);
         updateResult.Value.CustomerId.Should().Be(customerId);
-        updateResult.Value.OrderItems.Should().HaveCount(orderItems.Length);
+        updateResult.Value.OrderItems.Should().HaveCount(orderItems.Count);
         AssertOrderItem(updateResult.Value.OrderItems.Single(i => i.ItemId == orderItem1id), orderItem1);
         AssertOrderItem(updateResult.Value.OrderItems.Single(i => i.ItemId == orderItem2id), orderItem2);
     }
@@ -231,7 +223,8 @@ public class OrderTests
             order.Value.CustomerId,
             order.Value.OrderDate,
             order.Value.OrderNumber,
-            order.Value.OrderItems,
+            order.Value.Currency,
+            order.Value.OrderItems.ToList(),
             failingOrderNumberUniquenessChecker,
             customerExistenceChecker,
             itemExistenceChecker);
@@ -256,18 +249,15 @@ public class OrderTests
         var orderItem = OrderItem.Create(
             itemId: Guid.NewGuid(),
             quanity: 100,
-            PriceValueObject.Create(value: 100, currency: "eur"));
+            pricePerUnit: 100);
 
-        var orderItems = new OrderItem[]
-        {
-            orderItem,
-            orderItem,
-        };
+        var orderItems = new List<OrderItem>() { orderItem, orderItem, };
 
         var updateResult = await order.Value.Update(
             order.Value.CustomerId,
             order.Value.OrderDate,
             order.Value.OrderNumber,
+            order.Value.Currency,
             orderItems,
             orderNumberUniquenessChecker,
             customerExistenceChecker,
@@ -296,7 +286,8 @@ public class OrderTests
             order.Value.CustomerId,
             order.Value.OrderDate,
             order.Value.OrderNumber,
-            order.Value.OrderItems,
+            order.Value.Currency,
+            order.Value.OrderItems.ToList(),
             orderNumberUniquenessChecker,
             customerExistenceChecker,
             itemExistenceChecker);
@@ -323,7 +314,8 @@ public class OrderTests
             order.Value.CustomerId,
             order.Value.OrderDate,
             order.Value.OrderNumber,
-            order.Value.OrderItems,
+            order.Value.Currency,
+            order.Value.OrderItems.ToList(),
             orderNumberUniquenessChecker,
             failingCustomerExistenceChecker,
             itemExistenceChecker);
@@ -350,7 +342,8 @@ public class OrderTests
             order.Value.CustomerId,
             order.Value.OrderDate,
             order.Value.OrderNumber,
-            order.Value.OrderItems,
+            order.Value.Currency,
+            order.Value.OrderItems.ToList(),
             orderNumberUniquenessChecker,
             customerExistenceChecker,
             failingItemExistenceChecker);
@@ -407,20 +400,19 @@ public class OrderTests
         ICustomerExistenceChecker customerExistenceChecker,
         IItemExistenceChecker itemExistenceChecker,
         IOrderNumberGenerator orderNumberGenerator,
-        string? orderNumber = "test")
+        string orderNumber = "test")
     {
-        var pricePerUnit = PriceValueObject.Create(value: 100, currency: "eur");
-
         var orderItem = OrderItem.Create(
             itemId: Guid.NewGuid(),
             quanity: 10,
-            pricePerUnit);
+            pricePerUnit: 10);
 
         var order = await Order.Create(
             customerId: Guid.NewGuid(),
             orderDate: DateTime.Now,
             orderNumber,
-            orderItems: new OrderItem[] { orderItem },
+            currency: "eur",
+            orderItems: new List<OrderItem>() { orderItem },
             orderNumberUniquenessChecker,
             customerExistenceChecker,
             itemExistenceChecker,
@@ -431,8 +423,8 @@ public class OrderTests
 
     private void AssertOrderItem(OrderItem expected, OrderItem actual)
     {
+        actual.ItemId.Should().Be(expected.ItemId);
         actual.Quantity.Should().Be(expected.Quantity);
-        actual.PricePerUnit.Currency.Should().Be(expected.PricePerUnit.Currency);
-        actual.PricePerUnit.Value.Should().Be(expected.PricePerUnit.Value);
+        actual.PricePerUnit.Should().Be(expected.PricePerUnit);
     }
 }

@@ -11,13 +11,15 @@ public class Order : AggregateRoot<Guid>
         Guid customerId,
         DateTime orderDate,
         string orderNumber,
-        IEnumerable<OrderItem> orderItems)
+        string currency,
+        List<OrderItem> orderItems)
         : base(id)
     {
         CustomerId = customerId;
         OrderDate = orderDate;
         OrderNumber = orderNumber;
         OrderItems = orderItems.ToArray();
+        Currency = currency;
     }
 
     public Guid CustomerId { get; private set; }
@@ -28,19 +30,24 @@ public class Order : AggregateRoot<Guid>
 
     public IReadOnlyCollection<OrderItem> OrderItems { get; private set; }
 
+    public string Currency { get; private set; }
+
     public bool IsDeleted { get; private set; }
 
-    internal static async Task<ErrorOr<Order>> Create(
+    public static async Task<ErrorOr<Order>> Create(
         Guid customerId,
         DateTime orderDate,
-        string? orderNumber,
-        IEnumerable<OrderItem> orderItems,
+        string orderNumber,
+        string currency,
+        List<OrderItem> orderItems,
         IOrderNumberUniquenessChecker orderNumberUniquenessChecker,
         ICustomerExistenceChecker customerExistenceChecker,
         IItemExistenceChecker itemExistenceChecker,
         IOrderNumberGenerator orderNumberGenerator)
     {
-        var orderNo = orderNumber ?? await orderNumberGenerator.GenerateOrderNumber();
+        var orderNo = string.IsNullOrEmpty(orderNumber)
+            ? await orderNumberGenerator.GenerateOrderNumber()
+            : orderNumber;
 
         var result = await Check(
             new OrderNumberMustBeUniqueRule(orderNo, orderNumberUniquenessChecker),
@@ -60,14 +67,16 @@ public class Order : AggregateRoot<Guid>
             customerId,
             orderDate,
             orderNo,
+            currency,
             orderItems);
     }
 
-    internal async Task<ErrorOr<Order>> Update(
+    public async Task<ErrorOr<Order>> Update(
         Guid customerId,
         DateTime orderDate,
         string orderNumber,
-        IEnumerable<OrderItem> orderItems,
+        string currency,
+        List<OrderItem> orderItems,
         IOrderNumberUniquenessChecker orderNumberUniquenessChecker,
         ICustomerExistenceChecker customerExistenceChecker,
         IItemExistenceChecker itemExistenceChecker)
@@ -90,11 +99,12 @@ public class Order : AggregateRoot<Guid>
         OrderDate = orderDate;
         OrderNumber = orderNumber;
         OrderItems = orderItems.ToArray();
+        Currency = currency;
 
         return this;
     }
 
-    internal void Delete()
+    public void Delete()
     {
         IsDeleted = true;
     }

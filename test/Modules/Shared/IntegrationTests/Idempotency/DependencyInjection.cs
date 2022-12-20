@@ -2,7 +2,8 @@
 using Clean.Modules.Shared.Domain;
 using Clean.Modules.Shared.Infrastructure.DomainEventTypeMapping;
 using Clean.Modules.Shared.Infrastructure.Idempotency;
-using Clean.Modules.Shared.IntegrationTests.SeedWork;
+using Clean.Modules.Shared.IntegrationTests.SeedWork.Infrastructure;
+using Clean.Modules.Shared.IntegrationTests.SeedWork.Persistence;
 using Clean.Modules.Shared.Persistence.UnitOfWork;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

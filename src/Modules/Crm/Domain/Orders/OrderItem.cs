@@ -1,5 +1,4 @@
-﻿using Clean.Modules.Crm.Domain.Money;
-using Clean.Modules.Shared.Domain;
+﻿using Clean.Modules.Shared.Domain;
 
 namespace Clean.Modules.Crm.Domain.Orders;
 public class OrderItem : Entity<int>
@@ -7,7 +6,7 @@ public class OrderItem : Entity<int>
     private OrderItem(
         Guid itemId,
         decimal quantity,
-        PriceValueObject pricePerUnit)
+        decimal pricePerUnit)
         : base(default)
     {
         ItemId = itemId;
@@ -19,12 +18,12 @@ public class OrderItem : Entity<int>
 
     public decimal Quantity { get; private set; }
 
-    public PriceValueObject PricePerUnit { get; private set; }
+    public decimal PricePerUnit { get; private set; }
 
     public static OrderItem Create(
         Guid itemId,
         decimal quanity,
-        PriceValueObject pricePerUnit)
+        decimal pricePerUnit)
     {
         return new OrderItem(
             itemId,

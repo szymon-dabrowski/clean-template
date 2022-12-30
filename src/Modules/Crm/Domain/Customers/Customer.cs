@@ -7,6 +7,11 @@ namespace Clean.Modules.Crm.Domain.Customers;
 
 public class Customer : AggregateRoot<Guid>
 {
+    private Customer()
+        : base(Guid.Empty)
+    {
+    }
+
     private Customer(
         Guid id,
         string name,
@@ -23,25 +28,27 @@ public class Customer : AggregateRoot<Guid>
         PostalCode = postalCode;
         City = city;
         TaxId = taxId;
-        Phones = phones.ToArray();
-        Emails = emails.ToArray();
+        Phones = phones;
+        Emails = emails;
     }
 
-    public string Name { get; private set; }
+    public string Name { get; private set; } = string.Empty;
 
-    public string Address { get; private set; }
+    public string Address { get; private set; } = string.Empty;
 
-    public string PostalCode { get; private set; }
+    public string PostalCode { get; private set; } = string.Empty;
 
-    public string City { get; private set; }
+    public string City { get; private set; } = string.Empty;
 
-    public string TaxId { get; private set; }
+    public string TaxId { get; private set; } = string.Empty;
 
     public bool IsDeleted { get; private set; }
 
     public IReadOnlyCollection<string> Phones { get; private set; }
+        = Array.Empty<string>();
 
     public IReadOnlyCollection<string> Emails { get; private set; }
+        = Array.Empty<string>();
 
     public static async Task<ErrorOr<Customer>> Create(
         string name,
@@ -116,8 +123,8 @@ public class Customer : AggregateRoot<Guid>
         Address = address;
         PostalCode = postalCode;
         City = city;
-        Phones = phones.ToArray();
-        Emails = emails.ToArray();
+        Phones = phones;
+        Emails = emails;
 
         return this;
     }

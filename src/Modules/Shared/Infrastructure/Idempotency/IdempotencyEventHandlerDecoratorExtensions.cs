@@ -8,7 +8,7 @@ public static class IdempotencyEventHandlerDecoratorExtensions
     public static IServiceCollection DecorateEventHandlersWithIdempotency(
         this IServiceCollection services)
     {
-        services.Decorate(
+        services.TryDecorate(
             typeof(INotificationHandler<>),
             typeof(IdempotencyEventHandlerDecorator<>));
 

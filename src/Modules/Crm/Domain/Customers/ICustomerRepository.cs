@@ -3,7 +3,7 @@
 namespace Clean.Modules.Crm.Domain.Customers;
 public interface ICustomerRepository
 {
-    Task Add(Customer order);
+    Task Add(Customer customer);
 
-    Task<Customer> GetById(Guid id);
+    Task<Customer?> GetById(Guid id);
 }

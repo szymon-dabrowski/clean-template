@@ -1,13 +1,12 @@
 ﻿using Clean.Modules.Shared.Domain;
 
 namespace Clean.Modules.Crm.Domain.Orders;
-public class OrderItem : Entity<int>
+public class OrderItem : ValueObject
 {
     private OrderItem(
         Guid itemId,
         decimal quantity,
         decimal pricePerUnit)
-        : base(default)
     {
         ItemId = itemId;
         Quantity = quantity;
@@ -29,5 +28,12 @@ public class OrderItem : Entity<int>
             itemId,
             quanity,
             pricePerUnit);
+    }
+
+    protected override IEnumerable<object> GetEqualityComponents()
+    {
+        yield return ItemId;
+        yield return Quantity;
+        yield return PricePerUnit;
     }
 }

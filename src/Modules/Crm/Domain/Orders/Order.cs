@@ -6,6 +6,11 @@ using Clean.Modules.Shared.Domain;
 namespace Clean.Modules.Crm.Domain.Orders;
 public class Order : AggregateRoot<Guid>
 {
+    private Order()
+        : base(Guid.Empty)
+    {
+    }
+
     private Order(
         Guid id,
         Guid customerId,
@@ -18,19 +23,20 @@ public class Order : AggregateRoot<Guid>
         CustomerId = customerId;
         OrderDate = orderDate;
         OrderNumber = orderNumber;
-        OrderItems = orderItems.ToArray();
         Currency = currency;
+        OrderItems = orderItems;
     }
 
     public Guid CustomerId { get; private set; }
 
     public DateTime OrderDate { get; private set; }
 
-    public string OrderNumber { get; private set; }
+    public string OrderNumber { get; private set; } = string.Empty;
 
     public IReadOnlyCollection<OrderItem> OrderItems { get; private set; }
+        = new List<OrderItem>();
 
-    public string Currency { get; private set; }
+    public string Currency { get; private set; } = string.Empty;
 
     public bool IsDeleted { get; private set; }
 
@@ -81,14 +87,24 @@ public class Order : AggregateRoot<Guid>
         ICustomerExistenceChecker customerExistenceChecker,
         IItemExistenceChecker itemExistenceChecker)
     {
-        var result = await Check(
+        var rulesToCheck = new List<IBussinesRule>()
+        {
             new CannotUpdateDeletedOrderRule(IsDeleted),
-            new OrderNumberMustBeUniqueRule(orderNumber, orderNumberUniquenessChecker),
             new OrderMustContainUniqueOrderItemsRule(orderItems),
             new CustomerMustExistRule(customerId, customerExistenceChecker),
             new ItemsMustExistRule(
                 orderItems.Select(i => i.ItemId),
-                itemExistenceChecker));
+                itemExistenceChecker),
+        };
+
+        if (OrderNumber != orderNumber)
+        {
+            rulesToCheck.Add(new OrderNumberMustBeUniqueRule(
+                orderNumber,
+                orderNumberUniquenessChecker));
+        }
+
+        var result = await Check(rulesToCheck.ToArray());
 
         if (result.IsError)
         {
@@ -98,7 +114,7 @@ public class Order : AggregateRoot<Guid>
         CustomerId = customerId;
         OrderDate = orderDate;
         OrderNumber = orderNumber;
-        OrderItems = orderItems.ToArray();
+        OrderItems = orderItems;
         Currency = currency;
 
         return this;

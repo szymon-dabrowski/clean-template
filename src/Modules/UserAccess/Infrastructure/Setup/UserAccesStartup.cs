@@ -20,6 +20,7 @@ public static class UserAccesStartup
 
     public static void InitializeBackgroundJobs(IServiceCollectionQuartzConfigurator config)
     {
-        config.ConfigureOutboxProcessingJob<UserAccessModuleOutboxProcessingJob>();
+        // TODO - configure job once UserAccess DbContext is ready
+        //config.ConfigureOutboxProcessingJob<UserAccessModuleOutboxProcessingJob>();
     }
 }

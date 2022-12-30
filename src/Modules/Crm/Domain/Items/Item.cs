@@ -59,9 +59,17 @@ public class Item : AggregateRoot<Guid>
         string baseCurrency,
         IItemUniquenessChecker itemUniquenessChecker)
     {
-        var result = await Check(
+        var rulesToCheck = new List<IBussinesRule>()
+        {
             new CannotUpdateDeletedItemRule(IsDeleted),
-            new ItemMustBeUniqueRule(name, itemUniquenessChecker));
+        };
+
+        if (Name != name)
+        {
+            rulesToCheck.Add(new ItemMustBeUniqueRule(name, itemUniquenessChecker));
+        }
+
+        var result = await Check(rulesToCheck.ToArray());
 
         if (result.IsError)
         {

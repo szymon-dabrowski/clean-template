@@ -10,7 +10,7 @@ public static class OutboxProcessingJobExtensions
         this IServiceCollectionQuartzConfigurator config)
         where TOutboxProcessingJob : OutboxProcessingJob
     {
-        var jobKey = new JobKey(nameof(TOutboxProcessingJob));
+        var jobKey = new JobKey(typeof(TOutboxProcessingJob).Name);
 
         return config
             .AddJob<TOutboxProcessingJob>(jobKey)

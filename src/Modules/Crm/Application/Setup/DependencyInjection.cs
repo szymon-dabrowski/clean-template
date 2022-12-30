@@ -1,5 +1,6 @@
 ﻿using Clean.Modules.Shared.Application.Behaviors;
 using FluentValidation;
+using Mapster;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,6 +16,8 @@ public static class DependencyInjection
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
         services.AddValidatorsFromAssembly(applicationAssembly);
+
+        TypeAdapterConfig.GlobalSettings.Scan(applicationAssembly);
 
         return services;
     }

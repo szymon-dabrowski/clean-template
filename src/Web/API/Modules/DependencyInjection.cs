@@ -13,7 +13,7 @@ internal static class DependencyInjection
     {
         services
             .AddUserAccessModule(configuration)
-            .AddCrmModule();
+            .AddCrmModule(configuration);
 
         return services;
     }
@@ -32,9 +32,11 @@ internal static class DependencyInjection
         return services;
     }
 
-    private static IServiceCollection AddCrmModule(this IServiceCollection services)
+    private static IServiceCollection AddCrmModule(
+        this IServiceCollection services,
+        IConfiguration configuration)
     {
-        CrmStartup.Initialize();
+        CrmStartup.Initialize(configuration);
 
         // TODO - verify if should be removed
         //services.AddTransient<IModuleServiceProvider, CrmServiceProvider>();

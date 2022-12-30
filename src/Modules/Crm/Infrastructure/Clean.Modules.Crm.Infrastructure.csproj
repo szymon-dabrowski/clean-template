@@ -8,5 +8,6 @@
     <ProjectReference Include="..\..\Shared\Infrastructure\Clean.Modules.Shared.Infrastructure.csproj" />
     <ProjectReference Include="..\Application\Clean.Modules.Crm.Application.csproj" />
     <ProjectReference Include="..\Dto\Clean.Modules.Crm.Dto.csproj" />
+    <ProjectReference Include="..\Persistence\Clean.Modules.Crm.Persistence.csproj" />
   </ItemGroup>
 </Project>

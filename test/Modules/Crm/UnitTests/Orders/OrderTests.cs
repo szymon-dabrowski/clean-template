@@ -222,7 +222,7 @@ public class OrderTests
         var updateResult = await order.Value.Update(
             order.Value.CustomerId,
             order.Value.OrderDate,
-            order.Value.OrderNumber,
+            orderNumber: "NewOrderNumber",
             order.Value.Currency,
             order.Value.OrderItems.ToList(),
             failingOrderNumberUniquenessChecker,

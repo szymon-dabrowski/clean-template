@@ -95,7 +95,7 @@ public class ItemTests
         var item = await CreateTestItem(successItemUniquenessChecker);
 
         var updateResult = await item.Value.Update(
-            item.Value.Name,
+            name: "NewName",
             item.Value.Description,
             item.Value.BasePrice,
             item.Value.BaseCurrency,

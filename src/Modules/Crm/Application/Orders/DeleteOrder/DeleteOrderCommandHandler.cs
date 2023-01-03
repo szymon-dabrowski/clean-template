@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Clean.Modules.Crm.Application.Orders;
+namespace Clean.Modules.Crm.Application.Orders.DeleteOrder;
 internal class DeleteOrderCommandHandler : ICommandHandler<DeleteOrderCommand>
 {
     private readonly IOrderRepository orderRepository;

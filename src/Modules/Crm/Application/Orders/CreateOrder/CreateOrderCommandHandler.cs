@@ -5,7 +5,7 @@ using Clean.Modules.Shared.Application.Interfaces.Messaging;
 using Clean.Modules.Shared.Common.Errors;
 using MapsterMapper;
 
-namespace Clean.Modules.Crm.Application.Orders;
+namespace Clean.Modules.Crm.Application.Orders.CreateOrder;
 internal class CreateOrderCommandHandler : ICommandHandler<CreateOrderCommand, ErrorOr<Guid>>
 {
     private readonly IOrderRepository orderRepository;

@@ -6,7 +6,7 @@ using Clean.Modules.Shared.Common.Errors;
 using MapsterMapper;
 using MediatR;
 
-namespace Clean.Modules.Crm.Application.Orders;
+namespace Clean.Modules.Crm.Application.Orders.UpdateOrder;
 internal class UpdateOrderCommandHandler : ICommandHandler<UpdateOrderCommand, ErrorOr<Unit>>
 {
     private readonly IOrderRepository orderRepository;

@@ -1,6 +1,5 @@
 ﻿using Clean.Modules.Crm.Domain.Customers;
 using Clean.Modules.Crm.Domain.Customers.Services;
-using Clean.Modules.Crm.Infrastructure.Domain.Customers.Services;
 using Clean.Modules.Shared.Common.Errors;
 using FluentAssertions;
 using Moq;

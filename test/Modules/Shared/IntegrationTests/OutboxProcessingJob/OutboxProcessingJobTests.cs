@@ -1,5 +1,4 @@
 ﻿using Clean.Modules.Shared.Domain;
-using Clean.Modules.Shared.IntegrationTests.SeedWork;
 using Clean.Modules.Shared.IntegrationTests.SeedWork.Domain.Events;
 using Clean.Modules.Shared.IntegrationTests.SeedWork.Infrastructure;
 using Clean.Modules.Shared.Persistence.Outbox;

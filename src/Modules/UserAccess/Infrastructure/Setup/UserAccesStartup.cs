@@ -1,7 +1,5 @@
-﻿using Clean.Modules.Shared.Infrastructure.Outbox;
-using Clean.Modules.UserAccess.Application.Setup;
+﻿using Clean.Modules.UserAccess.Application.Setup;
 using Clean.Modules.UserAccess.Infrastructure.Module;
-using Clean.Modules.UserAccess.Infrastructure.Outbox;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Quartz;

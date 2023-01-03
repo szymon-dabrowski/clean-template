@@ -1,7 +1,6 @@
 ﻿using Mapster;
 using MapsterMapper;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
 
 namespace Clean.Modules.Crm.Infrastructure.Setup;
 

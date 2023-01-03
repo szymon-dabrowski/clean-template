@@ -1,4 +1,6 @@
 ﻿using Clean.Modules.Crm.Dto.Commands.Orders;
+using Clean.Modules.Crm.Dto.Queries.Orders;
+using Clean.Modules.Crm.Dto.Queries.Orders.Model;
 using Clean.Modules.Crm.Infrastructure.Module;
 using Clean.Web.Api.Common.Controllers;
 using Clean.Web.Dto.Crm.Orders.Requests;
@@ -19,6 +21,22 @@ public class OrdersController : ApiController
         this.crmModule = crmModule;
         this.mapper = mapper;
     }
+
+    [HttpGet]
+    public async Task<List<OrderDto>> GetOrders()
+        => await crmModule.ExecuteQuery(new GetOrdersQuery());
+
+    [HttpGet("{orderId}")]
+    public async Task<OrderDto?> GetOrder(Guid orderId)
+        => await crmModule.ExecuteQuery(new GetOrderQuery(orderId));
+
+    [HttpGet("details")]
+    public async Task<List<OrderDetailsDto>> GetOrdersDetails()
+        => await crmModule.ExecuteQuery(new GetOrdersDetailsQuery());
+
+    [HttpGet("{orderId}/details")]
+    public async Task<OrderDetailsDto?> GetOrderDetails(Guid orderId)
+        => await crmModule.ExecuteQuery(new GetOrderDetailsQuery(orderId));
 
     [HttpPost]
     public async Task<IActionResult> CreateOrder(CreateOrderRequest request)

@@ -8,5 +8,5 @@ public record CreateOrderCommand(
     string OrderNumber,
     DateTime OrderDate,
     string Currency,
-    IEnumerable<OrderItem> OrderItems)
+    List<OrderItemDto> OrderItems)
     : ICommand<ErrorOr<Guid>>;

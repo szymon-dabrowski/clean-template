@@ -11,6 +11,8 @@ public static class DependencyInjection
     {
         var applicationAssembly = typeof(AssemblyMarker).Assembly;
 
+        services.AddMappings();
+
         services.AddMediatR(applicationAssembly);
 
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));

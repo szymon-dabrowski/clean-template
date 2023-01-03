@@ -1,10 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <Folder Include="Queries\Customers\" />
-    <Folder Include="Queries\Items\" />
-    <Folder Include="Queries\Orders\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\Shared\Application\Clean.Modules.Shared.Application.csproj" />
   </ItemGroup>
 </Project>

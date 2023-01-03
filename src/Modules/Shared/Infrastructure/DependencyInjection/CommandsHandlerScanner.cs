@@ -1,5 +1,4 @@
 ﻿using Clean.Modules.Shared.Application.Interfaces.Messaging;
-using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 

@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using OneOf.Types;
 
 namespace Clean.Modules.Shared.Application.Interfaces.Messaging;
 

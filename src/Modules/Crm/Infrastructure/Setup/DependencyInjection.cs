@@ -17,8 +17,6 @@ internal static class DependencyInjection
 {
     internal static IServiceCollection AddInfrastructure(this IServiceCollection services)
     {
-        services.AddMappings();
-
         services
             .RegisterCommandHandlersAsClosedTypes(typeof(Application.AssemblyMarker).Assembly)
             .DecorateCommandHandlersWithUnitOfWork();

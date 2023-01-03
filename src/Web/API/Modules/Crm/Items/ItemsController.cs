@@ -1,4 +1,6 @@
 ﻿using Clean.Modules.Crm.Dto.Commands.Items;
+using Clean.Modules.Crm.Dto.Queries.Items;
+using Clean.Modules.Crm.Dto.Queries.Items.Model;
 using Clean.Modules.Crm.Infrastructure.Module;
 using Clean.Web.Api.Common.Controllers;
 using Clean.Web.Dto.Crm.Items.Requests;
@@ -19,6 +21,14 @@ public class ItemsController : ApiController
         this.crmModule = crmModule;
         this.mapper = mapper;
     }
+
+    [HttpGet]
+    public async Task<List<ItemDto>> GetItems()
+        => await crmModule.ExecuteQuery(new GetItemsQuery());
+
+    [HttpGet("{itemId}")]
+    public async Task<ItemDto?> GetItem(Guid itemId)
+        => await crmModule.ExecuteQuery(new GetItemQuery(itemId));
 
     [HttpPost]
     public async Task<IActionResult> CreateItem(CreateItemRequest request)

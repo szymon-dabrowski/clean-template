@@ -3,14 +3,15 @@ using Clean.Modules.Crm.Domain.Items.Services;
 using Clean.Modules.Crm.Dto.Commands.Items;
 using Clean.Modules.Shared.Application.Interfaces.Messaging;
 using Clean.Modules.Shared.Common.Errors;
+using MediatR;
 
-namespace Clean.Modules.Crm.Application.Items;
-internal class CreateItemCommandHandler : ICommandHandler<CreateItemCommand, ErrorOr<Guid>>
+namespace Clean.Modules.Crm.Application.Items.UpdateItem;
+internal class UpdateItemCommandHandler : ICommandHandler<UpdateItemCommand, ErrorOr<Unit>>
 {
     private readonly IItemRepository itemRepository;
     private readonly IItemUniquenessChecker itemUniquenessChecker;
 
-    public CreateItemCommandHandler(
+    public UpdateItemCommandHandler(
         IItemRepository itemRepository,
         IItemUniquenessChecker itemUniquenessChecker)
     {
@@ -18,22 +19,27 @@ internal class CreateItemCommandHandler : ICommandHandler<CreateItemCommand, Err
         this.itemUniquenessChecker = itemUniquenessChecker;
     }
 
-    public async Task<ErrorOr<Guid>> Handle(CreateItemCommand request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<Unit>> Handle(UpdateItemCommand request, CancellationToken cancellationToken)
     {
-        var item = await Item.Create(
+        var item = await itemRepository.GetById(request.ItemId);
+
+        if (item == null)
+        {
+            return Error.EntityNotFound(request.ItemId);
+        }
+
+        var updateResult = await item.Update(
             request.Name,
             request.Description,
             request.BasePrice,
             request.BaseCurrency,
             itemUniquenessChecker);
 
-        if (item.IsError)
+        if (updateResult.IsError)
         {
-            return item.Errors.ToArray();
+            return updateResult.Errors.ToArray();
         }
 
-        await itemRepository.Add(item.Value);
-
-        return item.Value.Id;
+        return Unit.Value;
     }
 }

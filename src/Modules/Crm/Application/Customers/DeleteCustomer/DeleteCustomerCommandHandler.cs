@@ -3,7 +3,7 @@ using Clean.Modules.Crm.Dto.Commands.Customers;
 using Clean.Modules.Shared.Application.Interfaces.Messaging;
 using MediatR;
 
-namespace Clean.Modules.Crm.Application.Customers;
+namespace Clean.Modules.Crm.Application.Customers.DeleteCustomer;
 internal class DeleteCustomerCommandHandler : ICommandHandler<DeleteCustomerCommand>
 {
     private readonly ICustomerRepository customerRepository;

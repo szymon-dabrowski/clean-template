@@ -5,7 +5,7 @@ using Clean.Modules.Shared.Application.Interfaces.Messaging;
 using Clean.Modules.Shared.Common.Errors;
 using MediatR;
 
-namespace Clean.Modules.Crm.Application.Customers;
+namespace Clean.Modules.Crm.Application.Customers.UpdateCustomer;
 internal class UpdateCustomerCommandHandler : ICommandHandler<UpdateCustomerCommand, ErrorOr<Unit>>
 {
     private readonly ICustomerRepository customerRepository;

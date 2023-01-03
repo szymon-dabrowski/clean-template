@@ -4,7 +4,7 @@ using Clean.Modules.Crm.Dto.Commands.Customers;
 using Clean.Modules.Shared.Application.Interfaces.Messaging;
 using Clean.Modules.Shared.Common.Errors;
 
-namespace Clean.Modules.Crm.Application.Customers;
+namespace Clean.Modules.Crm.Application.Customers.CreateCustomer;
 internal class CreateCustomerCommandHandler : ICommandHandler<CreateCustomerCommand, ErrorOr<Guid>>
 {
     private readonly ICustomerRepository customerRepository;

@@ -3,7 +3,7 @@ using Clean.Modules.Crm.Dto.Commands.Items;
 using Clean.Modules.Shared.Application.Interfaces.Messaging;
 using MediatR;
 
-namespace Clean.Modules.Crm.Application.Items;
+namespace Clean.Modules.Crm.Application.Items.DeleteItem;
 internal class DeleteItemCommandHandler : ICommandHandler<DeleteItemCommand>
 {
     private readonly IItemRepository itemRepository;

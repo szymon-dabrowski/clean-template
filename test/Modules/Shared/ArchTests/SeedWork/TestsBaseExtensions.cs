@@ -14,7 +14,13 @@ internal static class TestsBaseExtensions
         var failingTypes = new List<Type>();
         foreach (var type in types)
         {
-            if (type.GetFields().Any(x => !x.IsInitOnly) || type.GetProperties().Any(x => x.CanWrite))
+            if (type.IsRecord())
+            {
+                continue;
+            }
+
+            if (type.GetFields().Any(x => !x.IsInitOnly) ||
+                type.GetProperties().Any(x => x.CanWrite))
             {
                 failingTypes.Add(type);
                 break;
@@ -22,5 +28,11 @@ internal static class TestsBaseExtensions
         }
 
         AssertFailingTypes(failingTypes);
+    }
+
+    private static bool IsRecord(this Type type)
+    {
+        // TODO: this is a hack - current framework version doesnt support native check for record
+        return type.GetMethod("<Clone>$") is not null;
     }
 }

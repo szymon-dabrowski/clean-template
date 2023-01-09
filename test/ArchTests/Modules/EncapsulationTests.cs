@@ -20,7 +20,6 @@ public class EncapsulationTests : TestBase
             typeof(Clean.Modules.Crm.Application.AssemblyMarker).Assembly,
             typeof(Clean.Modules.Crm.Domain.AssemblyMarker).Assembly,
             typeof(Clean.Modules.Crm.Infrastructure.AssemblyMarker).Assembly,
-            typeof(Clean.Modules.Crm.Dto.AssemblyMarker).Assembly,
             typeof(Clean.Modules.Crm.Persistence.AssemblyMarker).Assembly,
         };
 
@@ -51,7 +50,6 @@ public class EncapsulationTests : TestBase
             typeof(Clean.Modules.UserAccess.Application.AssemblyMarker).Assembly,
             typeof(Clean.Modules.UserAccess.Domain.AssemblyMarker).Assembly,
             typeof(Clean.Modules.UserAccess.Infrastructure.AssemblyMarker).Assembly,
-            typeof(Clean.Modules.UserAccess.Dto.AssemblyMarker).Assembly,
             typeof(Clean.Modules.UserAccess.Persistence.AssemblyMarker).Assembly,
         };
 

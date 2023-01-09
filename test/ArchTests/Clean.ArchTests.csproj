@@ -13,7 +13,6 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\src\Modules\Crm\Application\Clean.Modules.Crm.Application.csproj" />
 		<ProjectReference Include="..\..\src\Modules\Crm\Domain\Clean.Modules.Crm.Domain.csproj" />
-		<ProjectReference Include="..\..\src\Modules\Crm\Dto\Clean.Modules.Crm.Dto.csproj" />
 		<ProjectReference Include="..\..\src\Modules\Crm\Infrastructure\Clean.Modules.Crm.Infrastructure.csproj" />
 		<ProjectReference Include="..\..\src\Modules\Crm\Persistence\Clean.Modules.Crm.Persistence.csproj" />
 		<ProjectReference Include="..\..\src\Modules\Shared\Application\Clean.Modules.Shared.Application.csproj" />
@@ -23,7 +22,6 @@
 		<ProjectReference Include="..\..\src\Modules\Shared\Persistence\Clean.Modules.Shared.Persistence.csproj" />
 		<ProjectReference Include="..\..\src\Modules\UserAccess\Application\Clean.Modules.UserAccess.Application.csproj" />
 		<ProjectReference Include="..\..\src\Modules\UserAccess\Domain\Clean.Modules.UserAccess.Domain.csproj" />
-		<ProjectReference Include="..\..\src\Modules\UserAccess\Dto\Clean.Modules.UserAccess.Dto.csproj" />
 		<ProjectReference Include="..\..\src\Modules\UserAccess\Infrastructure\Clean.Modules.UserAccess.Infrastructure.csproj" />
 		<ProjectReference Include="..\..\src\Modules\UserAccess\Persistence\Clean.Modules.UserAccess.Persistence.csproj" />
 		<ProjectReference Include="..\..\src\Web\Api\Clean.Web.Api.csproj" />

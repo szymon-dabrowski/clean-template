@@ -1,6 +1,9 @@
-﻿using Clean.Modules.Crm.Dto.Commands.Items;
-using Clean.Modules.Crm.Dto.Queries.Items;
-using Clean.Modules.Crm.Dto.Queries.Items.Model;
+﻿using Clean.Modules.Crm.Application.Items.CreateItem;
+using Clean.Modules.Crm.Application.Items.DeleteItem;
+using Clean.Modules.Crm.Application.Items.Dto;
+using Clean.Modules.Crm.Application.Items.GetItem;
+using Clean.Modules.Crm.Application.Items.GetItems;
+using Clean.Modules.Crm.Application.Items.UpdateItem;
 using Clean.Modules.Crm.Infrastructure.Module;
 using Clean.Web.Api.Common.Controllers;
 using Clean.Web.Dto.Crm.Items.Requests;

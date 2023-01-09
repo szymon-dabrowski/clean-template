@@ -1,5 +1,5 @@
-﻿using Clean.Modules.Crm.Domain.Orders;
-using Clean.Modules.Crm.Dto.Commands.Orders.Model;
+﻿using Clean.Modules.Crm.Application.Orders.Dto;
+using Clean.Modules.Crm.Domain.Orders;
 using Mapster;
 
 namespace Clean.Modules.Crm.Application.Orders.Mappings;

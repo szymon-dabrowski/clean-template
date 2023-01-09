@@ -13,7 +13,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\src\Modules\Crm\Application\Clean.Modules.Crm.Application.csproj" />
     <ProjectReference Include="..\..\..\..\src\Modules\Crm\Domain\Clean.Modules.Crm.Domain.csproj" />
-    <ProjectReference Include="..\..\..\..\src\Modules\Crm\Dto\Clean.Modules.Crm.Dto.csproj" />
     <ProjectReference Include="..\..\..\..\src\Modules\Crm\Infrastructure\Clean.Modules.Crm.Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\..\src\Modules\Crm\Persistence\Clean.Modules.Crm.Persistence.csproj" />
     <ProjectReference Include="..\..\Shared\ArchTests\Clean.Modules.Shared.ArchTests.csproj" />

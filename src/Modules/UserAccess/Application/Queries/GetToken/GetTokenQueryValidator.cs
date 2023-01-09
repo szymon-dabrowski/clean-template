@@ -1,5 +1,4 @@
-﻿using Clean.Modules.UserAccess.Dto.Queries;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Clean.Modules.UserAccess.Application.Queries.GetToken;
 

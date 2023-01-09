@@ -1,7 +1,7 @@
-﻿using Clean.Modules.Crm.Domain.Customers;
+﻿using Clean.Modules.Crm.Application.Orders.Dto;
+using Clean.Modules.Crm.Domain.Customers;
 using Clean.Modules.Crm.Domain.Items;
 using Clean.Modules.Crm.Domain.Orders;
-using Clean.Modules.Crm.Dto.Queries.Orders.Model;
 using Mapster;
 
 namespace Clean.Modules.Crm.Application.Orders.Mappings;

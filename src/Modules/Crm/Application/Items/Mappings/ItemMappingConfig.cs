@@ -1,5 +1,5 @@
-﻿using Clean.Modules.Crm.Domain.Items;
-using Clean.Modules.Crm.Dto.Queries.Items.Model;
+﻿using Clean.Modules.Crm.Application.Items.Dto;
+using Clean.Modules.Crm.Domain.Items;
 using Mapster;
 
 namespace Clean.Modules.Crm.Application.Items.Mappings;

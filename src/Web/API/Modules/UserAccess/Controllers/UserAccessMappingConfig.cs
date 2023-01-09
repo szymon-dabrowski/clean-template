@@ -1,6 +1,6 @@
-﻿using Clean.Modules.UserAccess.Dto.Commands;
-using Clean.Modules.UserAccess.Dto.Model;
-using Clean.Modules.UserAccess.Dto.Queries;
+﻿using Clean.Modules.UserAccess.Application.Commands.RegisterUser;
+using Clean.Modules.UserAccess.Application.Dto;
+using Clean.Modules.UserAccess.Application.Queries.GetToken;
 using Clean.Web.Dto.UserAccess.Requests;
 using Clean.Web.Dto.UserAccess.Responses;
 using Mapster;

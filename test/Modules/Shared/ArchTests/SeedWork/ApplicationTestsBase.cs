@@ -33,7 +33,8 @@ public abstract partial class ApplicationTestsBase
     {
         var types = Types.InAssembly(ApplicationAssembly)
             .That()
-            .ImplementInterface(typeof(IQuery<>)).GetTypes();
+            .ImplementInterface(typeof(IQuery<>))
+            .GetTypes();
 
         types.AssertAreImmutable();
     }

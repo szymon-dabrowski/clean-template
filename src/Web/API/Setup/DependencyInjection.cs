@@ -1,4 +1,4 @@
-﻿using Clean.Api.Common.Errors;
+﻿using Clean.Web.Api.Common.Errors;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace Clean.Web.Api.Setup;

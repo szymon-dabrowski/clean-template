@@ -7,6 +7,5 @@
     <ProjectReference Include="..\..\Shared\Application\Clean.Modules.Shared.Application.csproj" />
     <ProjectReference Include="..\..\Shared\Persistence\Clean.Modules.Shared.Persistence.csproj" />
     <ProjectReference Include="..\Domain\Clean.Modules.Crm.Domain.csproj" />
-    <ProjectReference Include="..\Dto\Clean.Modules.Crm.Dto.csproj" />
   </ItemGroup>
 </Project>

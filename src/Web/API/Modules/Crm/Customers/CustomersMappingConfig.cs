@@ -1,4 +1,5 @@
-﻿using Clean.Modules.Crm.Dto.Commands.Customers;
+﻿using Clean.Modules.Crm.Application.Customers.CreateCustomer;
+using Clean.Modules.Crm.Application.Customers.UpdateCustomer;
 using Clean.Web.Dto.Crm.Customers.Requests;
 using Mapster;
 

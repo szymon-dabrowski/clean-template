@@ -1,0 +1,22 @@
+﻿using FluentValidation;
+
+namespace Clean.Modules.Crm.Application.Orders.CreateOrder;
+internal class CreateOrderCommandValidator : AbstractValidator<CreateOrderCommand>
+{
+    public CreateOrderCommandValidator()
+    {
+        RuleFor(c => c.CustomerId).NotEmpty();
+        RuleFor(c => c.OrderNumber).MaximumLength(100);
+        RuleFor(c => c.Currency).Length(3).NotEmpty();
+        RuleFor(c => c.OrderDate).GreaterThan(new DateTime(1970, 1, 1));
+        RuleFor(c => c.OrderItems).NotEmpty();
+        RuleForEach(c => c.OrderItems)
+            .NotNull()
+            .ChildRules(oi =>
+            {
+                oi.RuleFor(i => i.ItemId).NotEmpty();
+                oi.RuleFor(i => i.Quantity).GreaterThan(0);
+                oi.RuleFor(i => i.PricePerUnit).GreaterThanOrEqualTo(0);
+            });
+    }
+}

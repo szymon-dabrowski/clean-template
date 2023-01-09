@@ -1,6 +1,11 @@
-﻿using Clean.Modules.Crm.Dto.Commands.Orders;
-using Clean.Modules.Crm.Dto.Queries.Orders;
-using Clean.Modules.Crm.Dto.Queries.Orders.Model;
+﻿using Clean.Modules.Crm.Application.Orders.CreateOrder;
+using Clean.Modules.Crm.Application.Orders.DeleteOrder;
+using Clean.Modules.Crm.Application.Orders.Dto;
+using Clean.Modules.Crm.Application.Orders.GetOrder;
+using Clean.Modules.Crm.Application.Orders.GetOrderDetails;
+using Clean.Modules.Crm.Application.Orders.GetOrders;
+using Clean.Modules.Crm.Application.Orders.GetOrdersDetails;
+using Clean.Modules.Crm.Application.Orders.UpdateOrder;
 using Clean.Modules.Crm.Infrastructure.Module;
 using Clean.Web.Api.Common.Controllers;
 using Clean.Web.Dto.Crm.Orders.Requests;

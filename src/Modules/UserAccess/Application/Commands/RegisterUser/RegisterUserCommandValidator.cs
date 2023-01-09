@@ -1,5 +1,4 @@
-﻿using Clean.Modules.UserAccess.Dto.Commands;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Clean.Modules.UserAccess.Application.Commands.RegisterUser;
 internal class RegisterUserCommandValidator : AbstractValidator<RegisterUserCommand>

@@ -1,5 +1,5 @@
-﻿using Clean.Modules.Crm.Domain.Customers;
-using Clean.Modules.Crm.Dto.Queries.Customers.Model;
+﻿using Clean.Modules.Crm.Application.Customers.Dto;
+using Clean.Modules.Crm.Domain.Customers;
 using Mapster;
 
 namespace Clean.Modules.Crm.Application.Customers.Mappings;

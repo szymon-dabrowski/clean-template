@@ -1,6 +1,9 @@
-﻿using Clean.Modules.Crm.Dto.Commands.Customers;
-using Clean.Modules.Crm.Dto.Queries.Customers;
-using Clean.Modules.Crm.Dto.Queries.Customers.Model;
+﻿using Clean.Modules.Crm.Application.Customers.CreateCustomer;
+using Clean.Modules.Crm.Application.Customers.DeleteCustomer;
+using Clean.Modules.Crm.Application.Customers.Dto;
+using Clean.Modules.Crm.Application.Customers.GetCustomer;
+using Clean.Modules.Crm.Application.Customers.GetCustomers;
+using Clean.Modules.Crm.Application.Customers.UpdateCustomer;
 using Clean.Modules.Crm.Infrastructure.Module;
 using Clean.Web.Api.Common.Controllers;
 using Clean.Web.Dto.Crm.Customers.Requests;

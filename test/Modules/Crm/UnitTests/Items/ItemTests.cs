@@ -9,7 +9,7 @@ namespace Clean.Modules.Crm.UnitTests.Items;
 public class ItemTests
 {
     [Fact]
-    public async Task CreatingItem_WhenItemIsUnique_ShouldReturnCreatedItem()
+    public async Task CreateItem_ItemIsUnique_ItemCreated()
     {
         var name = "testItem";
         var desc = "testDesc";
@@ -34,7 +34,7 @@ public class ItemTests
     }
 
     [Fact]
-    public async Task CreatingItem_WhenItemNameIsNotUnique_ShouldReturnError()
+    public async Task CreateItem_ItemNameIsNotUnique_ErrorReturned()
     {
         var itemUniquenessChecker = MockItemUniquenessChecker(withResult: false);
         var item = await CreateTestItem(itemUniquenessChecker);
@@ -43,7 +43,7 @@ public class ItemTests
     }
 
     [Fact]
-    public async Task UpdatingItem_WhenItemIsUnique_ShouldReturnUpdatedItem()
+    public async Task UpdatingItem_ItemIsUnique_ItemUpdated()
     {
         var itemUniquenessChecker = MockItemUniquenessChecker(withResult: true);
         var item = await CreateTestItem(itemUniquenessChecker);
@@ -69,7 +69,7 @@ public class ItemTests
     }
 
     [Fact]
-    public async Task UpdatingItem_WhenItemIsDeleted_ShouldReturnErrorAsync()
+    public async Task UpdatingItem_ItemIsDeleted_ErrorReturned()
     {
         var itemUniquenessChecker = MockItemUniquenessChecker(withResult: true);
         var item = await CreateTestItem(itemUniquenessChecker);
@@ -87,7 +87,7 @@ public class ItemTests
     }
 
     [Fact]
-    public async Task UpdatingItem_WhenNameAlreadyExists_ShouldReturnErrorAsync()
+    public async Task UpdatingItem_NameAlreadyExists_ErrorReturned()
     {
         var successItemUniquenessChecker = MockItemUniquenessChecker(withResult: true);
         var failingItemUniquenessChecker = MockItemUniquenessChecker(withResult: false);

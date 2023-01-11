@@ -1,19 +1,17 @@
 ﻿using Clean.Modules.Crm.Application.Customers.Dto;
 using Clean.Modules.Crm.Domain.Customers;
 using Clean.Modules.Shared.Application.Interfaces.Messaging;
-using MapsterMapper;
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 
 namespace Clean.Modules.Crm.Application.Customers.GetCustomer;
 internal class GetCustomerQueryHandler : IQueryHandler<GetCustomerQuery, CustomerDto?>
 {
     private readonly DbContext dbContext;
-    private readonly IMapper mapper;
 
-    public GetCustomerQueryHandler(DbContext dbContext, IMapper mapper)
+    public GetCustomerQueryHandler(DbContext dbContext)
     {
         this.dbContext = dbContext;
-        this.mapper = mapper;
     }
 
     public async Task<CustomerDto?> Handle(
@@ -25,6 +23,6 @@ internal class GetCustomerQueryHandler : IQueryHandler<GetCustomerQuery, Custome
 
         return customer == null
             ? null
-            : mapper.Map<CustomerDto>(customer);
+            : customer.Adapt<CustomerDto>();
     }
 }

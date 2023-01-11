@@ -3,19 +3,17 @@ using Clean.Modules.Crm.Domain.Customers;
 using Clean.Modules.Crm.Domain.Items;
 using Clean.Modules.Crm.Domain.Orders;
 using Clean.Modules.Shared.Application.Interfaces.Messaging;
-using MapsterMapper;
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 
 namespace Clean.Modules.Crm.Application.Orders.GetOrdersDetails;
 internal class GetOrdersDetailsQueryHandler : IQueryHandler<GetOrdersDetailsQuery, List<OrderDetailsDto>>
 {
     private readonly DbContext dbContext;
-    private readonly IMapper mapper;
 
-    public GetOrdersDetailsQueryHandler(DbContext dbContext, IMapper mapper)
+    public GetOrdersDetailsQueryHandler(DbContext dbContext)
     {
         this.dbContext = dbContext;
-        this.mapper = mapper;
     }
 
     public async Task<List<OrderDetailsDto>> Handle(
@@ -37,23 +35,11 @@ internal class GetOrdersDetailsQueryHandler : IQueryHandler<GetOrdersDetailsQuer
                             .Contains(i.Id))
                             .ToList(),
                 })
-            .Select(row => MapToDto(
-                mapper,
-                row.order,
-                row.customer,
-                row.items))
+            .Where(row => !request.OrderIds.Any() || request.OrderIds.Contains(row.order.Id))
+            .Select(row => MapToDto(row.order, row.customer, row.items))
             .ToListAsync(cancellationToken);
     }
 
-    private static OrderDetailsDto MapToDto(
-        IMapper mapper,
-        Order order,
-        Customer customer,
-        List<Item> items)
-    {
-        return mapper.Map<OrderDetailsDto>((
-            order,
-            customer,
-            items));
-    }
+    private static OrderDetailsDto MapToDto(Order order, Customer customer, List<Item> items)
+        => (order, customer, items).Adapt<OrderDetailsDto>();
 }

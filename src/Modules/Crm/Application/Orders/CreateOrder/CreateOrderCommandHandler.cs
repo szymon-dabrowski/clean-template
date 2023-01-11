@@ -2,7 +2,7 @@
 using Clean.Modules.Crm.Domain.Orders.Services;
 using Clean.Modules.Shared.Application.Interfaces.Messaging;
 using Clean.Modules.Shared.Common.Errors;
-using MapsterMapper;
+using Mapster;
 
 namespace Clean.Modules.Crm.Application.Orders.CreateOrder;
 internal class CreateOrderCommandHandler : ICommandHandler<CreateOrderCommand, ErrorOr<Guid>>
@@ -12,22 +12,19 @@ internal class CreateOrderCommandHandler : ICommandHandler<CreateOrderCommand, E
     private readonly ICustomerExistenceChecker customerExistenceChecker;
     private readonly IItemExistenceChecker itemExistenceChecker;
     private readonly IOrderNumberGenerator orderNumberGenerator;
-    private readonly IMapper mapper;
 
     public CreateOrderCommandHandler(
         IOrderRepository orderRepository,
         IOrderNumberUniquenessChecker orderNumberUniquenessChecker,
         ICustomerExistenceChecker customerExistenceChecker,
         IItemExistenceChecker itemExistenceChecker,
-        IOrderNumberGenerator orderNumberGenerator,
-        IMapper mapper)
+        IOrderNumberGenerator orderNumberGenerator)
     {
         this.orderRepository = orderRepository;
         this.orderNumberUniquenessChecker = orderNumberUniquenessChecker;
         this.customerExistenceChecker = customerExistenceChecker;
         this.itemExistenceChecker = itemExistenceChecker;
         this.orderNumberGenerator = orderNumberGenerator;
-        this.mapper = mapper;
     }
 
     public async Task<ErrorOr<Guid>> Handle(
@@ -39,7 +36,9 @@ internal class CreateOrderCommandHandler : ICommandHandler<CreateOrderCommand, E
             request.OrderDate,
             request.OrderNumber,
             request.Currency,
-            request.OrderItems.Select(mapper.Map<OrderItem>).ToList(),
+            request.OrderItems
+                .Select(oi => oi.Adapt<OrderItem>())
+                .ToList(),
             orderNumberUniquenessChecker,
             customerExistenceChecker,
             itemExistenceChecker,

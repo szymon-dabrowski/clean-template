@@ -8,7 +8,7 @@ using Clean.Modules.Crm.Infrastructure.Module;
 using Clean.Web.Api.Common.Controllers;
 using Clean.Web.Dto.Crm.Items.Requests;
 using Clean.Web.Dto.Crm.Items.Responses;
-using MapsterMapper;
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clean.Web.Api.Modules.Crm.Items;
@@ -17,12 +17,10 @@ namespace Clean.Web.Api.Modules.Crm.Items;
 public class ItemsController : ApiController
 {
     private readonly ICrmModule crmModule;
-    private readonly IMapper mapper;
 
-    public ItemsController(ICrmModule crmModule, IMapper mapper)
+    public ItemsController(ICrmModule crmModule)
     {
         this.crmModule = crmModule;
-        this.mapper = mapper;
     }
 
     [HttpGet]
@@ -37,7 +35,7 @@ public class ItemsController : ApiController
     public async Task<IActionResult> CreateItem(CreateItemRequest request)
     {
         var result = await crmModule.ExecuteCommand(
-            mapper.Map<CreateItemCommand>(request));
+            request.Adapt<CreateItemCommand>());
 
         return result.Match(
             itemId => Ok(new CreateItemResponse(itemId)),
@@ -48,7 +46,7 @@ public class ItemsController : ApiController
     public async Task<IActionResult> UpdateItem(Guid itemId, UpdateItemRequest request)
     {
         var result = await crmModule.ExecuteCommand(
-            mapper.From(request)
+            request.BuildAdapter()
                 .AddParameters(ItemsMappingConfig.ItemIdParam, itemId)
                 .AdaptToType<UpdateItemCommand>());
 

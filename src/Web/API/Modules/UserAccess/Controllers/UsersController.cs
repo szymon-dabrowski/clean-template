@@ -4,6 +4,7 @@ using Clean.Modules.UserAccess.Infrastructure.Module;
 using Clean.Web.Api.Common.Controllers;
 using Clean.Web.Dto.UserAccess.Requests;
 using Clean.Web.Dto.UserAccess.Responses;
+using Mapster;
 using MapsterMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,22 +16,20 @@ namespace Clean.Web.Api.Modules.UserAccess.Controllers;
 public class UsersController : ApiController
 {
     private readonly IUserAccessModule userAccessModule;
-    private readonly IMapper mapper;
 
-    public UsersController(IUserAccessModule userAccessModule, IMapper mapper)
+    public UsersController(IUserAccessModule userAccessModule)
     {
         this.userAccessModule = userAccessModule;
-        this.mapper = mapper;
     }
 
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterRequest request)
     {
         var authResult = await userAccessModule
-            .ExecuteCommand(mapper.Map<RegisterUserCommand>(request));
+            .ExecuteCommand(request.Adapt<RegisterUserCommand>());
 
         return authResult.Match(
-            authResult => Ok(mapper.Map<AuthResponse>(authResult)),
+            authResult => Ok(authResult.Adapt<AuthResponse>()),
             errors => Problem(errors));
     }
 
@@ -38,10 +37,10 @@ public class UsersController : ApiController
     public async Task<IActionResult> Login(LoginRequest request)
     {
         var authResult = await userAccessModule
-            .ExecuteQuery(mapper.Map<GetTokenQuery>(request));
+            .ExecuteQuery(request.Adapt<GetTokenQuery>());
 
         return authResult.Match(
-            authResult => Ok(mapper.Map<AuthResponse>(authResult)),
+            authResult => Ok(authResult.Adapt<AuthResponse>()),
             errors => Problem(errors, StatusCodes.Status401Unauthorized));
     }
 }

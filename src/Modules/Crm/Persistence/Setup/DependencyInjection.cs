@@ -12,12 +12,11 @@ public static class DependencyInjection
 
     public static IServiceCollection AddPersistence(
         this IServiceCollection services,
-        IConfiguration configuration)
+        IConfiguration configuration,
+        Action<DbContextOptionsBuilder>? dbContextOptionsFactoryBuilder = null)
     {
-        services.AddDbContext<DbContext, CrmContext>(options =>
-        {
-            options.UseSqlServer(configuration.GetConnectionString(CrmConnectionStringName));
-        });
+        services.AddDbContext<DbContext, CrmContext>(dbContextOptionsFactoryBuilder
+            ?? DefaultDbContextOptionsBuilder(configuration));
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -25,4 +24,10 @@ public static class DependencyInjection
 
         return services;
     }
+
+    private static Action<DbContextOptionsBuilder> DefaultDbContextOptionsBuilder(
+        IConfiguration configuration) => options =>
+    {
+        options.UseSqlServer(configuration.GetConnectionString(CrmConnectionStringName));
+    };
 }

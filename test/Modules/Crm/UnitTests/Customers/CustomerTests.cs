@@ -10,7 +10,7 @@ namespace Clean.Modules.Crm.UnitTests.Customers;
 public class CustomerTests
 {
     [Fact]
-    public async Task CreatingCustomer_WhenCustomerIsUnique_ShouldReturnCreatedCustomer()
+    public async Task CreateCustomer_CustomerIsUnique_CustomerCreated()
     {
         var name = "testCustomer";
         var taxId = "testCustomerTaxId";
@@ -46,7 +46,7 @@ public class CustomerTests
     }
 
     [Fact]
-    public async Task CreatingCustomer_WhenCustomerNameIsNotUnique_ShouldReturnError()
+    public async Task CreateCustomer_CustomerNameIsNotUnique_ErrorReturned()
     {
         var customerNameUniquenessChecker = MockCustomerNameUniquenessChecker(withResult: false);
         var customerTaxIdUniquenessChecker = MockCustomerTaxIdUniquenessChecker(withResult: true);
@@ -58,7 +58,7 @@ public class CustomerTests
     }
 
     [Fact]
-    public async Task CreatingCustomer_WhenCustomerTaxIdIsNotUnique_ShouldReturnError()
+    public async Task CreateCustomer_CustomerTaxIdIsNotUnique_ErrorReturned()
     {
         var customerNameUniquenessChecker = MockCustomerNameUniquenessChecker(withResult: true);
         var customerTaxIdUniquenessChecker = MockCustomerTaxIdUniquenessChecker(withResult: false);
@@ -70,7 +70,7 @@ public class CustomerTests
     }
 
     [Fact]
-    public async Task UpdatingCustomer_WhenCustomerIsUnique_ShouldReturnUpdatedCustomer()
+    public async Task UpdateCustomer_CustomerIsUnique_CustomerUpdated()
     {
         var customerNameUniquenessChecker = MockCustomerNameUniquenessChecker(withResult: true);
         var customerTaxIdUniquenessChecker = MockCustomerTaxIdUniquenessChecker(withResult: true);
@@ -109,7 +109,7 @@ public class CustomerTests
     }
 
     [Fact]
-    public async Task UpdatingCustomer_WhenCustomerIsDeleted_ShouldReturnErrorAsync()
+    public async Task UpdateCustomer_CustomerIsDeleted_ErrorReturned()
     {
         var customerNameUniquenessChecker = MockCustomerNameUniquenessChecker(withResult: true);
         var customerTaxIdUniquenessChecker = MockCustomerTaxIdUniquenessChecker(withResult: true);
@@ -134,7 +134,7 @@ public class CustomerTests
     }
 
     [Fact]
-    public async Task UpdatingCustomer_WhenNameAlreadyExists_ShouldReturnErrorAsync()
+    public async Task UpdateCustomer_NameAlreadyExists_ErrorReturned()
     {
         var successCustomerNameUniquenessChecker = MockCustomerNameUniquenessChecker(withResult: true);
         var failingCustomerNameUniquenessChecker = MockCustomerNameUniquenessChecker(withResult: false);
@@ -159,7 +159,7 @@ public class CustomerTests
     }
 
     [Fact]
-    public async Task UpdatingCustomer_WhenTaxIdAlreadyExists_ShouldReturnErrorAsync()
+    public async Task UpdateCustomer_TaxIdAlreadyExists_ErrorReturned()
     {
         var customerNameUniquenessChecker = MockCustomerNameUniquenessChecker(withResult: true);
         var successCustomerTaxIdUniquenessChecker = MockCustomerTaxIdUniquenessChecker(withResult: true);

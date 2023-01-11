@@ -2,4 +2,4 @@
 using Clean.Modules.Shared.Application.Interfaces.Messaging;
 
 namespace Clean.Modules.Crm.Application.Orders.GetOrdersDetails;
-public record GetOrdersDetailsQuery : IQuery<List<OrderDetailsDto>>;
+public record GetOrdersDetailsQuery(List<Guid> OrderIds) : IQuery<List<OrderDetailsDto>>;

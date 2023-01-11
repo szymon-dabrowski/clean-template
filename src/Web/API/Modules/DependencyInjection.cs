@@ -24,8 +24,6 @@ internal static class DependencyInjection
     {
         UserAccesStartup.Initialize(configuration);
 
-        // TODO - verify if should be removed
-        //services.AddTransient<IModuleServiceProvider, UserAccessServiceProvider>();
         services.AddTransient<IUserAccessModule>(_ =>
             new UserAccessModule(new UserAccessServiceProvider()));
 
@@ -38,8 +36,6 @@ internal static class DependencyInjection
     {
         CrmStartup.Initialize(configuration);
 
-        // TODO - verify if should be removed
-        //services.AddTransient<IModuleServiceProvider, CrmServiceProvider>();
         services.AddTransient<ICrmModule>(_ =>
             new CrmModule(new CrmServiceProvider()));
 

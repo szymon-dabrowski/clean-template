@@ -9,7 +9,7 @@ namespace Clean.Modules.Crm.UnitTests.Orders;
 public class OrderTests
 {
     [Fact]
-    public async Task CreatingOrder_WhenOrderNumberIsUnique_ShouldReturnCreatedOrder()
+    public async Task CreateOrder_OrderNumberIsUnique_OrderCreated()
     {
         var orderItem1id = Guid.NewGuid();
         var orderItem1 = OrderItem.Create(
@@ -55,7 +55,7 @@ public class OrderTests
     }
 
     [Fact]
-    public async Task CreatingOrder_WhenOrderNumberIsNotUnique_ShouldReturnError()
+    public async Task CreateOrder_OrderNumberIsNotUnique_ErrorReturned()
     {
         var orderNumberUniquenessChecker = MockOrderNameUniquenessChecker(withResult: false);
         var customerExistenceChecker = MockCustomerExistenceChecker(withResult: true);
@@ -72,7 +72,7 @@ public class OrderTests
     }
 
     [Fact]
-    public async Task CreatingOrder_WhenAnyOrderItemIsNotUnique_ShouldReturnError()
+    public async Task CreateOrder_AnyOrderItemIsNotUnique_ErrorReturned()
     {
         var orderNumberUniquenessChecker = MockOrderNameUniquenessChecker(withResult: true);
         var customerExistenceChecker = MockCustomerExistenceChecker(withResult: true);
@@ -101,7 +101,7 @@ public class OrderTests
     }
 
     [Fact]
-    public async Task CreatingOrder_WhenCustomerNotExists_ShouldReturnError()
+    public async Task CreateOrder_CustomerNotExists_ErrorReturned()
     {
         var orderNumberUniquenessChecker = MockOrderNameUniquenessChecker(withResult: true);
         var customerExistenceChecker = MockCustomerExistenceChecker(withResult: false);
@@ -118,7 +118,7 @@ public class OrderTests
     }
 
     [Fact]
-    public async Task CreatingOrder_WhenAnyOrderItemNotExists_ShouldReturnError()
+    public async Task CreateOrder_AnyOrderItemNotExists_ErrorReturned()
     {
         var orderNumberUniquenessChecker = MockOrderNameUniquenessChecker(withResult: true);
         var customerExistenceChecker = MockCustomerExistenceChecker(withResult: true);
@@ -135,7 +135,7 @@ public class OrderTests
     }
 
     [Fact]
-    public async Task CreatingOrder_WithEmptyOrderNumber_ShouldReturnOrderWithGeneratedNumber()
+    public async Task CreateOrder_EmptyOrderNumber_OrderCreatedWithOrderNumberGenerated()
     {
         var generatedOrderNumber = "generatedOrder";
         var orderNumberUniquenessChecker = MockOrderNameUniquenessChecker(withResult: true);
@@ -154,7 +154,7 @@ public class OrderTests
     }
 
     [Fact]
-    public async Task UpdatingOrder_WhenOrderNumberIsUnique_ShouldReturnUpdatedOrder()
+    public async Task UpdateOrder_OrderNumberIsUnique_OrderUpdated()
     {
         var orderNumberUniquenessChecker = MockOrderNameUniquenessChecker(withResult: true);
         var customerExistenceChecker = MockCustomerExistenceChecker(withResult: true);
@@ -205,7 +205,7 @@ public class OrderTests
     }
 
     [Fact]
-    public async Task UpdatingOrder_WhenOrderNumberIsNotUnique_ShouldReturnError()
+    public async Task UpdateOrder_OrderNumberIsNotUnique_ErrorReturned()
     {
         var successOrderNumberUniquenessChecker = MockOrderNameUniquenessChecker(withResult: true);
         var failingOrderNumberUniquenessChecker = MockOrderNameUniquenessChecker(withResult: false);
@@ -233,7 +233,7 @@ public class OrderTests
     }
 
     [Fact]
-    public async Task UpdatingOrder_WhenAnyOrderItemIsNotUnique_ShouldReturnError()
+    public async Task UpdateOrder_AnyOrderItemIsNotUnique_ErrorReturned()
     {
         var orderNumberUniquenessChecker = MockOrderNameUniquenessChecker(withResult: true);
         var customerExistenceChecker = MockCustomerExistenceChecker(withResult: true);
@@ -267,7 +267,7 @@ public class OrderTests
     }
 
     [Fact]
-    public async Task UpdatingOrder_WhenOrderIsDeleted_ShouldReturnError()
+    public async Task UpdateOrder_OrderIsDeleted_ErrorReturned()
     {
         var orderNumberUniquenessChecker = MockOrderNameUniquenessChecker(withResult: true);
         var customerExistenceChecker = MockCustomerExistenceChecker(withResult: true);
@@ -296,7 +296,7 @@ public class OrderTests
     }
 
     [Fact]
-    public async Task UpdatingOrder_WhenCustomerNotExists_ShouldReturnError()
+    public async Task UpdateOrder_CustomerNotExists_ErrorReturned()
     {
         var orderNumberUniquenessChecker = MockOrderNameUniquenessChecker(withResult: true);
         var successCustomerExistenceChecker = MockCustomerExistenceChecker(withResult: true);
@@ -324,7 +324,7 @@ public class OrderTests
     }
 
     [Fact]
-    public async Task UpdatingOrder_WhenAnyOrderItemNotExists_ShouldReturnError()
+    public async Task UpdateOrder_AnyOrderItemNotExists_ErrorReturned()
     {
         var orderNumberUniquenessChecker = MockOrderNameUniquenessChecker(withResult: true);
         var customerExistenceChecker = MockCustomerExistenceChecker(withResult: true);

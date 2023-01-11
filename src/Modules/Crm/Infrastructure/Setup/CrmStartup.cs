@@ -3,6 +3,7 @@ using Clean.Modules.Crm.Infrastructure.Module;
 using Clean.Modules.Crm.Infrastructure.Outbox;
 using Clean.Modules.Crm.Persistence.Setup;
 using Clean.Modules.Shared.Infrastructure.Outbox;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Quartz;
@@ -10,11 +11,13 @@ using Quartz;
 namespace Clean.Modules.Crm.Infrastructure.Setup;
 public static class CrmStartup
 {
-    public static void Initialize(IConfiguration configuration)
+    public static void Initialize(
+        IConfiguration configuration,
+        Action<DbContextOptionsBuilder>? dbContextOptionsFactoryBuilder = null)
     {
         var services = new ServiceCollection()
             .AddApplication()
-            .AddPersistence(configuration)
+            .AddPersistence(configuration, dbContextOptionsFactoryBuilder)
             .AddInfrastructure();
 
         CrmServiceProvider.Build(services);

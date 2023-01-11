@@ -2,7 +2,7 @@
 using Clean.Modules.Crm.Domain.Orders.Services;
 using Clean.Modules.Shared.Application.Interfaces.Messaging;
 using Clean.Modules.Shared.Common.Errors;
-using MapsterMapper;
+using Mapster;
 using MediatR;
 
 namespace Clean.Modules.Crm.Application.Orders.UpdateOrder;
@@ -12,20 +12,17 @@ internal class UpdateOrderCommandHandler : ICommandHandler<UpdateOrderCommand, E
     private readonly IOrderNumberUniquenessChecker orderNumberUniquenessChecker;
     private readonly ICustomerExistenceChecker customerExistenceChecker;
     private readonly IItemExistenceChecker itemExistenceChecker;
-    private readonly IMapper mapper;
 
     public UpdateOrderCommandHandler(
         IOrderRepository orderRepository,
         IOrderNumberUniquenessChecker orderNumberUniquenessChecker,
         ICustomerExistenceChecker customerExistenceChecker,
-        IItemExistenceChecker itemExistenceChecker,
-        IMapper mapper)
+        IItemExistenceChecker itemExistenceChecker)
     {
         this.orderRepository = orderRepository;
         this.orderNumberUniquenessChecker = orderNumberUniquenessChecker;
         this.customerExistenceChecker = customerExistenceChecker;
         this.itemExistenceChecker = itemExistenceChecker;
-        this.mapper = mapper;
     }
 
     public async Task<ErrorOr<Unit>> Handle(UpdateOrderCommand request, CancellationToken cancellationToken)
@@ -42,7 +39,9 @@ internal class UpdateOrderCommandHandler : ICommandHandler<UpdateOrderCommand, E
             request.OrderDate,
             request.OrderNumber,
             request.Currency,
-            request.OrderItems.Select(mapper.Map<OrderItem>).ToList(),
+            request.OrderItems
+                .Select(oi => oi.Adapt<OrderItem>())
+                .ToList(),
             orderNumberUniquenessChecker,
             customerExistenceChecker,
             itemExistenceChecker);

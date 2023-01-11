@@ -3,19 +3,17 @@ using Clean.Modules.Crm.Domain.Customers;
 using Clean.Modules.Crm.Domain.Items;
 using Clean.Modules.Crm.Domain.Orders;
 using Clean.Modules.Shared.Application.Interfaces.Messaging;
-using MapsterMapper;
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 
 namespace Clean.Modules.Crm.Application.Orders.GetOrderDetails;
 internal class GetOrderDetailsQueryHandler : IQueryHandler<GetOrderDetailsQuery, OrderDetailsDto?>
 {
     private readonly DbContext dbContext;
-    private readonly IMapper mapper;
 
-    public GetOrderDetailsQueryHandler(DbContext dbContext, IMapper mapper)
+    public GetOrderDetailsQueryHandler(DbContext dbContext)
     {
         this.dbContext = dbContext;
-        this.mapper = mapper;
     }
 
     public async Task<OrderDetailsDto?> Handle(
@@ -37,13 +35,11 @@ internal class GetOrderDetailsQueryHandler : IQueryHandler<GetOrderDetailsQuery,
                             .Contains(i.Id))
                             .ToList(),
                 })
-            .FirstOrDefaultAsync(cancellationToken);
+            .FirstOrDefaultAsync(row => row.order.Id == request.OrderId, cancellationToken);
 
         return orderDetials == null
             ? null
-            : mapper.Map<OrderDetailsDto>((
-                orderDetials.order,
-                orderDetials.customer,
-                orderDetials.items));
+            : (orderDetials.order, orderDetials.customer, orderDetials.items)
+                .Adapt<OrderDetailsDto>();
     }
 }

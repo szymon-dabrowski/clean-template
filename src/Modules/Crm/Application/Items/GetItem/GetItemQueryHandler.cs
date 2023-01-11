@@ -1,19 +1,17 @@
 ﻿using Clean.Modules.Crm.Application.Items.Dto;
 using Clean.Modules.Crm.Domain.Items;
 using Clean.Modules.Shared.Application.Interfaces.Messaging;
-using MapsterMapper;
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 
 namespace Clean.Modules.Crm.Application.Items.GetItem;
 internal class GetItemQueryHandler : IQueryHandler<GetItemQuery, ItemDto?>
 {
     private readonly DbContext dbContext;
-    private readonly IMapper mapper;
 
-    public GetItemQueryHandler(DbContext dbContext, IMapper mapper)
+    public GetItemQueryHandler(DbContext dbContext)
     {
         this.dbContext = dbContext;
-        this.mapper = mapper;
     }
 
     public async Task<ItemDto?> Handle(
@@ -25,6 +23,6 @@ internal class GetItemQueryHandler : IQueryHandler<GetItemQuery, ItemDto?>
 
         return item == null
             ? null
-            : mapper.Map<ItemDto>(item);
+            : item.Adapt<ItemDto>();
     }
 }

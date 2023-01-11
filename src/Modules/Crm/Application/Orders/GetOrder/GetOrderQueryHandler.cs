@@ -1,19 +1,17 @@
 ﻿using Clean.Modules.Crm.Application.Orders.Dto;
 using Clean.Modules.Crm.Domain.Orders;
 using Clean.Modules.Shared.Application.Interfaces.Messaging;
-using MapsterMapper;
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 
 namespace Clean.Modules.Crm.Application.Orders.GetOrder;
 internal class GetOrderQueryHandler : IQueryHandler<GetOrderQuery, OrderDto?>
 {
     private readonly DbContext dbContext;
-    private readonly IMapper mapper;
 
-    public GetOrderQueryHandler(DbContext dbContext, IMapper mapper)
+    public GetOrderQueryHandler(DbContext dbContext)
     {
         this.dbContext = dbContext;
-        this.mapper = mapper;
     }
 
     public async Task<OrderDto?> Handle(
@@ -25,6 +23,6 @@ internal class GetOrderQueryHandler : IQueryHandler<GetOrderQuery, OrderDto?>
 
         return order == null
             ? null
-            : mapper.Map<OrderDto>(order);
+            : order.Adapt<OrderDto>();
     }
 }

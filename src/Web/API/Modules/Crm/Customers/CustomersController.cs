@@ -8,7 +8,7 @@ using Clean.Modules.Crm.Infrastructure.Module;
 using Clean.Web.Api.Common.Controllers;
 using Clean.Web.Dto.Crm.Customers.Requests;
 using Clean.Web.Dto.Crm.Customers.Responses;
-using MapsterMapper;
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clean.Web.Api.Modules.Crm.Customers;
@@ -17,12 +17,10 @@ namespace Clean.Web.Api.Modules.Crm.Customers;
 public class CustomersController : ApiController
 {
     private readonly ICrmModule crmModule;
-    private readonly IMapper mapper;
 
-    public CustomersController(ICrmModule crmModule, IMapper mapper)
+    public CustomersController(ICrmModule crmModule)
     {
         this.crmModule = crmModule;
-        this.mapper = mapper;
     }
 
     [HttpGet]
@@ -37,7 +35,7 @@ public class CustomersController : ApiController
     public async Task<IActionResult> CreateCustomer(CreateCustomerRequest request)
     {
         var result = await crmModule.ExecuteCommand(
-            mapper.Map<CreateCustomerCommand>(request));
+            request.Adapt<CreateCustomerCommand>());
 
         return result.Match(
             customerId => Ok(new CreateCustomerResponse(customerId)),
@@ -50,7 +48,7 @@ public class CustomersController : ApiController
         UpdateCustomerRequest request)
     {
         var result = await crmModule.ExecuteCommand(
-            mapper.From(request)
+            request.BuildAdapter()
                 .AddParameters(CustomersMappingConfig.CustomerIdParameter, customerId)
                 .AdaptToType<UpdateCustomerCommand>());
 

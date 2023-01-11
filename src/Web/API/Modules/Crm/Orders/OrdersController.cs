@@ -10,6 +10,7 @@ using Clean.Modules.Crm.Infrastructure.Module;
 using Clean.Web.Api.Common.Controllers;
 using Clean.Web.Dto.Crm.Orders.Requests;
 using Clean.Web.Dto.Crm.Orders.Responses;
+using Mapster;
 using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,12 +20,10 @@ namespace Clean.Web.Api.Modules.Crm.Orders;
 public class OrdersController : ApiController
 {
     private readonly ICrmModule crmModule;
-    private readonly IMapper mapper;
 
-    public OrdersController(ICrmModule crmModule, IMapper mapper)
+    public OrdersController(ICrmModule crmModule)
     {
         this.crmModule = crmModule;
-        this.mapper = mapper;
     }
 
     [HttpGet]
@@ -36,8 +35,8 @@ public class OrdersController : ApiController
         => await crmModule.ExecuteQuery(new GetOrderQuery(orderId));
 
     [HttpGet("details")]
-    public async Task<List<OrderDetailsDto>> GetOrdersDetails()
-        => await crmModule.ExecuteQuery(new GetOrdersDetailsQuery());
+    public async Task<List<OrderDetailsDto>> GetOrdersDetails([FromQuery] List<Guid> orderIds)
+        => await crmModule.ExecuteQuery(new GetOrdersDetailsQuery(orderIds));
 
     [HttpGet("{orderId}/details")]
     public async Task<OrderDetailsDto?> GetOrderDetails(Guid orderId)
@@ -47,7 +46,7 @@ public class OrdersController : ApiController
     public async Task<IActionResult> CreateOrder(CreateOrderRequest request)
     {
         var result = await crmModule.ExecuteCommand(
-            mapper.Map<CreateOrderCommand>(request));
+            request.Adapt<CreateOrderCommand>());
 
         return result.Match(
             orderId => Ok(new CreateOrderResponse(orderId)),
@@ -58,7 +57,7 @@ public class OrdersController : ApiController
     public async Task<IActionResult> UpdateOrder(Guid orderId, UpdateOrderRequest request)
     {
         var result = await crmModule.ExecuteCommand(
-            mapper.From(request)
+            request.BuildAdapter()
                 .AddParameters(OrdersMappingConfig.OrderIdParam, orderId)
                 .AdaptToType<UpdateOrderCommand>());
 

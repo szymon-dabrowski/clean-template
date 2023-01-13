@@ -1,5 +1,6 @@
 ﻿using Clean.Modules.Crm.Domain.Orders;
 using Clean.Modules.Crm.Persistence.Database;
+using Clean.Modules.Shared.Persistence.EntityConfiguration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -32,5 +33,7 @@ internal class OrderEntityConfiguration : IEntityTypeConfiguration<Order>
 
             o.WithOwner().HasForeignKey("OrderId");
         });
+
+        builder.HasAudit();
     }
 }

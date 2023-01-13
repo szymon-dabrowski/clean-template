@@ -5,7 +5,7 @@ using Clean.Modules.Shared.Domain;
 
 namespace Clean.Modules.Crm.Domain.Customers;
 
-public class Customer : AggregateRoot<Guid>
+public class Customer : AuditableAggregateRoot<Guid>
 {
     private Customer()
         : base(Guid.Empty)

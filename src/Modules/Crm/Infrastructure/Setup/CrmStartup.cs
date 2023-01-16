@@ -2,6 +2,7 @@
 using Clean.Modules.Crm.Infrastructure.Module;
 using Clean.Modules.Crm.Infrastructure.Outbox;
 using Clean.Modules.Crm.Persistence.Setup;
+using Clean.Modules.Shared.Application.Interfaces.ExecutionContext;
 using Clean.Modules.Shared.Infrastructure.Outbox;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -13,12 +14,13 @@ public static class CrmStartup
 {
     public static void Initialize(
         IConfiguration configuration,
+        IExecutionContextAccessor executionContextAccessor,
         Action<DbContextOptionsBuilder>? dbContextOptionsFactoryBuilder = null)
     {
         var services = new ServiceCollection()
             .AddApplication()
             .AddPersistence(configuration, dbContextOptionsFactoryBuilder)
-            .AddInfrastructure();
+            .AddInfrastructure(executionContextAccessor);
 
         CrmServiceProvider.Build(services);
     }

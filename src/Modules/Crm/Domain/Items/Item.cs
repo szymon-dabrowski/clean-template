@@ -4,7 +4,7 @@ using Clean.Modules.Shared.Common.Errors;
 using Clean.Modules.Shared.Domain;
 
 namespace Clean.Modules.Crm.Domain.Items;
-public class Item : AggregateRoot<Guid>
+public class Item : AuditableAggregateRoot<Guid>
 {
     private Item(
         Guid id,

@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace Clean.Modules.Shared.Persistence.EntityConfiguration;
 
-public static class EntityConfigurationExtensions
+public static class JsonEnumerableEntityConfigurationExtension
 {
     public static PropertyBuilder<T> HasEnumerabeJsonConversion<T>(
         this PropertyBuilder<T> propertyBuilder,

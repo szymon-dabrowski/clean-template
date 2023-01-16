@@ -1,4 +1,6 @@
-﻿using Clean.Web.Api.Common.Errors;
+﻿using Clean.Modules.Shared.Application.Interfaces.ExecutionContext;
+using Clean.Modules.Shared.Infrastructure.ExecutionContext;
+using Clean.Web.Api.Common.Errors;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace Clean.Web.Api.Setup;
@@ -13,6 +15,8 @@ internal static class DependencyInjection
 
         services.AddEndpointsApiExplorer();
 
+        services.AddHttpContextAccessor();
+
         services.AddSwagger();
 
         services.AddMappings();
@@ -22,6 +26,8 @@ internal static class DependencyInjection
         services.AddAuth(config);
 
         services.AddOutboxMessagesProcessingJob();
+
+        services.AddSingleton<IExecutionContextAccessor, ExecutionContextAccessor>();
 
         return services;
     }

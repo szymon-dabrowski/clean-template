@@ -1,7 +1,10 @@
-﻿using Clean.Modules.Shared.IntegrationTests.SeedWork.Application.Commands.CreateTestAggregateRoot;
+﻿using Clean.Modules.Shared.Application.Interfaces.ExecutionContext;
+using Clean.Modules.Shared.Application.Interfaces.Services;
+using Clean.Modules.Shared.IntegrationTests.SeedWork.Application.Commands.CreateTestAggregateRoot;
 using Clean.Modules.Shared.IntegrationTests.SeedWork.Application.Commands.DeleteTestAggregateRoot;
 using Clean.Modules.Shared.IntegrationTests.SeedWork.Domain;
 using Clean.Modules.Shared.IntegrationTests.SeedWork.Domain.Events;
+using Clean.Modules.Shared.IntegrationTests.SeedWork.Infrastructure;
 using Clean.Modules.Shared.IntegrationTests.SeedWork.Persistence;
 using Clean.Modules.Shared.Persistence.UnitOfWork;
 using MediatR;
@@ -14,7 +17,7 @@ namespace Clean.Modules.Shared.IntegrationTests.UnitOfWork;
 public class UnitOfWorkTests
 {
     [Fact]
-    public async Task UnitOfWork_ShouldStoreOutboxMessages_OnCommit()
+    public async Task Commit_DomainEventsRaised_DomainEventsStored()
     {
         var serviceProvider = DependencyInjection.BuildServiceProvider();
         var unitOfWork = serviceProvider.GetRequiredService<IUnitOfWork>();
@@ -30,7 +33,7 @@ public class UnitOfWorkTests
     }
 
     [Fact]
-    public async Task UnitOfWork_ShouldSerializeDomainEvent_OnCommit()
+    public async Task Commit_DomainEventsRaised_DomainEventsSerialized()
     {
         var serviceProvider = DependencyInjection.BuildServiceProvider();
         var unitOfWork = serviceProvider.GetRequiredService<IUnitOfWork>();
@@ -52,7 +55,7 @@ public class UnitOfWorkTests
     }
 
     [Fact]
-    public async Task UnitOfWorkCommandHandlerWithResultDecorator_ShouldCommitChanges_AfterHandle()
+    public async Task HandleWithResult_CommandHandlerDecorated_ChangesCommitted()
     {
         var serviceProvider = DependencyInjection.BuildServiceProvider();
         var dbContext = serviceProvider.GetRequiredService<TestDbContext>();
@@ -65,7 +68,7 @@ public class UnitOfWorkTests
     }
 
     [Fact]
-    public async Task UnitOfWorkCommandHandlerDecorator_ShouldCommitChanges_AfterHandle()
+    public async Task Handle_CommandHandlerDecorated_ChangesCommitted()
     {
         var serviceProvider = DependencyInjection.BuildServiceProvider();
         var dbContext = serviceProvider.GetRequiredService<TestDbContext>();
@@ -78,5 +81,58 @@ public class UnitOfWorkTests
         await mediator.Send(new DeleteTestAggregateRootCommand(testAggregate.Id));
 
         Assert.Empty(dbContext.TestAggregateRoots);
+    }
+
+    [Fact]
+    public async Task Commit_AuditableEntityCreated_CreatedDateAndCreatedByUserIdValuesSet()
+    {
+        var serviceProvider = DependencyInjection.BuildServiceProvider();
+        var dbContext = serviceProvider.GetRequiredService<TestDbContext>();
+        var unitOfWork = serviceProvider.GetRequiredService<IUnitOfWork>();
+        var executionContextAccessor = serviceProvider
+            .GetRequiredService<IExecutionContextAccessor>() as TestExecutionContextAccessor;
+        var dateTimeProvider = serviceProvider
+            .GetRequiredService<IDateTimeProvider>() as TestDateTimeProvider;
+
+        executionContextAccessor!.UserId = Guid.NewGuid();
+        dateTimeProvider!.UtcNow = DateTime.UtcNow;
+
+        var testAggregate = TestAggregateRoot.Create("TestPropertyValue");
+        dbContext.TestAggregateRoots.Add(testAggregate);
+
+        await unitOfWork.Commit();
+
+        var aggregate = dbContext.TestAggregateRoots.Find(testAggregate.Id);
+
+        Assert.Equal(executionContextAccessor.UserId, aggregate!.CreatedByUserId);
+        Assert.Equal(dateTimeProvider.UtcNow, aggregate!.CreatedDateUtc);
+    }
+
+    [Fact]
+    public async Task Commit_AuditableEntityModified_ModifiedDateAndModifiedByUserIdValuesSet()
+    {
+        var serviceProvider = DependencyInjection.BuildServiceProvider();
+        var dbContext = serviceProvider.GetRequiredService<TestDbContext>();
+        var unitOfWork = serviceProvider.GetRequiredService<IUnitOfWork>();
+        var executionContextAccessor = serviceProvider
+            .GetRequiredService<IExecutionContextAccessor>() as TestExecutionContextAccessor;
+        var dateTimeProvider = serviceProvider
+            .GetRequiredService<IDateTimeProvider>() as TestDateTimeProvider;
+
+        executionContextAccessor!.UserId = Guid.NewGuid();
+        dateTimeProvider!.UtcNow = DateTime.UtcNow;
+
+        var testAggregate = TestAggregateRoot.Create("TestPropertyValue");
+        dbContext.TestAggregateRoots.Add(testAggregate);
+
+        await unitOfWork.Commit();
+
+        var aggregate = dbContext.TestAggregateRoots.Find(testAggregate.Id);
+        aggregate!.TestProperty = "UpdateTestPropertyValue";
+
+        await unitOfWork.Commit();
+
+        Assert.Equal(executionContextAccessor.UserId, aggregate.ModifiedByUserId);
+        Assert.Equal(dateTimeProvider.UtcNow, aggregate.ModifiedDateUtc);
     }
 }

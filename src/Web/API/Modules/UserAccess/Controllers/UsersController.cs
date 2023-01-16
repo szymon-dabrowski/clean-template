@@ -5,7 +5,6 @@ using Clean.Web.Api.Common.Controllers;
 using Clean.Web.Dto.UserAccess.Requests;
 using Clean.Web.Dto.UserAccess.Responses;
 using Mapster;
-using MapsterMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

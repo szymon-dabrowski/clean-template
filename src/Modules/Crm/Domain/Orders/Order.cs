@@ -4,7 +4,7 @@ using Clean.Modules.Shared.Common.Errors;
 using Clean.Modules.Shared.Domain;
 
 namespace Clean.Modules.Crm.Domain.Orders;
-public class Order : AggregateRoot<Guid>
+public class Order : AuditableAggregateRoot<Guid>
 {
     private Order()
         : base(Guid.Empty)

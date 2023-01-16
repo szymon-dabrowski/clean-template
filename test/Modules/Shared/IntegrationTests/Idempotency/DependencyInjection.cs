@@ -1,4 +1,5 @@
-﻿using Clean.Modules.Shared.Application.Interfaces.Services;
+﻿using Clean.Modules.Shared.Application.Interfaces.ExecutionContext;
+using Clean.Modules.Shared.Application.Interfaces.Services;
 using Clean.Modules.Shared.Domain;
 using Clean.Modules.Shared.Infrastructure.DomainEventTypeMapping;
 using Clean.Modules.Shared.Infrastructure.Idempotency;
@@ -20,6 +21,8 @@ internal static class DependencyInjection
         var assembly = typeof(DependencyInjection).Assembly;
 
         services.AddSingleton<IDateTimeProvider, TestDateTimeProvider>();
+
+        services.AddSingleton<IExecutionContextAccessor, TestExecutionContextAccessor>();
 
         services.AddDbContext<DbContext, TestDbContext>(
             options =>

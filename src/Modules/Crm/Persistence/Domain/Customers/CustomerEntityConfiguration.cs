@@ -28,5 +28,7 @@ internal class CustomerEntityConfiguration : IEntityTypeConfiguration<Customer>
             .HasEnumerabeJsonConversion();
 
         builder.HasQueryFilter(o => !o.IsDeleted);
+
+        builder.HasAudit();
     }
 }

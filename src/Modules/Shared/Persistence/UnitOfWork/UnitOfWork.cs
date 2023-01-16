@@ -1,24 +1,33 @@
-﻿using Clean.Modules.Shared.Application.Interfaces.Services;
+﻿using Clean.Modules.Shared.Application.Interfaces.ExecutionContext;
+using Clean.Modules.Shared.Application.Interfaces.Services;
 using Clean.Modules.Shared.Domain;
 using Clean.Modules.Shared.Persistence.Outbox;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Text.Json;
 
 namespace Clean.Modules.Shared.Persistence.UnitOfWork;
 public class UnitOfWork : IUnitOfWork
 {
     private readonly DbContext dbContext;
+    private readonly IExecutionContextAccessor executionContextAccessor;
     private readonly IDateTimeProvider dateTimeProvider;
 
-    public UnitOfWork(DbContext dbContext, IDateTimeProvider dateTimeProvider)
+    public UnitOfWork(
+        DbContext dbContext,
+        IExecutionContextAccessor executionContextAccessor,
+        IDateTimeProvider dateTimeProvider)
     {
         this.dbContext = dbContext;
+        this.executionContextAccessor = executionContextAccessor;
         this.dateTimeProvider = dateTimeProvider;
     }
 
     public async Task<int> Commit(CancellationToken cancellationToken = default)
     {
         AddDomainEventsToOutbox();
+
+        UpdateAuditableEntities();
 
         return await dbContext.SaveChangesAsync(cancellationToken);
     }
@@ -46,5 +55,37 @@ public class UnitOfWork : IUnitOfWork
             .ToList();
 
         dbContext.Set<OutboxMessage>().AddRange(outboxMessages);
+    }
+
+    private void UpdateAuditableEntities()
+    {
+        var entries = dbContext.ChangeTracker
+            .Entries<IAuditableEntity>();
+
+        foreach (var entityEntry in entries)
+        {
+            UpdateAuditableEntity(entityEntry);
+        }
+    }
+
+    private void UpdateAuditableEntity(EntityEntry<IAuditableEntity> entityEntry)
+    {
+        if (entityEntry.State == EntityState.Added)
+        {
+            entityEntry.Property(e => e.CreatedByUserId)
+                .CurrentValue = executionContextAccessor.UserId;
+
+            entityEntry.Property(e => e.CreatedDateUtc)
+                .CurrentValue = dateTimeProvider.UtcNow;
+        }
+
+        if (entityEntry.State == EntityState.Modified)
+        {
+            entityEntry.Property(e => e.ModifiedByUserId)
+                .CurrentValue = executionContextAccessor.UserId;
+
+            entityEntry.Property(e => e.ModifiedDateUtc)
+                .CurrentValue = dateTimeProvider.UtcNow;
+        }
     }
 }

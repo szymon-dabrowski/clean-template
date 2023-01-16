@@ -1,5 +1,6 @@
 ﻿using Clean.Modules.Crm.Domain.Items;
 using Clean.Modules.Crm.Persistence.Database;
+using Clean.Modules.Shared.Persistence.EntityConfiguration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -17,5 +18,7 @@ internal class ItemEntityConfiguration : IEntityTypeConfiguration<Item>
         builder.Property(c => c.BaseCurrency).HasMaxLength(3);
 
         builder.HasQueryFilter(o => !o.IsDeleted);
+
+        builder.HasAudit();
     }
 }

@@ -3,7 +3,7 @@ using Clean.Modules.Shared.IntegrationTests.SeedWork.Domain.Events;
 
 namespace Clean.Modules.Shared.IntegrationTests.SeedWork.Domain;
 
-internal class TestAggregateRoot : AggregateRoot<Guid>
+internal class TestAggregateRoot : AuditableAggregateRoot<Guid>
 {
     private TestAggregateRoot(Guid id, string testProperty)
         : base(id)

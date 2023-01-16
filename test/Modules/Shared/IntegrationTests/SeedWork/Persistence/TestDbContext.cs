@@ -1,4 +1,5 @@
 ﻿using Clean.Modules.Shared.IntegrationTests.SeedWork.Domain;
+using Clean.Modules.Shared.Persistence.EntityConfiguration;
 using Clean.Modules.Shared.Persistence.Outbox;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,6 +25,8 @@ internal class TestDbContext : DbContext
         modelBuilder.Entity<TestAggregateRoot>(entity =>
         {
             entity.HasKey(r => r.Id);
+
+            entity.HasAudit();
         });
 
         modelBuilder.Entity<OutboxMessage>(entity =>

@@ -1,4 +1,5 @@
-﻿using Clean.Modules.Shared.Application.Interfaces.Services;
+﻿using Clean.Modules.Shared.Application.Interfaces.ExecutionContext;
+using Clean.Modules.Shared.Application.Interfaces.Services;
 using Clean.Modules.Shared.Domain;
 using Clean.Modules.Shared.Persistence.Outbox;
 using Microsoft.EntityFrameworkCore;
@@ -9,11 +10,16 @@ namespace Clean.Modules.Shared.Persistence.UnitOfWork;
 public class UnitOfWork : IUnitOfWork
 {
     private readonly DbContext dbContext;
+    private readonly IExecutionContextAccessor executionContextAccessor;
     private readonly IDateTimeProvider dateTimeProvider;
 
-    public UnitOfWork(DbContext dbContext, IDateTimeProvider dateTimeProvider)
+    public UnitOfWork(
+        DbContext dbContext,
+        IExecutionContextAccessor executionContextAccessor,
+        IDateTimeProvider dateTimeProvider)
     {
         this.dbContext = dbContext;
+        this.executionContextAccessor = executionContextAccessor;
         this.dateTimeProvider = dateTimeProvider;
     }
 
@@ -67,7 +73,7 @@ public class UnitOfWork : IUnitOfWork
         if (entityEntry.State == EntityState.Added)
         {
             entityEntry.Property(e => e.CreatedByUserId)
-                .CurrentValue = Guid.NewGuid();
+                .CurrentValue = executionContextAccessor.UserId;
 
             entityEntry.Property(e => e.CreatedDateUtc)
                 .CurrentValue = dateTimeProvider.UtcNow;
@@ -76,7 +82,7 @@ public class UnitOfWork : IUnitOfWork
         if (entityEntry.State == EntityState.Modified)
         {
             entityEntry.Property(e => e.ModifiedByUserId)
-                .CurrentValue = Guid.NewGuid();
+                .CurrentValue = executionContextAccessor.UserId;
 
             entityEntry.Property(e => e.ModifiedDateUtc)
                 .CurrentValue = dateTimeProvider.UtcNow;

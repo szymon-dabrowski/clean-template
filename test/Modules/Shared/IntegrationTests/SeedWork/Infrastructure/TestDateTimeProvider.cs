@@ -3,9 +3,10 @@
 namespace Clean.Modules.Shared.IntegrationTests.SeedWork.Infrastructure;
 internal class TestDateTimeProvider : IDateTimeProvider
 {
-    private DateTime now = DateTime.UtcNow;
+    public TestDateTimeProvider()
+    {
+        UtcNow = DateTime.UtcNow;
+    }
 
-    public DateTime UtcNow => now;
-
-    public void SetNow(DateTime now) => this.now = now;
+    public DateTime UtcNow { get; set; }
 }

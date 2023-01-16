@@ -1,11 +1,12 @@
 ﻿using Clean.Modules.UserAccess.Infrastructure.Services.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Clean.Web.Api.Setup;
 
-public static class AuthSetup
+internal static class AuthSetup
 {
-    internal static IServiceCollection AddAuth(
+    public static IServiceCollection AddAuth(
         this IServiceCollection services,
         IConfiguration config)
     {
@@ -18,5 +19,13 @@ public static class AuthSetup
             });
 
         return services;
+    }
+
+    public static WebApplication DontUseDefaultJwtClaimTypeMap(this WebApplication app)
+    {
+        JwtSecurityTokenHandler.DefaultOutboundClaimTypeMap.Clear();
+        JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+
+        return app;
     }
 }

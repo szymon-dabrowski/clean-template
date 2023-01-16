@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddPresentation(builder.Configuration)
-    .AddModules(builder.Configuration);
+    .AddModules();
 
 var app = builder.Build();
 
@@ -20,10 +20,14 @@ app.UseExceptionHandler(ErrorsController.Route);
 
 app.UseHttpsRedirection();
 
+app.DontUseDefaultJwtClaimTypeMap();
+
 app.UseAuthentication();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseModules();
 
 app.Run();

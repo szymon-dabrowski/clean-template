@@ -24,7 +24,7 @@ internal static class DependencyInjection
         var executionContextAccessor = app.Services
             .GetRequiredService<IExecutionContextAccessor>();
 
-        UserAccesStartup.Initialize(app.Configuration);
+        UserAccesStartup.Initialize(app.Configuration, executionContextAccessor);
 
         CrmStartup.Initialize(app.Configuration, executionContextAccessor);
 

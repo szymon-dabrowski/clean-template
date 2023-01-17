@@ -1,3 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Domain\Clean.Modules.Shared.Domain.csproj" />
+  </ItemGroup>
 </Project>

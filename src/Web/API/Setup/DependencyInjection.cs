@@ -1,7 +1,9 @@
 ﻿using Clean.Modules.Shared.Application.Interfaces.ExecutionContext;
+using Clean.Modules.Shared.Application.Setup;
 using Clean.Modules.Shared.Infrastructure.ExecutionContext;
 using Clean.Web.Api.Common.Errors;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using System.Reflection;
 
 namespace Clean.Web.Api.Setup;
 
@@ -19,7 +21,7 @@ internal static class DependencyInjection
 
         services.AddSwagger();
 
-        services.AddMappings();
+        services.AddMappings(Assembly.GetExecutingAssembly());
 
         services.AddSingleton<ProblemDetailsFactory, ApiProblemDetailsFactory>();
 

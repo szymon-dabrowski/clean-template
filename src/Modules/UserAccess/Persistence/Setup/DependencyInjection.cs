@@ -1,21 +1,21 @@
-﻿using Clean.Modules.Crm.Persistence.Database;
-using Clean.Modules.Shared.Persistence.Setup;
+﻿using Clean.Modules.Shared.Persistence.Setup;
 using Clean.Modules.Shared.Persistence.UnitOfWork;
+using Clean.Modules.UserAccess.Persistence.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Clean.Modules.Crm.Persistence.Setup;
+namespace Clean.Modules.UserAccess.Persistence.Setup;
 public static class DependencyInjection
 {
-    private const string CrmConnectionStringName = "crm";
+    private const string UserAccessConnectionStringName = "useraccess";
 
     public static IServiceCollection AddPersistence(
         this IServiceCollection services,
         IConfiguration configuration,
         Action<DbContextOptionsBuilder>? dbContextOptionsFactoryBuilder = null)
     {
-        services.AddDbContext<DbContext, CrmContext>(
+        services.AddDbContext<DbContext, UserAccessContext>(
             dbContextOptionsFactoryBuilder ?? DefaultDbContextOptionsBuilder(configuration));
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -28,6 +28,6 @@ public static class DependencyInjection
     private static Action<DbContextOptionsBuilder> DefaultDbContextOptionsBuilder(
         IConfiguration configuration) => options =>
     {
-        options.UseSqlServer(configuration.GetConnectionString(CrmConnectionStringName));
+        options.UseSqlServer(configuration.GetConnectionString(UserAccessConnectionStringName));
     };
 }

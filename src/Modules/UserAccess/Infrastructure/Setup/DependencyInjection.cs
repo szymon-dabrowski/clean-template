@@ -1,14 +1,13 @@
-﻿using Clean.Modules.Shared.Application.Interfaces.Services;
-using Clean.Modules.Shared.Infrastructure.DomainEventTypeMapping;
-using Clean.Modules.Shared.Infrastructure.Idempotency;
+﻿using Clean.Modules.Shared.Application.Interfaces.ExecutionContext;
+using Clean.Modules.Shared.Application.Interfaces.Services;
+using Clean.Modules.Shared.Infrastructure.DependencyInjection;
+using Clean.Modules.Shared.Infrastructure.ExecutionContext;
 using Clean.Modules.Shared.Infrastructure.Services;
-using Clean.Modules.UserAccess.Application.Interfaces.Persistence;
-using Clean.Modules.UserAccess.Application.Interfaces.Services;
-using Clean.Modules.UserAccess.Infrastructure.Services.Jwt;
-using Clean.Modules.UserAccess.Persistence.Repositories;
+using Clean.Modules.Shared.Persistence.UnitOfWork;
+using Clean.Modules.UserAccess.Domain.Users.Services;
+using Clean.Modules.UserAccess.Infrastructure.Setup.Options;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 
 namespace Clean.Modules.UserAccess.Infrastructure.Setup;
 
@@ -16,22 +15,26 @@ internal static class DependencyInjection
 {
     internal static IServiceCollection AddInfrastructure(
         this IServiceCollection services,
-        IConfiguration config)
+        IConfiguration config,
+        IExecutionContextAccessor executionContextAccessor)
     {
-        var jwtOptions = config.GetJwtOptions();
+        services.Configure<JwtOptions>(config.GetSection(JwtOptions.Jwt));
 
-        services.AddSingleton(Options.Create(jwtOptions));
-
-        services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
+        services.AddSingleton<IJwtGenerator, JwtGenerator>();
 
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
-        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddSingleton(executionContextAccessor);
 
-        services.DecorateEventHandlersWithIdempotency();
+        services
+            .RegisterCommandHandlersAsClosedTypes(typeof(Application.AssemblyMarker).Assembly)
+            .DecorateCommandHandlersWithUnitOfWork();
 
-        services.AddSingleton<IDomainEventTypeMapping>(_ =>
-            new DomainEventTypeMapping(typeof(Domain.AssemblyMarker).Assembly));
+        // TODO - add some scanning for domain services
+        services.AddScoped<IJwtGenerator, JwtGenerator>();
+        services.AddScoped<IPasswordHashing, PasswordHashing>();
+        services.AddScoped<IPasswordStrengthChecker, PasswordStrengthChecker>();
+        services.AddScoped<IUserEmailUniquenessChecker, UserEmailUniquenessChecker>();
 
         return services;
     }

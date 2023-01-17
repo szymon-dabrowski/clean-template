@@ -1,6 +1,6 @@
-﻿using Clean.Modules.UserAccess.Application.Commands.RegisterUser;
-using Clean.Modules.UserAccess.Application.Dto;
-using Clean.Modules.UserAccess.Application.Queries.GetToken;
+﻿using Clean.Modules.UserAccess.Application.Users.Dto;
+using Clean.Modules.UserAccess.Application.Users.GetToken;
+using Clean.Modules.UserAccess.Application.Users.RegisterUser;
 using Clean.Web.Dto.UserAccess.Requests;
 using Clean.Web.Dto.UserAccess.Responses;
 using Mapster;
@@ -15,6 +15,6 @@ public class UserAccessMappingConfig : IRegister
 
         config.NewConfig<RegisterRequest, RegisterUserCommand>();
 
-        config.NewConfig<AuthResult, AuthResponse>();
+        config.NewConfig<AuthResultDto, AuthResponse>();
     }
 }

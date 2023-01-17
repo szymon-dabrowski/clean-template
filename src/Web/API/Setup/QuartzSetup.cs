@@ -11,7 +11,6 @@ internal static class QuartzSetup
     {
         services.AddQuartz(config =>
         {
-            UserAccesStartup.InitializeBackgroundJobs(config);
             CrmStartup.InitializeBackgroundJobs(config);
 
             config.UseMicrosoftDependencyInjectionJobFactory();

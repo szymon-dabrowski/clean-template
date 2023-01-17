@@ -1,4 +1,5 @@
 ﻿using Clean.Modules.Shared.Application.Behaviors;
+using Clean.Modules.Shared.Application.Setup;
 using FluentValidation;
 using Mapster;
 using MediatR;
@@ -11,7 +12,7 @@ public static class DependencyInjection
     {
         var applicationAssembly = typeof(AssemblyMarker).Assembly;
 
-        services.AddMappings();
+        services.AddMappings(applicationAssembly);
 
         services.AddMediatR(applicationAssembly);
 

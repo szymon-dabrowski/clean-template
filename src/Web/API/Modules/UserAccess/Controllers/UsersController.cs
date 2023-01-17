@@ -1,5 +1,5 @@
-﻿using Clean.Modules.UserAccess.Application.Commands.RegisterUser;
-using Clean.Modules.UserAccess.Application.Queries.GetToken;
+﻿using Clean.Modules.UserAccess.Application.Users.GetToken;
+using Clean.Modules.UserAccess.Application.Users.RegisterUser;
 using Clean.Modules.UserAccess.Infrastructure.Module;
 using Clean.Web.Api.Common.Controllers;
 using Clean.Web.Dto.UserAccess.Requests;

@@ -1,4 +1,5 @@
 ﻿using Clean.Modules.Shared.Application.Behaviors;
+using Clean.Modules.Shared.Application.Setup;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,6 +10,8 @@ public static class DependencyInjection
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
         var applicationAssembly = typeof(AssemblyMarker).Assembly;
+
+        services.AddMappings(applicationAssembly);
 
         services.AddMediatR(applicationAssembly);
 

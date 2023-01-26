@@ -202,7 +202,7 @@ public class OrdersTests : IClassFixture<CrmStartupFixture>, IClassFixture<Order
             new() { orderItem1 }));
 
         var ordersDetails = await crmModule.ExecuteQuery(
-            new GetOrdersDetailsQuery(new() { result1.Value, result2.Value }));
+            new GetOrdersDetailsQuery(new[] { result1.Value, result2.Value }));
 
         ordersDetails = ordersDetails
             .OrderBy(x => x.OrderNumber)

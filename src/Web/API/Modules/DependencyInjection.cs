@@ -3,6 +3,8 @@ using Clean.Modules.Crm.Infrastructure.Setup;
 using Clean.Modules.Shared.Application.Interfaces.ExecutionContext;
 using Clean.Modules.UserAccess.Infrastructure.Module;
 using Clean.Modules.UserAccess.Infrastructure.Setup;
+using Clean.Web.Api.Modules.Crm.Items;
+using Clean.Web.Api.Modules.UserAccess.Users;
 
 namespace Clean.Web.Api.Modules;
 

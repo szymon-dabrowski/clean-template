@@ -30,6 +30,7 @@ internal class GetOrdersDetailsQueryHandler : IQueryHandler<GetOrdersDetailsQuer
                     order = o,
                     customer = c,
                     items = dbContext.Set<Item>()
+                        .IgnoreQueryFilters()
                         .Where(i => o.OrderItems
                             .Select(oi => oi.ItemId)
                             .Contains(i.Id))

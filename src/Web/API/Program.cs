@@ -1,4 +1,4 @@
-using Clean.Web.Api.Common.Controllers.Errors;
+using Clean.Web.Api.Common.Endpoints;
 using Clean.Web.Api.Modules;
 using Clean.Web.Api.Setup;
 
@@ -16,8 +16,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseExceptionHandler(ErrorsController.Route);
-
 app.UseHttpsRedirection();
 
 app.DontUseDefaultJwtClaimTypeMap();
@@ -27,6 +25,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseEndpointsModules();
 
 app.UseModules();
 

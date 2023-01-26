@@ -1,5 +1,6 @@
 ﻿using Clean.Modules.UserAccess.Infrastructure.Setup.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
@@ -17,6 +18,12 @@ internal static class AuthSetup
         config.GetSection(JwtOptions.Jwt).Bind(jwtOptions);
 
         services
+            .AddAuthorization(confg =>
+            {
+                confg.FallbackPolicy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
+            })
             .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {

@@ -1,4 +1,5 @@
-﻿using Clean.Modules.UserAccess.Application.Users.Dto;
+﻿using Clean.Modules.UserAccess.Application.Users.DeleteUser;
+using Clean.Modules.UserAccess.Application.Users.Dto;
 using Clean.Modules.UserAccess.Application.Users.GetToken;
 using Clean.Modules.UserAccess.Application.Users.RegisterUser;
 using Clean.Modules.UserAccess.Infrastructure.Module;
@@ -52,6 +53,33 @@ public class UsersTests : IClassFixture<UserAccessStartupFixture>
         user.Value.Id.Should().Be(authResult.Value.Id);
         AssertToken(user.Value);
         AssertToken(authResult.Value);
+    }
+
+    [Fact]
+    public async Task DeleteUser_UserExists_UserDeleted()
+    {
+        var password = "P@ssw0rd";
+
+        var expectedAuthResult = new AuthResultDto(
+            Id: Guid.Empty,
+            FirstName: "FirstName",
+            LastName: "LastName",
+            Email: "email1@domain.com",
+            Token: string.Empty);
+
+        var user = await userAccessModule.ExecuteCommand(new RegisterUserCommand(
+            expectedAuthResult.FirstName,
+            expectedAuthResult.LastName,
+            expectedAuthResult.Email,
+            password));
+
+        await userAccessModule.ExecuteCommand(new DeleteUserCommand(user.Value.Id));
+
+        var authResult = await userAccessModule.ExecuteQuery(new GetTokenQuery(
+            expectedAuthResult.Email,
+            password));
+
+        authResult.IsError.Should().BeTrue();
     }
 
     private void AssertToken(AuthResultDto actual)

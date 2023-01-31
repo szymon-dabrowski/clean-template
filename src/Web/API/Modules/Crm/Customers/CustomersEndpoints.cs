@@ -6,6 +6,7 @@ using Clean.Modules.Crm.Application.Customers.UpdateCustomer;
 using Clean.Modules.Crm.Infrastructure.Module;
 using Clean.Web.Api.Common.Endpoints;
 using Clean.Web.Api.Common.Errors;
+using Clean.Web.Dto.Crm.Customers.Model;
 using Clean.Web.Dto.Crm.Customers.Requests;
 using Clean.Web.Dto.Crm.Customers.Responses;
 using Mapster;
@@ -20,14 +21,20 @@ internal class CustomersEndpoints : IEndpointsModule
     {
         app.MapGet(CustomersRoute, async (ICrmModule crmModule) =>
         {
-            return await crmModule.ExecuteQuery(new GetCustomersQuery());
+            var customers = await crmModule.ExecuteQuery(new GetCustomersQuery());
+
+            return new GetCustomersResponse(customers
+                .Select(c => c.Adapt<CustomerDto>())
+                .ToList());
         });
 
         app.MapGet($"{CustomersRoute}/{{customerId}}", async (
             ICrmModule crmModule,
             Guid customerId) =>
         {
-            return await crmModule.ExecuteQuery(new GetCustomerQuery(customerId));
+            var customer = await crmModule.ExecuteQuery(new GetCustomerQuery(customerId));
+
+            return new GetCustomerResponse(customer?.Adapt<CustomerDto>());
         });
 
         app.MapPost(CustomersRoute, async (ICrmModule crmModule, CreateCustomerRequest request) =>

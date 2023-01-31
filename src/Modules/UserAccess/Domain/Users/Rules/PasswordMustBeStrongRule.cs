@@ -2,7 +2,7 @@
 using Clean.Modules.UserAccess.Domain.Users.Services;
 
 namespace Clean.Modules.UserAccess.Domain.Users.Rules;
-internal partial class PasswordMustBeStrongRule : IBussinesRule
+internal class PasswordMustBeStrongRule : IBussinesRule
 {
     private readonly string password;
     private readonly IPasswordStrengthChecker passwordStrengthChecker;
@@ -19,7 +19,5 @@ internal partial class PasswordMustBeStrongRule : IBussinesRule
         "long and it has to contain at least one capital case and digit.";
 
     public Task<bool> IsBroken()
-    {
-        return Task.FromResult(!passwordStrengthChecker.IsStrong(password));
-    }
+        => Task.FromResult(!passwordStrengthChecker.IsStrong(password));
 }

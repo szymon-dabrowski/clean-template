@@ -1,9 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	
     <ItemGroup>
+      <Compile Remove="Users\AddUserRole - Copy\**" />
+      <EmbeddedResource Remove="Users\AddUserRole - Copy\**" />
+      <None Remove="Users\AddUserRole - Copy\**" />
+    </ItemGroup>
+	
+    <ItemGroup>
         <PackageReference Include="FluentValidation" Version="11.4.0" />
         <PackageReference Include="Mapster" Version="7.3.0" />
         <PackageReference Include="MediatR" Version="11.1.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.1" />
     </ItemGroup>
 
     <ItemGroup>

@@ -6,6 +6,7 @@ using Clean.Modules.Crm.Application.Items.UpdateItem;
 using Clean.Modules.Crm.Infrastructure.Module;
 using Clean.Web.Api.Common.Endpoints;
 using Clean.Web.Api.Common.Errors;
+using Clean.Web.Dto.Crm.Items.Model;
 using Clean.Web.Dto.Crm.Items.Requests;
 using Clean.Web.Dto.Crm.Items.Responses;
 using Mapster;
@@ -20,12 +21,18 @@ internal class ItemsEndpoints : IEndpointsModule
     {
         app.MapGet(ItemsRoute, async (ICrmModule crmModule) =>
         {
-            return await crmModule.ExecuteQuery(new GetItemsQuery());
+            var items = await crmModule.ExecuteQuery(new GetItemsQuery());
+
+            return new GetItemsResponse(items
+                .Select(i => i.Adapt<ItemDto>())
+                .ToList());
         });
 
         app.MapGet($"{ItemsRoute}/{{itemId}}", async (ICrmModule crmModule, Guid itemId) =>
         {
-            return await crmModule.ExecuteQuery(new GetItemQuery(itemId));
+            var item = await crmModule.ExecuteQuery(new GetItemQuery(itemId));
+
+            return new GetItemResponse(item?.Adapt<ItemDto>());
         });
 
         app.MapPost(ItemsRoute, async (ICrmModule crmModule, CreateItemRequest request) =>

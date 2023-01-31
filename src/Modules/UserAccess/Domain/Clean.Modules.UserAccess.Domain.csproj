@@ -1,4 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="System.Linq.Async" Version="6.0.1" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Shared\Domain\Clean.Modules.Shared.Domain.csproj" />
   </ItemGroup>

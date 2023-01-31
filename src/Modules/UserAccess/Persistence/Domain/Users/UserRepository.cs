@@ -18,9 +18,23 @@ internal class UserRepository : IUserRepository
         await userAccessContext.AddAsync(user);
     }
 
+    public void Delete(Guid userId)
+    {
+        var toRemove = userAccessContext.Users
+            .Where(u => u.Id == userId);
+
+        userAccessContext.Users.RemoveRange(toRemove);
+    }
+
     public async Task<User?> GetByEmail(string email)
     {
         return await userAccessContext.Users
             .SingleOrDefaultAsync(u => u.Email == email);
+    }
+
+    public async Task<User?> GetById(Guid userId)
+    {
+        return await userAccessContext.Users
+            .SingleOrDefaultAsync(u => u.Id == userId);
     }
 }

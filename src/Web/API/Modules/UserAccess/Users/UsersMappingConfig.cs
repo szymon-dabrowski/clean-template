@@ -1,13 +1,13 @@
 ﻿using Clean.Modules.UserAccess.Application.Users.Dto;
 using Clean.Modules.UserAccess.Application.Users.GetToken;
 using Clean.Modules.UserAccess.Application.Users.RegisterUser;
-using Clean.Web.Dto.UserAccess.Requests;
-using Clean.Web.Dto.UserAccess.Responses;
+using Clean.Web.Dto.UserAccess.Users.Requests;
+using Clean.Web.Dto.UserAccess.Users.Responses;
 using Mapster;
 
 namespace Clean.Web.Api.Modules.UserAccess.Users;
 
-public class UserAccessMappingConfig : IRegister
+public class UsersMappingConfig : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {

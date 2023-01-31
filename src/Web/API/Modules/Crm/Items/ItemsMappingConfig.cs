@@ -1,4 +1,5 @@
 ﻿using Clean.Modules.Crm.Application.Items.CreateItem;
+using Clean.Modules.Crm.Application.Items.Dto;
 using Clean.Modules.Crm.Application.Items.UpdateItem;
 using Clean.Web.Dto.Crm.Items.Requests;
 using Mapster;
@@ -17,5 +18,7 @@ public class ItemsMappingConfig : IRegister
             .Map(
                 dest => dest.ItemId,
                 _ => (Guid)MapContext.Current!.Parameters[ItemIdParam]);
+
+        config.NewConfig<ItemDto, Dto.Crm.Items.Model.ItemDto>();
     }
 }

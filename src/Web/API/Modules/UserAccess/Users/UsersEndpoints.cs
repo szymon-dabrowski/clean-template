@@ -1,10 +1,15 @@
-﻿using Clean.Modules.UserAccess.Application.Users.GetToken;
+﻿using Clean.Modules.UserAccess.Application.Users.AddUserPermission;
+using Clean.Modules.UserAccess.Application.Users.AddUserRole;
+using Clean.Modules.UserAccess.Application.Users.DeleteUser;
+using Clean.Modules.UserAccess.Application.Users.GetToken;
 using Clean.Modules.UserAccess.Application.Users.RegisterUser;
+using Clean.Modules.UserAccess.Application.Users.RemoveUserPermission;
+using Clean.Modules.UserAccess.Application.Users.RemoveUserRole;
 using Clean.Modules.UserAccess.Infrastructure.Module;
 using Clean.Web.Api.Common.Endpoints;
 using Clean.Web.Api.Common.Errors;
-using Clean.Web.Dto.UserAccess.Requests;
-using Clean.Web.Dto.UserAccess.Responses;
+using Clean.Web.Dto.UserAccess.Users.Requests;
+using Clean.Web.Dto.UserAccess.Users.Responses;
 using Mapster;
 
 namespace Clean.Web.Api.Modules.UserAccess.Users;
@@ -19,11 +24,11 @@ internal class UsersEndpoints : IEndpointsModule
             IUserAccessModule userAccessModule,
             RegisterRequest request) =>
         {
-            var authResult = await userAccessModule
+            var result = await userAccessModule
                 .ExecuteCommand(request.Adapt<RegisterUserCommand>());
 
-            return authResult.Match(
-                authResult => Results.Ok(authResult.Adapt<AuthResponse>()),
+            return result.Match(
+                result => Results.Ok(result.Adapt<AuthResponse>()),
                 errors => errors.AsProblem());
         })
             .AllowAnonymous();
@@ -32,13 +37,63 @@ internal class UsersEndpoints : IEndpointsModule
             IUserAccessModule userAccessModule,
             LoginRequest request) =>
         {
-            var authResult = await userAccessModule
+            var result = await userAccessModule
                 .ExecuteQuery(request.Adapt<GetTokenQuery>());
 
-            return authResult.Match(
-                authResult => Results.Ok(authResult.Adapt<AuthResponse>()),
+            return result.Match(
+                result => Results.Ok(result.Adapt<AuthResponse>()),
                 errors => errors.AsProblem(StatusCodes.Status401Unauthorized));
         })
             .AllowAnonymous();
+
+        app.MapDelete($"{UsersRoute}/{{userId}}", async (
+            IUserAccessModule userAccessModule,
+            Guid userId) =>
+        {
+            await userAccessModule.ExecuteCommand(new DeleteUserCommand(userId));
+        });
+
+        app.MapPost($"{UsersRoute}/{{userId}}/permissions", async (
+            IUserAccessModule userAccessModule,
+            Guid userId,
+            AddUserPermissionRequest request) =>
+        {
+            var result = await userAccessModule
+                .ExecuteCommand(new AddUserPermissionCommand(userId, request.Permission));
+
+            return result.Match(
+                _ => Results.Ok(),
+                errors => errors.AsProblem());
+        });
+
+        app.MapDelete($"{UsersRoute}/{{userId}}/permissions/{{permission}}", async (
+            IUserAccessModule userAccessModule,
+            Guid userId,
+            string permission) =>
+        {
+            await userAccessModule
+                .ExecuteCommand(new RemoveUserPermissionCommand(userId, permission));
+        });
+
+        app.MapPost($"{UsersRoute}/{{userId}}/roles", async (
+            IUserAccessModule userAccessModule,
+            Guid userId,
+            AddUserRoleRequest request) =>
+        {
+            var result = await userAccessModule
+                .ExecuteCommand(new AddUserRoleCommand(userId, request.RoleId));
+
+            return result.Match(
+                _ => Results.Ok(),
+                errors => errors.AsProblem());
+        });
+
+        app.MapDelete($"{UsersRoute}/{{userId}}/roles/{{roleId}}", async (
+            IUserAccessModule userAccessModule,
+            Guid userId,
+            Guid roleId) =>
+        {
+            await userAccessModule.ExecuteCommand(new RemoveUserRoleCommand(userId, roleId));
+        });
     }
 }

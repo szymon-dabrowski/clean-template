@@ -16,7 +16,5 @@ internal class UserEmailMustBeUniqueRule : IBussinesRule
     public string Message => "Cannot create user with given email";
 
     public async Task<bool> IsBroken()
-    {
-        return !await userEmailUniquenessChecker.IsUnique(email);
-    }
+        => !await userEmailUniquenessChecker.IsUnique(email);
 }

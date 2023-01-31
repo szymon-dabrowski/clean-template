@@ -1,4 +1,5 @@
 ﻿using Clean.Modules.Crm.Application.Customers.CreateCustomer;
+using Clean.Modules.Crm.Application.Customers.Dto;
 using Clean.Modules.Crm.Application.Customers.UpdateCustomer;
 using Clean.Web.Dto.Crm.Customers.Requests;
 using Mapster;
@@ -17,5 +18,7 @@ public class CustomersMappingConfig : IRegister
             .Map(
                 dest => dest.CustomerId,
                 _ => (Guid)MapContext.Current!.Parameters[CustomerIdParameter]);
+
+        config.NewConfig<CustomerDto, Dto.Crm.Customers.Model.CustomerDto>();
     }
 }

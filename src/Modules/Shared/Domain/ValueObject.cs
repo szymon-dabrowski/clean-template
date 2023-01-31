@@ -1,4 +1,6 @@
-﻿namespace Clean.Modules.Shared.Domain;
+﻿using Clean.Modules.Shared.Common.Errors;
+
+namespace Clean.Modules.Shared.Domain;
 
 public abstract class ValueObject : IEquatable<ValueObject>
 {
@@ -39,6 +41,21 @@ public abstract class ValueObject : IEquatable<ValueObject>
     protected static bool NotEqualOperator(ValueObject left, ValueObject right)
     {
         return !EqualOperator(left, right);
+    }
+
+    protected static async Task<ErrorOr<bool>> Check(params IBussinesRule[] rules)
+    {
+        foreach (var rule in rules)
+        {
+            var isBroken = await rule.IsBroken();
+
+            if (isBroken)
+            {
+                return Error.BusinessRuleBroken(description: rule.Message);
+            }
+        }
+
+        return true;
     }
 
     protected abstract IEnumerable<object> GetEqualityComponents();

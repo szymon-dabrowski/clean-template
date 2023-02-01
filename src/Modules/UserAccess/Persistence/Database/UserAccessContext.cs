@@ -1,4 +1,5 @@
-﻿using Clean.Modules.UserAccess.Domain.Users;
+﻿using Clean.Modules.UserAccess.Domain.Roles;
+using Clean.Modules.UserAccess.Domain.Users;
 using Microsoft.EntityFrameworkCore;
 
 namespace Clean.Modules.UserAccess.Persistence.Database;
@@ -10,6 +11,8 @@ public class UserAccessContext : DbContext
     }
 
     public DbSet<User> Users { get; set; } = null!;
+
+    public DbSet<Role> Roles { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
         => modelBuilder

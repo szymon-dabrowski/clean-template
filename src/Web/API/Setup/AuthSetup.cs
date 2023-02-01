@@ -1,4 +1,5 @@
 ﻿using Clean.Modules.UserAccess.Infrastructure.Setup.Options;
+using Clean.Web.Api.Common.Permissions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
@@ -39,6 +40,14 @@ internal static class AuthSetup
                         Encoding.UTF8.GetBytes(jwtOptions.Secret)),
                 };
             });
+
+        services.AddSingleton<
+            IAuthorizationHandler,
+            PermissionAuthorizationHandler>();
+
+        services.AddSingleton<
+            IAuthorizationPolicyProvider,
+            PermissionAuthorizationPolicyProvider>();
 
         return services;
     }

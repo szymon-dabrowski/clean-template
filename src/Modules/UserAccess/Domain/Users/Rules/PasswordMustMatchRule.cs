@@ -1,4 +1,5 @@
 ﻿using Clean.Modules.Shared.Domain;
+using Clean.Modules.UserAccess.Domain.Users.Errors;
 using Clean.Modules.UserAccess.Domain.Users.Services;
 
 namespace Clean.Modules.UserAccess.Domain.Users.Rules;
@@ -18,10 +19,8 @@ internal class PasswordMustMatchRule : IBussinesRule
         this.passwordHashing = passwordHashing;
     }
 
-    public string Message => "Invalid credentials.";
+    public string Message => AuthErrors.InvalidCredentials.Description;
 
     public Task<bool> IsBroken()
-    {
-        return Task.FromResult(passwordHashing.Hash(password) != storedPasswordHash);
-    }
+        => Task.FromResult(passwordHashing.Hash(password) != storedPasswordHash);
 }

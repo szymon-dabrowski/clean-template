@@ -14,7 +14,7 @@ public partial class UserAccessInit : Migration
             name: "useraccess");
 
         migrationBuilder.CreateTable(
-            name: "users",
+            name: "Users",
             schema: "useraccess",
             columns: table => new
             {
@@ -34,7 +34,7 @@ public partial class UserAccessInit : Migration
     protected override void Down(MigrationBuilder migrationBuilder)
     {
         migrationBuilder.DropTable(
-            name: "users",
+            name: "Users",
             schema: "useraccess");
     }
 }

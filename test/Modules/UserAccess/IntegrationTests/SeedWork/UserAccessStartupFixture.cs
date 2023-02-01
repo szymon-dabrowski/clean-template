@@ -1,4 +1,5 @@
 ﻿using Clean.Modules.Shared.Application.Interfaces.ExecutionContext;
+using Clean.Modules.Shared.Infrastructure.Permissions;
 using Clean.Modules.UserAccess.Infrastructure.Module;
 using Clean.Modules.UserAccess.Infrastructure.Setup;
 using Clean.Modules.UserAccess.Infrastructure.Setup.Options;
@@ -27,6 +28,7 @@ public sealed class UserAccessStartupFixture : IDisposable
         UserAccesStartup.Initialize(
             Configuration,
             executionContextAccessor: Mock.Of<IExecutionContextAccessor>(),
+            permissions: Mock.Of<IEnumerable<IPermissionsEnumeration>>(),
             options =>
             {
                 options.UseInMemoryDatabase("useraccess_module");

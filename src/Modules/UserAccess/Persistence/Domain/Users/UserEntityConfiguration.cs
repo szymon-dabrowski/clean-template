@@ -1,4 +1,5 @@
-﻿using Clean.Modules.UserAccess.Domain.Users;
+﻿using Clean.Modules.UserAccess.Domain.Roles;
+using Clean.Modules.UserAccess.Domain.Users;
 using Clean.Modules.UserAccess.Persistence.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -24,5 +25,24 @@ internal class UserEntityConfiguration : IEntityTypeConfiguration<User>
 
         builder.Property(u => u.PasswordHash)
             .IsRequired();
+
+        builder.OwnsMany(u => u.Permissions, up =>
+        {
+            up.WithOwner().HasForeignKey("UserId");
+            up.ToTable("UserPermissions", Constants.UserAccessSchemaName);
+            up.HasKey("UserId", "Name");
+            up.Property(p => p.Name)
+                .HasMaxLength(256)
+                .IsRequired();
+        });
+
+        builder.OwnsMany(u => u.Roles, ur =>
+        {
+            ur.WithOwner().HasForeignKey("UserId");
+            ur.ToTable("UserRole", Constants.UserAccessSchemaName);
+            ur.HasKey("UserId", "RoleId");
+            ur.HasOne<Role>("role");
+            ur.Ignore(r => r.Permissions);
+        });
     }
 }

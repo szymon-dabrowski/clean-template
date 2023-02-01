@@ -1,10 +1,9 @@
 ﻿using Clean.Modules.Crm.Infrastructure.Module;
 using Clean.Modules.Crm.Infrastructure.Setup;
 using Clean.Modules.Shared.Application.Interfaces.ExecutionContext;
+using Clean.Modules.Shared.Infrastructure.Permissions;
 using Clean.Modules.UserAccess.Infrastructure.Module;
 using Clean.Modules.UserAccess.Infrastructure.Setup;
-using Clean.Web.Api.Modules.Crm.Items;
-using Clean.Web.Api.Modules.UserAccess.Users;
 
 namespace Clean.Web.Api.Modules;
 
@@ -26,7 +25,14 @@ internal static class DependencyInjection
         var executionContextAccessor = app.Services
             .GetRequiredService<IExecutionContextAccessor>();
 
-        UserAccesStartup.Initialize(app.Configuration, executionContextAccessor);
+        var permissionsEnumerations = app.Services
+            .GetServices<IPermissionsEnumeration>()
+            .SelectMany(e => e.GetAllPermissions());
+
+        UserAccesStartup.Initialize(
+            app.Configuration,
+            executionContextAccessor,
+            permissionsEnumerations);
 
         CrmStartup.Initialize(app.Configuration, executionContextAccessor);
 

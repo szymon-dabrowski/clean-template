@@ -6,4 +6,4 @@ public record CreateOrderRequest(
     string OrderNumber,
     DateTime OrderDate,
     string Currency,
-    IEnumerable<OrderItem> OrderItems);
+    IEnumerable<OrderItemDto> OrderItems);

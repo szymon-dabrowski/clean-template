@@ -1,4 +1,5 @@
 ﻿using Clean.Modules.Shared.Application.Interfaces.Services;
+using Clean.Modules.Shared.Infrastructure.Permissions;
 using Clean.Modules.UserAccess.Infrastructure.Setup.Options;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -24,13 +25,20 @@ internal class JwtGenerator : IJwtGenerator
             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.Secret)),
             SecurityAlgorithms.HmacSha256);
 
-        var claims = new[]
+        List<Claim> claims = new()
         {
             new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
             new Claim(JwtRegisteredClaimNames.GivenName, user.FirstName),
             new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
         };
+
+        var userPermissions = user.Roles
+            .SelectMany(r => r.Permissions)
+            .Concat(user.Permissions)
+            .Select(p => new Claim(Constants.PermissionsClaim, p.Name));
+
+        claims.AddRange(userPermissions);
 
         var securityToken = new JwtSecurityToken(
             audience: jwtOptions.Audience,

@@ -6,6 +6,8 @@ using Clean.Modules.Crm.Application.Customers.UpdateCustomer;
 using Clean.Modules.Crm.Infrastructure.Module;
 using Clean.Web.Api.Common.Endpoints;
 using Clean.Web.Api.Common.Errors;
+using Clean.Web.Api.Common.Permissions;
+using Clean.Web.Dto.Crm.Customers.Model;
 using Clean.Web.Dto.Crm.Customers.Requests;
 using Clean.Web.Dto.Crm.Customers.Responses;
 using Mapster;
@@ -20,15 +22,23 @@ internal class CustomersEndpoints : IEndpointsModule
     {
         app.MapGet(CustomersRoute, async (ICrmModule crmModule) =>
         {
-            return await crmModule.ExecuteQuery(new GetCustomersQuery());
-        });
+            var customers = await crmModule.ExecuteQuery(new GetCustomersQuery());
+
+            return new GetCustomersResponse(customers
+                .Select(c => c.Adapt<CustomerDto>())
+                .ToList());
+        })
+            .RequirePermission(CustomersPermissions.Read);
 
         app.MapGet($"{CustomersRoute}/{{customerId}}", async (
             ICrmModule crmModule,
             Guid customerId) =>
         {
-            return await crmModule.ExecuteQuery(new GetCustomerQuery(customerId));
-        });
+            var customer = await crmModule.ExecuteQuery(new GetCustomerQuery(customerId));
+
+            return new GetCustomerResponse(customer?.Adapt<CustomerDto>());
+        })
+            .RequirePermission(CustomersPermissions.Read);
 
         app.MapPost(CustomersRoute, async (ICrmModule crmModule, CreateCustomerRequest request) =>
         {
@@ -38,7 +48,8 @@ internal class CustomersEndpoints : IEndpointsModule
             return result.Match(
                 customerId => Results.Ok(new CreateCustomerResponse(customerId)),
                 errors => errors.AsProblem());
-        });
+        })
+            .RequirePermission(CustomersPermissions.Write);
 
         app.MapPost($"{CustomersRoute}/{{customerId}}", async (
             ICrmModule crmModule,
@@ -53,13 +64,15 @@ internal class CustomersEndpoints : IEndpointsModule
             return result.Match(
                 _ => Results.Ok(),
                 errors => errors.AsProblem());
-        });
+        })
+            .RequirePermission(CustomersPermissions.Write);
 
         app.MapDelete($"{CustomersRoute}/{{customerId}}", async (
             ICrmModule crmModule,
             Guid customerId) =>
         {
             await crmModule.ExecuteCommand(new DeleteCustomerCommand(customerId));
-        });
+        })
+            .RequirePermission(CustomersPermissions.Write);
     }
 }

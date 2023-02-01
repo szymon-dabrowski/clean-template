@@ -22,6 +22,22 @@ namespace Clean.Modules.UserAccess.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Clean.Modules.UserAccess.Domain.Roles.Role", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles", "useraccess");
+                });
+
             modelBuilder.Entity("Clean.Modules.UserAccess.Domain.Users.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -49,7 +65,79 @@ namespace Clean.Modules.UserAccess.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("users", "useraccess");
+                    b.ToTable("Users", "useraccess");
+                });
+
+            modelBuilder.Entity("Clean.Modules.UserAccess.Domain.Roles.Role", b =>
+                {
+                    b.OwnsMany("Clean.Modules.UserAccess.Domain.Permissions.Permission", "Permissions", b1 =>
+                        {
+                            b1.Property<Guid>("RoleId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Name")
+                                .HasMaxLength(256)
+                                .HasColumnType("nvarchar(256)");
+
+                            b1.HasKey("RoleId", "Name");
+
+                            b1.ToTable("RolePermissions", "useraccess");
+
+                            b1.WithOwner()
+                                .HasForeignKey("RoleId");
+                        });
+
+                    b.Navigation("Permissions");
+                });
+
+            modelBuilder.Entity("Clean.Modules.UserAccess.Domain.Users.User", b =>
+                {
+                    b.OwnsMany("Clean.Modules.UserAccess.Domain.Permissions.Permission", "Permissions", b1 =>
+                        {
+                            b1.Property<Guid>("UserId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Name")
+                                .HasMaxLength(256)
+                                .HasColumnType("nvarchar(256)");
+
+                            b1.HasKey("UserId", "Name");
+
+                            b1.ToTable("UserPermissions", "useraccess");
+
+                            b1.WithOwner()
+                                .HasForeignKey("UserId");
+                        });
+
+                    b.OwnsMany("Clean.Modules.UserAccess.Domain.Users.UserRole", "Roles", b1 =>
+                        {
+                            b1.Property<Guid>("UserId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("RoleId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.HasKey("UserId", "RoleId");
+
+                            b1.HasIndex("RoleId");
+
+                            b1.ToTable("UserRole", "useraccess");
+
+                            b1.HasOne("Clean.Modules.UserAccess.Domain.Roles.Role", "role")
+                                .WithMany()
+                                .HasForeignKey("RoleId")
+                                .OnDelete(DeleteBehavior.Cascade)
+                                .IsRequired();
+
+                            b1.WithOwner()
+                                .HasForeignKey("UserId");
+
+                            b1.Navigation("role");
+                        });
+
+                    b.Navigation("Permissions");
+
+                    b.Navigation("Roles");
                 });
 #pragma warning restore 612, 618
         }

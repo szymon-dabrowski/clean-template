@@ -1,4 +1,4 @@
-﻿namespace Clean.Web.Dto.UserAccess.Requests;
+﻿namespace Clean.Web.Dto.UserAccess.Users.Requests;
 
 public record RegisterRequest(
     string FirstName,

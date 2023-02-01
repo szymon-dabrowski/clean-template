@@ -1,18 +1,18 @@
-﻿using Clean.Modules.UserAccess.Domain.Permissions.Services;
-using Clean.Modules.UserAccess.Infrastructure.Services;
+﻿using Clean.Modules.Shared.Infrastructure.Permissions;
+using Clean.Modules.UserAccess.Domain.Permissions.Services;
 
 namespace Clean.Modules.UserAccess.Infrastructure.Domain.Permissions.Services;
 internal class PermissionExistenceChecker : IPermissionExistenceChecker
 {
-    private readonly IEnumerable<IPermissionsModule> permissionsModules;
+    private readonly IEnumerable<IPermissionsEnumeration> permissions;
 
-    public PermissionExistenceChecker(IEnumerable<IPermissionsModule> permissionsModules)
+    public PermissionExistenceChecker(IEnumerable<IPermissionsEnumeration> permissions)
     {
-        this.permissionsModules = permissionsModules ?? new List<IPermissionsModule>();
+        this.permissions = permissions ?? new List<IPermissionsEnumeration>();
     }
 
     public bool PermissionExists(string permission)
-        => permissionsModules
-            .SelectMany(p => p.GetPermissions())
+        => permissions
+            .Select(p => p.GetPermissionName())
             .Contains(permission);
 }

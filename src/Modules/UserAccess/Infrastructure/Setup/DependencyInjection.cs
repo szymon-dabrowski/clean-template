@@ -1,6 +1,7 @@
 ﻿using Clean.Modules.Shared.Application.Interfaces.ExecutionContext;
 using Clean.Modules.Shared.Application.Interfaces.Services;
 using Clean.Modules.Shared.Infrastructure.DependencyInjection;
+using Clean.Modules.Shared.Infrastructure.Permissions;
 using Clean.Modules.Shared.Infrastructure.Services;
 using Clean.Modules.Shared.Persistence.UnitOfWork;
 using Clean.Modules.UserAccess.Domain.Permissions.Services;
@@ -9,7 +10,6 @@ using Clean.Modules.UserAccess.Domain.Users.Services;
 using Clean.Modules.UserAccess.Infrastructure.Domain.Permissions.Services;
 using Clean.Modules.UserAccess.Infrastructure.Domain.Roles.Services;
 using Clean.Modules.UserAccess.Infrastructure.Domain.Users.Services;
-using Clean.Modules.UserAccess.Infrastructure.Services;
 using Clean.Modules.UserAccess.Infrastructure.Setup.Options;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,7 +22,7 @@ internal static class DependencyInjection
         this IServiceCollection services,
         IConfiguration config,
         IExecutionContextAccessor executionContextAccessor,
-        IEnumerable<IPermissionsModule> permissionsModules)
+        IEnumerable<IPermissionsEnumeration> permissions)
     {
         services.Configure<JwtOptions>(config.GetSection(JwtOptions.Jwt));
 
@@ -36,7 +36,7 @@ internal static class DependencyInjection
             .RegisterCommandHandlersAsClosedTypes(typeof(Application.AssemblyMarker).Assembly)
             .DecorateCommandHandlersWithUnitOfWork();
 
-        services.AddSingleton(permissionsModules);
+        services.AddSingleton(permissions);
 
         // TODO - add some scanning for domain services
         services.AddScoped<IJwtGenerator, JwtGenerator>();

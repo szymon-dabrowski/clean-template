@@ -5,6 +5,7 @@ using Clean.Modules.UserAccess.Application.Roles.UpdateRole;
 using Clean.Modules.UserAccess.Infrastructure.Module;
 using Clean.Web.Api.Common.Endpoints;
 using Clean.Web.Api.Common.Errors;
+using Clean.Web.Api.Common.Permissions;
 using Clean.Web.Dto.UserAccess.Roles.Model;
 using Clean.Web.Dto.UserAccess.Roles.Requests;
 using Clean.Web.Dto.UserAccess.Roles.Responses;
@@ -22,7 +23,8 @@ internal class RolesEndpoints : IEndpointsModule
         {
             return (await userAccessModule.ExecuteQuery(new GetRolesQuery()))
                 .Select(r => r.Adapt<RoleDto>());
-        });
+        })
+            .RequirePermission(RolesPermissions.Read);
 
         app.MapPost(RolesRoute, async (
             IUserAccessModule userAccessModule,
@@ -34,7 +36,8 @@ internal class RolesEndpoints : IEndpointsModule
             return result.Match(
                 result => Results.Ok(new CreateRoleResponse(result)),
                 errors => errors.AsProblem());
-        });
+        })
+            .RequirePermission(RolesPermissions.Write);
 
         app.MapPut($"{RolesRoute}/{{roleId}}", async (
             IUserAccessModule userAccessModule,
@@ -47,13 +50,15 @@ internal class RolesEndpoints : IEndpointsModule
             return result.Match(
                 _ => Results.Ok(),
                 errors => errors.AsProblem());
-        });
+        })
+            .RequirePermission(RolesPermissions.Write);
 
         app.MapDelete($"{RolesRoute}/{{roleId}}", async (
             IUserAccessModule userAcccessModule,
             Guid roleId) =>
         {
             await userAcccessModule.ExecuteCommand(new DeleteRoleCommand(roleId));
-        });
+        })
+            .RequirePermission(RolesPermissions.Write);
     }
 }

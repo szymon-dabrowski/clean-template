@@ -8,6 +8,7 @@ using Clean.Modules.UserAccess.Application.Users.RemoveUserRole;
 using Clean.Modules.UserAccess.Infrastructure.Module;
 using Clean.Web.Api.Common.Endpoints;
 using Clean.Web.Api.Common.Errors;
+using Clean.Web.Api.Common.Permissions;
 using Clean.Web.Dto.UserAccess.Users.Requests;
 using Clean.Web.Dto.UserAccess.Users.Responses;
 using Mapster;
@@ -51,7 +52,8 @@ internal class UsersEndpoints : IEndpointsModule
             Guid userId) =>
         {
             await userAccessModule.ExecuteCommand(new DeleteUserCommand(userId));
-        });
+        })
+            .RequirePermission(UsersPermissions.Admin);
 
         app.MapPost($"{UsersRoute}/{{userId}}/permissions", async (
             IUserAccessModule userAccessModule,
@@ -64,7 +66,8 @@ internal class UsersEndpoints : IEndpointsModule
             return result.Match(
                 _ => Results.Ok(),
                 errors => errors.AsProblem());
-        });
+        })
+            .RequirePermission(UsersPermissions.Admin);
 
         app.MapDelete($"{UsersRoute}/{{userId}}/permissions/{{permission}}", async (
             IUserAccessModule userAccessModule,
@@ -73,7 +76,8 @@ internal class UsersEndpoints : IEndpointsModule
         {
             await userAccessModule
                 .ExecuteCommand(new RemoveUserPermissionCommand(userId, permission));
-        });
+        })
+            .RequirePermission(UsersPermissions.Admin);
 
         app.MapPost($"{UsersRoute}/{{userId}}/roles", async (
             IUserAccessModule userAccessModule,
@@ -86,7 +90,8 @@ internal class UsersEndpoints : IEndpointsModule
             return result.Match(
                 _ => Results.Ok(),
                 errors => errors.AsProblem());
-        });
+        })
+            .RequirePermission(UsersPermissions.Admin);
 
         app.MapDelete($"{UsersRoute}/{{userId}}/roles/{{roleId}}", async (
             IUserAccessModule userAccessModule,
@@ -94,6 +99,7 @@ internal class UsersEndpoints : IEndpointsModule
             Guid roleId) =>
         {
             await userAccessModule.ExecuteCommand(new RemoveUserRoleCommand(userId, roleId));
-        });
+        })
+            .RequirePermission(UsersPermissions.Admin);
     }
 }

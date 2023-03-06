@@ -6,7 +6,6 @@ using Clean.Modules.Crm.Infrastructure.Domain.Items.Services;
 using Clean.Modules.Crm.Infrastructure.Domain.Orders.Services;
 using Clean.Modules.Shared.Application.Interfaces.ExecutionContext;
 using Clean.Modules.Shared.Application.Interfaces.Services;
-using Clean.Modules.Shared.Infrastructure.DependencyInjection;
 using Clean.Modules.Shared.Infrastructure.DomainEventTypeMapping;
 using Clean.Modules.Shared.Infrastructure.Idempotency;
 using Clean.Modules.Shared.Infrastructure.Services;
@@ -20,9 +19,7 @@ internal static class DependencyInjection
         this IServiceCollection services,
         IExecutionContextAccessor executionContextAccessor)
     {
-        services
-            .RegisterCommandHandlersAsClosedTypes(typeof(Application.AssemblyMarker).Assembly)
-            .DecorateCommandHandlersWithUnitOfWork();
+        services.DecorateCommandHandlersWithUnitOfWork();
 
         services.DecorateEventHandlersWithIdempotency();
 

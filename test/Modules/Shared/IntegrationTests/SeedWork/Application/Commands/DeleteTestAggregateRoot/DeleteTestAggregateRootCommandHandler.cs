@@ -14,12 +14,10 @@ internal class DeleteTestAggregateRootCommandHandler
         this.repository = repository;
     }
 
-    public async Task<Unit> Handle(
+    public async Task Handle(
         DeleteTestAggregateRootCommand request,
         CancellationToken cancellationToken)
     {
         await repository.Delete(request.TestAggregateRootId);
-
-        return Unit.Value;
     }
 }

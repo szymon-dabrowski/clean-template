@@ -12,14 +12,12 @@ internal class DeleteCustomerCommandHandler : ICommandHandler<DeleteCustomerComm
         this.customerRepository = customerRepository;
     }
 
-    public async Task<Unit> Handle(
+    public async Task Handle(
         DeleteCustomerCommand request,
         CancellationToken cancellationToken)
     {
         var customer = await customerRepository.GetById(request.CustomerId);
 
         customer?.Delete();
-
-        return Unit.Value;
     }
 }

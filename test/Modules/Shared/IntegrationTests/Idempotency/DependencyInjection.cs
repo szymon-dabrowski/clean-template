@@ -37,7 +37,7 @@ internal static class DependencyInjection
 
         services.AddSingleton<IDomainEventTypeMapping>(_ => new DomainEventTypeMapping(assembly));
 
-        services.AddMediatR(assembly);
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(assembly));
 
         services.DecorateEventHandlersWithIdempotency();
 

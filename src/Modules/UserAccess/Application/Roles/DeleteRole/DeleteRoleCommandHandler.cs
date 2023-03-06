@@ -12,10 +12,10 @@ internal class DeleteRoleCommandHandler : ICommandHandler<DeleteRoleCommand>
         this.roleRepository = roleRepository;
     }
 
-    public Task<Unit> Handle(DeleteRoleCommand request, CancellationToken cancellationToken)
+    public Task Handle(DeleteRoleCommand request, CancellationToken cancellationToken)
     {
         roleRepository.Delete(request.RoleId);
 
-        return Unit.Task;
+        return Task.CompletedTask;
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Clean.Modules.Shared.Application.Interfaces.ExecutionContext;
 using Clean.Modules.Shared.Application.Interfaces.Services;
-using Clean.Modules.Shared.Infrastructure.DependencyInjection;
 using Clean.Modules.Shared.Infrastructure.Permissions;
 using Clean.Modules.Shared.Infrastructure.Services;
 using Clean.Modules.Shared.Persistence.UnitOfWork;
@@ -32,9 +31,7 @@ internal static class DependencyInjection
 
         services.AddSingleton(executionContextAccessor);
 
-        services
-            .RegisterCommandHandlersAsClosedTypes(typeof(Application.AssemblyMarker).Assembly)
-            .DecorateCommandHandlersWithUnitOfWork();
+        services.DecorateCommandHandlersWithUnitOfWork();
 
         services.AddSingleton(permissions);
 

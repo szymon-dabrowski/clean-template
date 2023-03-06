@@ -2,7 +2,7 @@
 
 namespace Clean.Modules.Shared.Application.Interfaces.Messaging;
 
-public interface ICommand : ICommand<Unit>
+public interface ICommand : IRequest
 {
 }
 

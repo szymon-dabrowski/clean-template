@@ -1,6 +1,5 @@
 ﻿using Clean.Modules.Shared.Application.Interfaces.Messaging;
 using Clean.Modules.UserAccess.Domain.Users;
-using MediatR;
 
 namespace Clean.Modules.UserAccess.Application.Users.DeleteUser;
 internal class DeleteUserCommandHandler : ICommandHandler<DeleteUserCommand>
@@ -12,10 +11,10 @@ internal class DeleteUserCommandHandler : ICommandHandler<DeleteUserCommand>
         this.userRepository = userRepository;
     }
 
-    public Task<Unit> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
+    public Task Handle(DeleteUserCommand request, CancellationToken cancellationToken)
     {
         userRepository.Delete(request.UserId);
 
-        return Unit.Task;
+        return Task.CompletedTask;
     }
 }

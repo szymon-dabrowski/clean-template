@@ -14,7 +14,7 @@ public static class DependencyInjection
 
         services.AddMappings(applicationAssembly);
 
-        services.AddMediatR(applicationAssembly);
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(applicationAssembly));
 
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 

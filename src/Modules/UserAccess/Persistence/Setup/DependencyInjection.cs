@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Clean.Modules.UserAccess.Persistence.Setup;
 public static class DependencyInjection
 {
-    private const string UserAccessConnectionStringName = "useraccess";
+    internal const string UserAccessConnectionStringName = "useraccess";
 
     public static IServiceCollection AddPersistence(
         this IServiceCollection services,

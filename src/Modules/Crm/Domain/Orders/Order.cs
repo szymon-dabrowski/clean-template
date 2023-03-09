@@ -2,6 +2,7 @@
 using Clean.Modules.Crm.Domain.Orders.Services;
 using Clean.Modules.Shared.Common.Errors;
 using Clean.Modules.Shared.Domain;
+using MediatR;
 
 namespace Clean.Modules.Crm.Domain.Orders;
 public class Order : AuditableAggregateRoot<Guid>
@@ -25,6 +26,7 @@ public class Order : AuditableAggregateRoot<Guid>
         OrderNumber = orderNumber;
         Currency = currency;
         OrderItems = orderItems;
+        Status = OrderStatus.New;
     }
 
     public Guid CustomerId { get; private set; }
@@ -39,6 +41,8 @@ public class Order : AuditableAggregateRoot<Guid>
     public string Currency { get; private set; } = string.Empty;
 
     public bool IsDeleted { get; private set; }
+
+    public OrderStatus Status { get; private set; }
 
     public static async Task<ErrorOr<Order>> Create(
         Guid customerId,
@@ -90,6 +94,7 @@ public class Order : AuditableAggregateRoot<Guid>
         var rulesToCheck = new List<IBussinesRule>()
         {
             new CannotUpdateDeletedOrderRule(IsDeleted),
+            new CannotUpdateOrderWithStatusOtherThanNewRule(Status),
             new OrderMustContainUniqueOrderItemsRule(orderItems),
             new CustomerMustExistRule(customerId, customerExistenceChecker),
             new ItemsMustExistRule(
@@ -123,5 +128,57 @@ public class Order : AuditableAggregateRoot<Guid>
     public void Delete()
     {
         IsDeleted = true;
+    }
+
+    public async Task<ErrorOr<Unit>> Confirm()
+    {
+        var result = await Check(
+            new CannotUpdateDeletedOrderRule(IsDeleted),
+            new CannotConfirmOrderWithStatusOtherThanNewRule(Status));
+
+        if (result.IsError)
+        {
+            return Error.From(result);
+        }
+
+        Status = OrderStatus.PendingPayment;
+
+        // TODO = event
+
+        return Unit.Value;
+    }
+
+    public async Task<ErrorOr<Unit>> Cancel()
+    {
+        var result = await Check(
+            new CannotUpdateDeletedOrderRule(IsDeleted),
+            new CannotCancelCompledOrderRule(Status));
+
+        if (result.IsError)
+        {
+            return Error.From(result);
+        }
+
+        Status = OrderStatus.Canceled;
+
+        // TODO = event
+
+        return Unit.Value;
+    }
+
+    public async Task<ErrorOr<Unit>> Complete()
+    {
+        var result = await Check(
+            new CannotUpdateDeletedOrderRule(IsDeleted),
+            new CannotCompleteOrderWithStatusOtherThanPendingPaymentRule(Status));
+
+        if (result.IsError)
+        {
+            return Error.From(result);
+        }
+
+        Status = OrderStatus.Completed;
+
+        return Unit.Value;
     }
 }

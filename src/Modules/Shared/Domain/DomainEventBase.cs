@@ -1,5 +1,5 @@
 ﻿namespace Clean.Modules.Shared.Domain;
-public class DomainEventBase : IDomainEvent
+public record DomainEventBase : IDomainEvent
 {
     public DomainEventBase()
     {

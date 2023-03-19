@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Clean.Modules.Shared.Application.Interfaces.Messaging;
+using Clean.Modules.Shared.Common.Errors;
+using MediatR;
 
 namespace Clean.Modules.Crm.Application.Orders.CancelOrder;
-internal class CancelOrderCommand
-{
-}
+public record CancelOrderCommand(Guid OrderId) : ICommand<ErrorOr<Unit>>;

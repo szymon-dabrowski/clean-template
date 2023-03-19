@@ -3,17 +3,17 @@ using Clean.Modules.Shared.Application.Interfaces.Messaging;
 using Clean.Modules.Shared.Common.Errors;
 using MediatR;
 
-namespace Clean.Modules.Crm.Application.Orders.CancelOrder;
-internal class CancelOrderCommandHandler : ICommandHandler<CancelOrderCommand, ErrorOr<Unit>>
+namespace Clean.Modules.Crm.Application.Orders.CompleteOrder;
+internal class CompleteOrderCommandHandler : ICommandHandler<CompleteOrderCommand, ErrorOr<Unit>>
 {
     private readonly IOrderRepository orderRepository;
 
-    public CancelOrderCommandHandler(IOrderRepository orderRepository)
+    public CompleteOrderCommandHandler(IOrderRepository orderRepository)
     {
         this.orderRepository = orderRepository;
     }
 
-    public async Task<ErrorOr<Unit>> Handle(CancelOrderCommand request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<Unit>> Handle(CompleteOrderCommand request, CancellationToken cancellationToken)
     {
         var order = await orderRepository.GetById(request.OrderId);
 
@@ -22,11 +22,11 @@ internal class CancelOrderCommandHandler : ICommandHandler<CancelOrderCommand, E
             return Error.EntityNotFound(request.OrderId);
         }
 
-        var cancelResult = await order.Cancel();
+        var completeResult = await order.Complete();
 
-        if (cancelResult.IsError)
+        if (completeResult.IsError)
         {
-            return cancelResult.Errors.ToArray();
+            return completeResult.Errors.ToArray();
         }
 
         return Unit.Value;

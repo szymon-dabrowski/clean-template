@@ -1,4 +1,5 @@
-﻿using Clean.Modules.Crm.Domain.Orders.Rules;
+﻿using Clean.Modules.Crm.Domain.Orders.Events;
+using Clean.Modules.Crm.Domain.Orders.Rules;
 using Clean.Modules.Crm.Domain.Orders.Services;
 using Clean.Modules.Shared.Common.Errors;
 using Clean.Modules.Shared.Domain;
@@ -143,7 +144,14 @@ public class Order : AuditableAggregateRoot<Guid>
 
         Status = OrderStatus.PendingPayment;
 
-        // TODO = event
+        var orderWorth = OrderItems
+            .Select(i => i.Quantity * i.PricePerUnit)
+            .Sum();
+
+        RaiseDomainEvent(new OrderConfirmedDomainEvent(
+            Id,
+            orderWorth,
+            Currency));
 
         return Unit.Value;
     }
@@ -161,7 +169,7 @@ public class Order : AuditableAggregateRoot<Guid>
 
         Status = OrderStatus.Canceled;
 
-        // TODO = event
+        RaiseDomainEvent(new OrderCanceledDomainEvent(Id));
 
         return Unit.Value;
     }
@@ -178,6 +186,8 @@ public class Order : AuditableAggregateRoot<Guid>
         }
 
         Status = OrderStatus.Completed;
+
+        RaiseDomainEvent(new OrderCompletedDomainEvent(Id));
 
         return Unit.Value;
     }

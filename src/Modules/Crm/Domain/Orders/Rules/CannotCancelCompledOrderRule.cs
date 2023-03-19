@@ -14,5 +14,5 @@ internal class CannotCancelCompledOrderRule : IBussinesRule
         $"{OrderStatus.New} or {OrderStatus.PendingPayment} expected.";
 
     public Task<bool> IsBroken()
-        => Task.FromResult(orderStatus != OrderStatus.New);
+        => Task.FromResult(orderStatus == OrderStatus.Completed);
 }

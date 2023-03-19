@@ -1,5 +1,4 @@
 ﻿using Clean.Modules.Shared.Infrastructure.Permissions;
-using Clean.Web.Api.Modules.Crm.Customers;
 
 namespace Clean.Web.Api.Common.Permissions;
 

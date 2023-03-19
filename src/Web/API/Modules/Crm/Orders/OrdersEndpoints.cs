@@ -1,4 +1,7 @@
-﻿using Clean.Modules.Crm.Application.Orders.CreateOrder;
+﻿using Clean.Modules.Crm.Application.Orders.CancelOrder;
+using Clean.Modules.Crm.Application.Orders.CompleteOrder;
+using Clean.Modules.Crm.Application.Orders.ConfirmOrder;
+using Clean.Modules.Crm.Application.Orders.CreateOrder;
 using Clean.Modules.Crm.Application.Orders.DeleteOrder;
 using Clean.Modules.Crm.Application.Orders.GetOrder;
 using Clean.Modules.Crm.Application.Orders.GetOrderDetails;
@@ -90,6 +93,24 @@ internal class OrdersEndpoints : IEndpointsModule
         app.MapDelete($"{OrdersRoute}/{{orderId}}", async (ICrmModule crmModule, Guid orderId) =>
         {
             await crmModule.ExecuteCommand(new DeleteOrderCommand(orderId));
+        })
+            .RequirePermission(OrdersPermissions.Write);
+
+        app.MapPut($"{OrdersRoute}/{{orderId}}/cancel", async (ICrmModule crmModule, Guid orderId) =>
+        {
+            await crmModule.ExecuteCommand(new CancelOrderCommand(orderId));
+        })
+            .RequirePermission(OrdersPermissions.Write);
+
+        app.MapPut($"{OrdersRoute}/{{orderId}}/confirm", async (ICrmModule crmModule, Guid orderId) =>
+        {
+            await crmModule.ExecuteCommand(new ConfirmOrderCommand(orderId));
+        })
+            .RequirePermission(OrdersPermissions.Write);
+
+        app.MapPut($"{OrdersRoute}/{{orderId}}/complete", async (ICrmModule crmModule, Guid orderId) =>
+        {
+            await crmModule.ExecuteCommand(new CompleteOrderCommand(orderId));
         })
             .RequirePermission(OrdersPermissions.Write);
     }

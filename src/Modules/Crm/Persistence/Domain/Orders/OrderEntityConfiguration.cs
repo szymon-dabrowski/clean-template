@@ -34,6 +34,10 @@ internal class OrderEntityConfiguration : IEntityTypeConfiguration<Order>
             o.WithOwner().HasForeignKey("OrderId");
         });
 
+        builder.Property(o => o.Status)
+            .HasConversion<string>()
+            .HasMaxLength(50);
+
         builder.HasAudit();
     }
 }

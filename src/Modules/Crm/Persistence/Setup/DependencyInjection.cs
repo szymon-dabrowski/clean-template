@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Clean.Modules.Crm.Persistence.Setup;
 public static class DependencyInjection
 {
-    private const string CrmConnectionStringName = "crm";
+    internal const string CrmConnectionStringName = "crm";
 
     public static IServiceCollection AddPersistence(
         this IServiceCollection services,

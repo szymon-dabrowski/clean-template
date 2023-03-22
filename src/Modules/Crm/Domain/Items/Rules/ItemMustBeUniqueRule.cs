@@ -2,7 +2,7 @@
 using Clean.Modules.Shared.Domain;
 
 namespace Clean.Modules.Crm.Domain.Items.Rules;
-internal class ItemMustBeUniqueRule : IBussinesRule
+internal class ItemMustBeUniqueRule : IBusinessRule
 {
     private readonly string name;
     private readonly IItemUniquenessChecker itemUniquenessChecker;

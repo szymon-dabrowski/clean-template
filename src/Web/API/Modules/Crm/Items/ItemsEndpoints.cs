@@ -44,7 +44,7 @@ internal class ItemsEndpoints : IEndpointsModule
                 request.Adapt<CreateItemCommand>());
 
             return result.Match(
-                itemId => Results.Ok(new CreateItemResponse(itemId)),
+                itemId => Results.Ok(new CreateItemResponse(itemId.Value)),
                 errors => errors.AsProblem());
         })
             .RequirePermission(ItemsPermissions.Write);

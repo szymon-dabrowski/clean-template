@@ -2,7 +2,7 @@
 using Clean.Modules.UserAccess.Domain.Users.Services;
 
 namespace Clean.Modules.UserAccess.Domain.Users.Rules;
-internal class PasswordMustBeStrongRule : IBussinesRule
+internal class PasswordMustBeStrongRule : IBusinessRule
 {
     private readonly string password;
     private readonly IPasswordStrengthChecker passwordStrengthChecker;

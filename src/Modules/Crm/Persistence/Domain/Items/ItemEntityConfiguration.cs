@@ -13,6 +13,12 @@ internal class ItemEntityConfiguration : IEntityTypeConfiguration<Item>
 
         builder.HasKey(c => c.Id);
 
+        builder.Property(o => o.Id)
+            .ValueGeneratedNever()
+            .HasConversion(
+                id => id.Value,
+                value => new ItemId(value));
+
         builder.Property(c => c.Name).IsRequired();
 
         builder.Property(c => c.BaseCurrency).HasMaxLength(3);

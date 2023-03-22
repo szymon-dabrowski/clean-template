@@ -69,7 +69,7 @@ internal class OrdersEndpoints : IEndpointsModule
                 request.Adapt<CreateOrderCommand>());
 
             return result.Match(
-                orderId => Results.Ok(new CreateOrderResponse(orderId)),
+                orderId => Results.Ok(new CreateOrderResponse(orderId.Value)),
                 errors => errors.AsProblem());
         })
             .RequirePermission(OrdersPermissions.Write);

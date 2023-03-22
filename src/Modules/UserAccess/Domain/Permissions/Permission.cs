@@ -1,10 +1,9 @@
 ﻿using Clean.Modules.Shared.Common.Errors;
-using Clean.Modules.Shared.Domain;
 using Clean.Modules.UserAccess.Domain.Permissions.Rules;
 using Clean.Modules.UserAccess.Domain.Permissions.Services;
 
 namespace Clean.Modules.UserAccess.Domain.Permissions;
-public class Permission : ValueObject
+public record Permission
 {
     private Permission(string name)
     {
@@ -17,18 +16,15 @@ public class Permission : ValueObject
         string name,
         IPermissionExistenceChecker permissionChecker)
     {
-        var result = await Check(new PermissionMustExistRule(name, permissionChecker));
+        var rule = new PermissionMustExistRule(name, permissionChecker);
 
-        if (result.IsError)
+        var result = await rule.IsBroken();
+
+        if (result)
         {
-            return Error.From(result);
+            return Error.BusinessRuleBroken(description: rule.Message);
         }
 
         return new Permission(name);
-    }
-
-    protected override IEnumerable<object> GetEqualityComponents()
-    {
-        yield return Name;
     }
 }

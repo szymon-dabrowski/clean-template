@@ -1,4 +1,5 @@
-﻿using Clean.Modules.Crm.Domain.Orders.Events;
+﻿using Clean.Modules.Crm.Domain.Customers;
+using Clean.Modules.Crm.Domain.Orders.Events;
 using Clean.Modules.Crm.Domain.Orders.Rules;
 using Clean.Modules.Crm.Domain.Orders.Services;
 using Clean.Modules.Shared.Common.Errors;
@@ -6,15 +7,15 @@ using Clean.Modules.Shared.Domain;
 using MediatR;
 
 namespace Clean.Modules.Crm.Domain.Orders;
-public class Order : AuditableAggregateRoot<Guid>
+public class Order : AuditableAggregateRoot<OrderId>
 {
     private Order()
-        : base(Guid.Empty)
+        : base(new OrderId(Guid.Empty))
     {
     }
 
     private Order(
-        Guid id,
+        OrderId id,
         Guid customerId,
         DateTime orderDate,
         string orderNumber,
@@ -63,7 +64,7 @@ public class Order : AuditableAggregateRoot<Guid>
         var result = await Check(
             new OrderNumberMustBeUniqueRule(orderNo, orderNumberUniquenessChecker),
             new OrderMustContainUniqueOrderItemsRule(orderItems),
-            new CustomerMustExistRule(customerId, customerExistenceChecker),
+            new CustomerMustExistRule(new CustomerId(customerId), customerExistenceChecker),
             new ItemsMustExistRule(
                 orderItems.Select(i => i.ItemId),
                 itemExistenceChecker));
@@ -74,7 +75,7 @@ public class Order : AuditableAggregateRoot<Guid>
         }
 
         return new Order(
-            Guid.NewGuid(),
+            new OrderId(Guid.NewGuid()),
             customerId,
             orderDate,
             orderNo,
@@ -92,12 +93,12 @@ public class Order : AuditableAggregateRoot<Guid>
         ICustomerExistenceChecker customerExistenceChecker,
         IItemExistenceChecker itemExistenceChecker)
     {
-        var rulesToCheck = new List<IBussinesRule>()
+        var rulesToCheck = new List<IBusinessRule>()
         {
             new CannotUpdateDeletedOrderRule(IsDeleted),
             new CannotUpdateOrderWithStatusOtherThanNewRule(Status),
             new OrderMustContainUniqueOrderItemsRule(orderItems),
-            new CustomerMustExistRule(customerId, customerExistenceChecker),
+            new CustomerMustExistRule(new CustomerId(customerId), customerExistenceChecker),
             new ItemsMustExistRule(
                 orderItems.Select(i => i.ItemId),
                 itemExistenceChecker),

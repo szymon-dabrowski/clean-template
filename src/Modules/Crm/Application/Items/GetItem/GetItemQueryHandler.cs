@@ -19,7 +19,7 @@ internal class GetItemQueryHandler : IQueryHandler<GetItemQuery, ItemDto?>
         CancellationToken cancellationToken)
     {
         var item = await dbContext.Set<Item>()
-            .FirstOrDefaultAsync(i => i.Id == request.ItemId, cancellationToken);
+            .FirstOrDefaultAsync(i => i.Id == new ItemId(request.ItemId), cancellationToken);
 
         return item == null
             ? null

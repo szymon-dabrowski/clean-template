@@ -2,6 +2,6 @@
 
 namespace Clean.Modules.Crm.Domain.Orders.Events;
 internal record OrderConfirmedDomainEvent(
-    Guid OrderId,
+    OrderId OrderId,
     decimal Worth,
     string Currency) : DomainEventBase;

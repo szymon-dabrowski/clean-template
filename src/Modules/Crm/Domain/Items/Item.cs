@@ -4,10 +4,10 @@ using Clean.Modules.Shared.Common.Errors;
 using Clean.Modules.Shared.Domain;
 
 namespace Clean.Modules.Crm.Domain.Items;
-public class Item : AuditableAggregateRoot<Guid>
+public class Item : AuditableAggregateRoot<ItemId>
 {
     private Item(
-        Guid id,
+        ItemId id,
         string name,
         string description,
         decimal basePrice,
@@ -45,7 +45,7 @@ public class Item : AuditableAggregateRoot<Guid>
         }
 
         return new Item(
-            Guid.NewGuid(),
+            new ItemId(Guid.NewGuid()),
             name,
             description,
             basePrice,
@@ -59,7 +59,7 @@ public class Item : AuditableAggregateRoot<Guid>
         string baseCurrency,
         IItemUniquenessChecker itemUniquenessChecker)
     {
-        var rulesToCheck = new List<IBussinesRule>()
+        var rulesToCheck = new List<IBusinessRule>()
         {
             new CannotUpdateDeletedItemRule(IsDeleted),
         };

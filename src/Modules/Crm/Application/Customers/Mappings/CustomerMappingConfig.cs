@@ -7,6 +7,7 @@ internal class CustomerMappingConfig : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        config.NewConfig<Customer, CustomerDto>();
+        config.NewConfig<Customer, CustomerDto>()
+            .Map(d => d.Id, s => s.Id.Value);
     }
 }

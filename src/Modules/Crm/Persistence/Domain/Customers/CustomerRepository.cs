@@ -16,7 +16,7 @@ internal class CustomerRepository : ICustomerRepository
         await crmContext.AddAsync(customer);
     }
 
-    public async Task<Customer?> GetById(Guid id)
+    public async Task<Customer?> GetById(CustomerId id)
     {
         return await crmContext.Customers.FindAsync(id);
     }

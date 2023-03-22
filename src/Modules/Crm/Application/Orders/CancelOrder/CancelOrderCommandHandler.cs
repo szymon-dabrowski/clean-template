@@ -15,7 +15,7 @@ internal class CancelOrderCommandHandler : ICommandHandler<CancelOrderCommand, E
 
     public async Task<ErrorOr<Unit>> Handle(CancelOrderCommand request, CancellationToken cancellationToken)
     {
-        var order = await orderRepository.GetById(request.OrderId);
+        var order = await orderRepository.GetById(new OrderId(request.OrderId));
 
         if (order == null)
         {

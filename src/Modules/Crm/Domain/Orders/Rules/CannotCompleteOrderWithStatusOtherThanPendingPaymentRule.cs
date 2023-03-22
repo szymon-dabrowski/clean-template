@@ -1,7 +1,7 @@
 ﻿using Clean.Modules.Shared.Domain;
 
 namespace Clean.Modules.Crm.Domain.Orders.Rules;
-internal class CannotCompleteOrderWithStatusOtherThanPendingPaymentRule : IBussinesRule
+internal class CannotCompleteOrderWithStatusOtherThanPendingPaymentRule : IBusinessRule
 {
     private readonly OrderStatus orderStatus;
 

@@ -42,11 +42,13 @@ public class CustomerTests : IClassFixture<CrmStartupFixture>
             expectedCustomer.Phones,
             expectedCustomer.Emails));
 
+        var customerId = result.Value;
+
         var customers = await crmModule.ExecuteQuery(new GetCustomersQuery());
-        var customer = customers.First(c => c.Id == result.Value);
+        var customer = customers.First(c => c.Id == customerId.Value);
 
         result.IsError.Should().BeFalse();
-        result.Value.Should().NotBeEmpty();
+        customerId.Value.Should().NotBeEmpty();
         customers.Should().NotBeEmpty();
         customer.ShouldBe(expectedCustomer);
     }
@@ -63,8 +65,10 @@ public class CustomerTests : IClassFixture<CrmStartupFixture>
             Phones: new List<string>() { },
             Emails: new List<string>() { }));
 
+        var customerId = result.Value;
+
         var expectedCustomer = new CustomerDto(
-            Id: result.Value,
+            Id: customerId.Value,
             Name: "Updated Name",
             TaxId: "123-123-123",
             Address: "Some Street",
@@ -84,7 +88,7 @@ public class CustomerTests : IClassFixture<CrmStartupFixture>
             expectedCustomer.Emails));
 
         var customer = await crmModule.ExecuteQuery(
-            new GetCustomerQuery(result.Value));
+            new GetCustomerQuery(customerId.Value));
 
         updateResult.IsError.Should().BeFalse();
 
@@ -103,10 +107,12 @@ public class CustomerTests : IClassFixture<CrmStartupFixture>
             Phones: new List<string>() { },
             Emails: new List<string>() { }));
 
-        await crmModule.ExecuteCommand(new DeleteCustomerCommand(result.Value));
+        var customerId = result.Value;
+
+        await crmModule.ExecuteCommand(new DeleteCustomerCommand(customerId.Value));
 
         var customer = await crmModule
-            .ExecuteQuery(new GetCustomerQuery(result.Value));
+            .ExecuteQuery(new GetCustomerQuery(customerId.Value));
 
         customer.Should().BeNull();
     }

@@ -5,7 +5,7 @@ using Clean.Modules.Shared.Common.Errors;
 using Mapster;
 
 namespace Clean.Modules.Crm.Application.Orders.CreateOrder;
-internal class CreateOrderCommandHandler : ICommandHandler<CreateOrderCommand, ErrorOr<Guid>>
+internal class CreateOrderCommandHandler : ICommandHandler<CreateOrderCommand, ErrorOr<OrderId>>
 {
     private readonly IOrderRepository orderRepository;
     private readonly IOrderNumberUniquenessChecker orderNumberUniquenessChecker;
@@ -27,7 +27,7 @@ internal class CreateOrderCommandHandler : ICommandHandler<CreateOrderCommand, E
         this.orderNumberGenerator = orderNumberGenerator;
     }
 
-    public async Task<ErrorOr<Guid>> Handle(
+    public async Task<ErrorOr<OrderId>> Handle(
         CreateOrderCommand request,
         CancellationToken cancellationToken)
     {

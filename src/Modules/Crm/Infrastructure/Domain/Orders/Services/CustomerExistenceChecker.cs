@@ -1,4 +1,5 @@
-﻿using Clean.Modules.Crm.Domain.Orders.Services;
+﻿using Clean.Modules.Crm.Domain.Customers;
+using Clean.Modules.Crm.Domain.Orders.Services;
 using Clean.Modules.Crm.Persistence.Database;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,7 +13,7 @@ internal class CustomerExistenceChecker : ICustomerExistenceChecker
         this.crmContext = crmContext;
     }
 
-    public async Task<bool> CustomerExists(Guid customerId)
+    public async Task<bool> CustomerExists(CustomerId customerId)
     {
         return await crmContext.Customers.AnyAsync(c => c.Id == customerId);
     }

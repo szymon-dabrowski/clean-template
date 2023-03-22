@@ -2,7 +2,7 @@
 using Clean.Modules.UserAccess.Domain.Roles.Services;
 
 namespace Clean.Modules.UserAccess.Domain.Roles.Rules;
-internal class RoleNameMustBeUniqueRule : IBussinesRule
+internal class RoleNameMustBeUniqueRule : IBusinessRule
 {
     private readonly string name;
     private readonly IRoleNameUniquenessChecker roleNameUniquenessChecker;

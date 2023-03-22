@@ -2,7 +2,7 @@
 using Clean.Modules.UserAccess.Domain.Users.Services;
 
 namespace Clean.Modules.UserAccess.Domain.Users.Rules;
-internal class RoleMustExistRule : IBussinesRule
+internal class RoleMustExistRule : IBusinessRule
 {
     private readonly Guid roleId;
     private readonly IRoleExistenceChecker roleExistenceChecker;

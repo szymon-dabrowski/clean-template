@@ -2,7 +2,7 @@
 using Clean.Modules.Shared.Domain;
 
 namespace Clean.Modules.Crm.Domain.Customers.Rules;
-internal class CustomerTaxIdMustBeUniqueRule : IBussinesRule
+internal class CustomerTaxIdMustBeUniqueRule : IBusinessRule
 {
     private readonly string taxId;
     private readonly ICustomerTaxIdUniquenessChecker customerTaxIdUniquenessChecker;

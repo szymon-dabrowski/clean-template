@@ -4,7 +4,7 @@ using Clean.Modules.Shared.Application.Interfaces.Messaging;
 using Clean.Modules.Shared.Common.Errors;
 
 namespace Clean.Modules.Crm.Application.Items.CreateItem;
-internal class CreateItemCommandHandler : ICommandHandler<CreateItemCommand, ErrorOr<Guid>>
+internal class CreateItemCommandHandler : ICommandHandler<CreateItemCommand, ErrorOr<ItemId>>
 {
     private readonly IItemRepository itemRepository;
     private readonly IItemUniquenessChecker itemUniquenessChecker;
@@ -17,7 +17,7 @@ internal class CreateItemCommandHandler : ICommandHandler<CreateItemCommand, Err
         this.itemUniquenessChecker = itemUniquenessChecker;
     }
 
-    public async Task<ErrorOr<Guid>> Handle(CreateItemCommand request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<ItemId>> Handle(CreateItemCommand request, CancellationToken cancellationToken)
     {
         var item = await Item.Create(
             request.Name,

@@ -1,7 +1,7 @@
 ﻿using Clean.Modules.Shared.Domain;
 
 namespace Clean.Modules.Crm.Domain.Customers.Rules;
-internal class CannotUpdateDeletedCustomerRule : IBussinesRule
+internal class CannotUpdateDeletedCustomerRule : IBusinessRule
 {
     private readonly bool isDeleted;
 

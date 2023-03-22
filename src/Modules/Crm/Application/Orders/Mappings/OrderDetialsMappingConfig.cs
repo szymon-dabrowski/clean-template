@@ -10,7 +10,7 @@ internal class OrderDetialsMappingConfig : IRegister
     public void Register(TypeAdapterConfig config)
     {
         config.NewConfig<(Order Order, Customer Customer, List<Item> Items), OrderDetailsDto>()
-            .Map(d => d.OrderId, s => s.Order.Id)
+            .Map(d => d.OrderId, s => s.Order.Id.Value)
             .Map(d => d.Currency, s => s.Order.Currency)
             .Map(d => d.OrderNumber, s => s.Order.OrderNumber)
             .Map(d => d.OrderDate, s => s.Order.OrderDate)

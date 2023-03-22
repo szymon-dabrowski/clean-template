@@ -1,14 +1,15 @@
-﻿using Clean.Modules.Crm.Domain.Orders.Services;
+﻿using Clean.Modules.Crm.Domain.Customers;
+using Clean.Modules.Crm.Domain.Orders.Services;
 using Clean.Modules.Shared.Domain;
 
 namespace Clean.Modules.Crm.Domain.Orders.Rules;
-internal class CustomerMustExistRule : IBussinesRule
+internal class CustomerMustExistRule : IBusinessRule
 {
-    private readonly Guid customerId;
+    private readonly CustomerId customerId;
     private readonly ICustomerExistenceChecker customerExistenceChecker;
 
     public CustomerMustExistRule(
-        Guid customerId,
+        CustomerId customerId,
         ICustomerExistenceChecker customerExistenceChecker)
     {
         this.customerId = customerId;

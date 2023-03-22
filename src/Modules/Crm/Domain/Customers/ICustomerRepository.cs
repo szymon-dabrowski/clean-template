@@ -3,5 +3,5 @@ public interface ICustomerRepository
 {
     Task Add(Customer customer);
 
-    Task<Customer?> GetById(Guid id);
+    Task<Customer?> GetById(CustomerId id);
 }

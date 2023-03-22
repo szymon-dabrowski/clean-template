@@ -20,7 +20,7 @@ internal class UpdateItemCommandHandler : ICommandHandler<UpdateItemCommand, Err
 
     public async Task<ErrorOr<Unit>> Handle(UpdateItemCommand request, CancellationToken cancellationToken)
     {
-        var item = await itemRepository.GetById(request.ItemId);
+        var item = await itemRepository.GetById(new ItemId(request.ItemId));
 
         if (item == null)
         {

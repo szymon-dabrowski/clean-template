@@ -16,7 +16,8 @@ internal class DeleteCustomerCommandHandler : ICommandHandler<DeleteCustomerComm
         DeleteCustomerCommand request,
         CancellationToken cancellationToken)
     {
-        var customer = await customerRepository.GetById(request.CustomerId);
+        var customer = await customerRepository.GetById(
+            new CustomerId(request.CustomerId));
 
         customer?.Delete();
     }

@@ -2,7 +2,7 @@
 using Clean.Modules.UserAccess.Domain.Permissions.Services;
 
 namespace Clean.Modules.UserAccess.Domain.Permissions.Rules;
-internal class PermissionMustExistRule : IBussinesRule
+internal class PermissionMustExistRule : IBusinessRule
 {
     private readonly string permission;
     private readonly IPermissionExistenceChecker permissionChecker;

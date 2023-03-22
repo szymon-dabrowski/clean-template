@@ -4,7 +4,7 @@ using Clean.Modules.Shared.Application.Interfaces.Messaging;
 using Clean.Modules.Shared.Common.Errors;
 
 namespace Clean.Modules.Crm.Application.Customers.CreateCustomer;
-internal class CreateCustomerCommandHandler : ICommandHandler<CreateCustomerCommand, ErrorOr<Guid>>
+internal class CreateCustomerCommandHandler : ICommandHandler<CreateCustomerCommand, ErrorOr<CustomerId>>
 {
     private readonly ICustomerRepository customerRepository;
     private readonly ICustomerNameUniquenessChecker customerNameUniquenessChecker;
@@ -20,7 +20,7 @@ internal class CreateCustomerCommandHandler : ICommandHandler<CreateCustomerComm
         this.customerTaxIdUniquenessChecker = customerTaxIdUniquenessChecker;
     }
 
-    public async Task<ErrorOr<Guid>> Handle(
+    public async Task<ErrorOr<CustomerId>> Handle(
         CreateCustomerCommand request,
         CancellationToken cancellationToken)
     {

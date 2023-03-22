@@ -23,7 +23,7 @@ internal class GetOrderDetailsQueryHandler : IQueryHandler<GetOrderDetailsQuery,
         var orderDetials = await dbContext.Set<Order>()
             .Join(
                 dbContext.Set<Customer>(),
-                o => o.CustomerId,
+                o => new CustomerId(o.CustomerId),
                 c => c.Id,
                 (o, c) => new
                 {
@@ -36,7 +36,7 @@ internal class GetOrderDetailsQueryHandler : IQueryHandler<GetOrderDetailsQuery,
                             .Contains(i.Id))
                             .ToList(),
                 })
-            .FirstOrDefaultAsync(row => row.order.Id == request.OrderId, cancellationToken);
+            .FirstOrDefaultAsync(row => row.order.Id == new OrderId(request.OrderId), cancellationToken);
 
         return orderDetials == null
             ? null

@@ -19,7 +19,7 @@ internal class GetOrderQueryHandler : IQueryHandler<GetOrderQuery, OrderDto?>
         CancellationToken cancellationToken)
     {
         var order = await dbContext.Set<Order>()
-            .FirstOrDefaultAsync(o => o.Id == request.OrderId, cancellationToken);
+            .FirstOrDefaultAsync(o => o.Id == new OrderId(request.OrderId), cancellationToken);
 
         return order == null
             ? null

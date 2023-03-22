@@ -3,7 +3,7 @@ using Clean.Modules.UserAccess.Domain.Users.Errors;
 using Clean.Modules.UserAccess.Domain.Users.Services;
 
 namespace Clean.Modules.UserAccess.Domain.Users.Rules;
-internal class PasswordMustMatchRule : IBussinesRule
+internal class PasswordMustMatchRule : IBusinessRule
 {
     private readonly string password;
     private readonly string storedPasswordHash;

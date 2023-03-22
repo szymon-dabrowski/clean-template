@@ -1,4 +1,5 @@
-﻿using Clean.Modules.Crm.Domain.Orders;
+﻿using Clean.Modules.Crm.Domain.Items;
+using Clean.Modules.Crm.Domain.Orders;
 using Clean.Modules.Crm.Persistence.Database;
 using Clean.Modules.Shared.Persistence.EntityConfiguration;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,12 @@ internal class OrderEntityConfiguration : IEntityTypeConfiguration<Order>
         builder.ToTable("Orders", Constants.CrmSchemaName);
 
         builder.HasKey(o => o.Id);
+
+        builder.Property(o => o.Id)
+            .ValueGeneratedNever()
+            .HasConversion(
+                id => id.Value,
+                value => new OrderId(value));
 
         builder.Property(o => o.OrderNumber)
             .HasMaxLength(25)
@@ -28,6 +35,11 @@ internal class OrderEntityConfiguration : IEntityTypeConfiguration<Order>
             o.Property<int>("Id");
 
             o.HasKey("Id");
+
+            o.Property(oi => oi.ItemId)
+                .HasConversion(
+                    id => id.Value,
+                    value => new ItemId(value));
 
             o.ToTable("OrderItems", Constants.CrmSchemaName);
 

@@ -20,17 +20,6 @@ public abstract class DomainTestsBase
     }
 
     [Fact]
-    public void ValueObject_Should_Be_Immutable()
-    {
-        var types = Types.InAssembly(DomainAssembly)
-            .That()
-            .Inherit(typeof(ValueObject))
-            .GetTypes();
-
-        types.AssertAreImmutable();
-    }
-
-    [Fact]
     public void Entity_Which_Is_Not_Aggregate_Root_Cannot_Have_Public_Members()
     {
         var types = Types.InAssembly(DomainAssembly)
@@ -147,8 +136,6 @@ public abstract class DomainTestsBase
         var domainObjectTypes = Types.InAssembly(DomainAssembly)
             .That()
             .Inherit(typeof(Entity<>))
-            .Or()
-            .Inherit(typeof(ValueObject))
             .GetTypes();
 
         var failingTypes = new List<Type>();
@@ -172,48 +159,6 @@ public abstract class DomainTestsBase
     }
 
     [Fact]
-    public void ValueObject_Should_Have_Private_Constructor_With_Parameters_For_His_State()
-    {
-        var valueObjects = Types.InAssembly(DomainAssembly)
-            .That()
-            .Inherit(typeof(ValueObject)).GetTypes();
-
-        var failingTypes = new List<Type>();
-
-        foreach (var entityType in valueObjects)
-        {
-            bool hasExpectedConstructor = false;
-
-            const BindingFlags bindingFlags =
-                BindingFlags.DeclaredOnly |
-                BindingFlags.Public |
-                BindingFlags.Instance;
-
-            var names = entityType.GetFields(bindingFlags).Select(x => x.Name.ToLower()).ToList();
-            var propertyNames = entityType.GetProperties(bindingFlags).Select(x => x.Name.ToLower()).ToList();
-            names.AddRange(propertyNames);
-            var constructors = entityType.GetConstructors(BindingFlags.NonPublic | BindingFlags.Instance);
-            foreach (var constructorInfo in constructors)
-            {
-                var parameters = constructorInfo.GetParameters().Select(x => x.Name?.ToLower()).ToList();
-
-                if (names.Intersect(parameters).Count() == names.Count)
-                {
-                    hasExpectedConstructor = true;
-                    break;
-                }
-            }
-
-            if (!hasExpectedConstructor)
-            {
-                failingTypes.Add(entityType);
-            }
-        }
-
-        failingTypes.AssertFailingTypes();
-    }
-
-    [Fact]
     public void DomainEvent_Should_Have_DomainEventPostfix()
     {
         var types = Types.InAssembly(DomainAssembly)
@@ -227,17 +172,16 @@ public abstract class DomainTestsBase
         types.AssertFailingTypes();
     }
 
-    // TODO
-    // [Fact]
-    // public void BusinessRule_Should_Have_RulePostfix()
-    // {
-    //    var types = Types.InAssembly(DomainAssembly)
-    //        .That()
-    //        .ImplementInterface(typeof(IBusinessRule))
-    //        .Should().HaveNameEndingWith("Rule")
-    //        .GetResult()
-    //        .FailingTypes;
+    [Fact]
+    public void BusinessRule_Should_Have_RulePostfix()
+    {
+        var types = Types.InAssembly(DomainAssembly)
+            .That()
+            .ImplementInterface(typeof(IBusinessRule))
+            .Should().HaveNameEndingWith("Rule")
+            .GetResult()
+            .FailingTypes;
 
-    //    types.AssertFailingTypes();
-    // }
+        types.AssertFailingTypes();
+    }
 }

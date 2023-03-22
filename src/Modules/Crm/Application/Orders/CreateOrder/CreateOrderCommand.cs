@@ -1,4 +1,5 @@
 ﻿using Clean.Modules.Crm.Application.Orders.Dto;
+using Clean.Modules.Crm.Domain.Orders;
 using Clean.Modules.Shared.Application.Interfaces.Messaging;
 using Clean.Modules.Shared.Common.Errors;
 
@@ -9,4 +10,4 @@ public record CreateOrderCommand(
     DateTime OrderDate,
     string Currency,
     List<OrderItemDto> OrderItems)
-    : ICommand<ErrorOr<Guid>>;
+    : ICommand<ErrorOr<OrderId>>;

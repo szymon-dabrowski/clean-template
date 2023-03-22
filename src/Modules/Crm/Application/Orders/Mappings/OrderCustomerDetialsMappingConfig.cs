@@ -8,6 +8,6 @@ internal class OrderCustomerDetialsMappingConfig : IRegister
     public void Register(TypeAdapterConfig config)
     {
         config.NewConfig<Customer, OrderCustomerDetailsDto>()
-            .Map(d => d.CustomerId, c => c.Id);
+            .Map(d => d.CustomerId, c => c.Id.Value);
     }
 }

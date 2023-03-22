@@ -4,6 +4,7 @@ using Clean.Modules.Crm.Application.Items.Dto;
 using Clean.Modules.Crm.Application.Items.GetItem;
 using Clean.Modules.Crm.Application.Items.GetItems;
 using Clean.Modules.Crm.Application.Items.UpdateItem;
+using Clean.Modules.Crm.Domain.Items;
 using Clean.Modules.Crm.Infrastructure.Module;
 using Clean.Modules.Crm.IntegrationTests.SeedWork;
 using FluentAssertions;
@@ -35,11 +36,13 @@ public class ItemsTests : IClassFixture<CrmStartupFixture>
             expectedItem.BasePrice,
             expectedItem.BaseCurrency));
 
+        var itemId = result.Value;
+
         var items = await crmModule.ExecuteQuery(new GetItemsQuery());
-        var item = items.First(i => i.Id == result.Value);
+        var item = items.First(i => i.Id == itemId.Value);
 
         result.IsError.Should().BeFalse();
-        result.Value.Should().NotBeEmpty();
+        itemId.Value.Should().NotBeEmpty();
         items.Should().NotBeEmpty();
         item.ShouldBe(expectedItem);
     }
@@ -53,21 +56,23 @@ public class ItemsTests : IClassFixture<CrmStartupFixture>
             BasePrice: 100,
             BaseCurrency: "USD"));
 
+        var itemId = result.Value;
+
         var expectedItem = new ItemDto(
-            Id: result.Value,
+            Id: itemId.Value,
             Name: "Updated item",
             Description: "Updated item description",
             BasePrice: 101,
             BaseCurrency: "EUR");
 
         var updateResult = await crmModule.ExecuteCommand(new UpdateItemCommand(
-            result.Value,
+            itemId.Value,
             expectedItem.Name,
             expectedItem.Description,
             expectedItem.BasePrice,
             expectedItem.BaseCurrency));
 
-        var item = await crmModule.ExecuteQuery(new GetItemQuery(result.Value));
+        var item = await crmModule.ExecuteQuery(new GetItemQuery(itemId.Value));
 
         updateResult.IsError.Should().BeFalse();
 
@@ -83,9 +88,11 @@ public class ItemsTests : IClassFixture<CrmStartupFixture>
             BasePrice: 100,
             BaseCurrency: "USD"));
 
-        await crmModule.ExecuteCommand(new DeleteItemCommand(result.Value));
+        var itemId = result.Value;
 
-        var item = await crmModule.ExecuteQuery(new GetItemQuery(result.Value));
+        await crmModule.ExecuteCommand(new DeleteItemCommand(itemId.Value));
+
+        var item = await crmModule.ExecuteQuery(new GetItemQuery(itemId.Value));
 
         item.Should().BeNull();
     }

@@ -23,7 +23,7 @@ internal class UpdateCustomerCommandHandler : ICommandHandler<UpdateCustomerComm
 
     public async Task<ErrorOr<Unit>> Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
     {
-        var customer = await customerRepository.GetById(request.CustomerId);
+        var customer = await customerRepository.GetById(new CustomerId(request.CustomerId));
 
         if (customer == null)
         {

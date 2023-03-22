@@ -16,7 +16,7 @@ internal class ItemRepository : IItemRepository
         await crmContext.Items.AddAsync(item);
     }
 
-    public async Task<Item?> GetById(Guid id)
+    public async Task<Item?> GetById(ItemId id)
     {
         return await crmContext.Items.FindAsync(id);
     }

@@ -1,7 +1,7 @@
 ﻿using Clean.Modules.Shared.Domain;
 
 namespace Clean.Modules.Crm.Domain.Orders.Rules;
-internal class CannotConfirmOrderWithStatusOtherThanNewRule : IBussinesRule
+internal class CannotConfirmOrderWithStatusOtherThanNewRule : IBusinessRule
 {
     private readonly OrderStatus orderStatus;
 

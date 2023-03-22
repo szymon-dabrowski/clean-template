@@ -1,7 +1,7 @@
 ﻿using Clean.Modules.Shared.Domain;
 
 namespace Clean.Modules.Crm.Domain.Orders.Rules;
-internal class OrderMustContainUniqueOrderItemsRule : IBussinesRule
+internal class OrderMustContainUniqueOrderItemsRule : IBusinessRule
 {
     private readonly IEnumerable<OrderItem> orderItems;
 

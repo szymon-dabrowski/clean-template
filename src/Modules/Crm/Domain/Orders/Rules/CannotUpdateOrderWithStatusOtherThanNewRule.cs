@@ -1,7 +1,7 @@
 ﻿using Clean.Modules.Shared.Domain;
 
 namespace Clean.Modules.Crm.Domain.Orders.Rules;
-internal class CannotUpdateOrderWithStatusOtherThanNewRule : IBussinesRule
+internal class CannotUpdateOrderWithStatusOtherThanNewRule : IBusinessRule
 {
     private readonly OrderStatus orderStatus;
 

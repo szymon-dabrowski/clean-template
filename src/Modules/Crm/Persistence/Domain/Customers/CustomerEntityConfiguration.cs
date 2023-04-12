@@ -13,6 +13,12 @@ internal class CustomerEntityConfiguration : IEntityTypeConfiguration<Customer>
 
         builder.HasKey(c => c.Id);
 
+        builder.Property(o => o.Id)
+            .ValueGeneratedNever()
+            .HasConversion(
+                id => id.Value,
+                value => new CustomerId(value));
+
         builder.Property(c => c.Name).IsRequired();
 
         builder.Property(c => c.TaxId).IsRequired();

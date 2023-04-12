@@ -3,5 +3,5 @@ public interface IItemRepository
 {
     Task Add(Item item);
 
-    Task<Item?> GetById(Guid id);
+    Task<Item?> GetById(ItemId id);
 }

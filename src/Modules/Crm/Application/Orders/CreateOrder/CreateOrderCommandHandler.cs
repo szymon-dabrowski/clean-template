@@ -51,6 +51,6 @@ internal class CreateOrderCommandHandler : ICommandHandler<CreateOrderCommand, E
 
         await orderRepository.Add(order.Value);
 
-        return order.Value.Id;
+        return order.Value.Id.Value;
     }
 }

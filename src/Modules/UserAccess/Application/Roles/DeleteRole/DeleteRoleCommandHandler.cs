@@ -14,7 +14,7 @@ internal class DeleteRoleCommandHandler : ICommandHandler<DeleteRoleCommand>
 
     public Task Handle(DeleteRoleCommand request, CancellationToken cancellationToken)
     {
-        roleRepository.Delete(request.RoleId);
+        roleRepository.Delete(new RoleId(request.RoleId));
 
         return Task.CompletedTask;
     }

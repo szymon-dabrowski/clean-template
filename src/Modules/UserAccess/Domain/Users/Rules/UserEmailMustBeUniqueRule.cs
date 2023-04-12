@@ -2,7 +2,7 @@
 using Clean.Modules.UserAccess.Domain.Users.Services;
 
 namespace Clean.Modules.UserAccess.Domain.Users.Rules;
-internal class UserEmailMustBeUniqueRule : IBussinesRule
+internal class UserEmailMustBeUniqueRule : IBusinessRule
 {
     private readonly string email;
     private readonly IUserEmailUniquenessChecker userEmailUniquenessChecker;

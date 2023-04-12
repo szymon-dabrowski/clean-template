@@ -1,4 +1,5 @@
-﻿using Clean.Modules.Crm.Domain.Orders.Services;
+﻿using Clean.Modules.Crm.Domain.Items;
+using Clean.Modules.Crm.Domain.Orders.Services;
 using Clean.Modules.Crm.Persistence.Database;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,7 +13,7 @@ internal class ItemExistenceChecker : IItemExistenceChecker
         this.crmContext = crmContext;
     }
 
-    public async Task<bool> ItemsExists(IEnumerable<Guid> itemIds)
+    public async Task<bool> ItemsExists(IEnumerable<ItemId> itemIds)
     {
         var uniqueItemsIds = itemIds.Distinct();
 

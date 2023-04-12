@@ -5,15 +5,15 @@ using Clean.Modules.Shared.Domain;
 
 namespace Clean.Modules.Crm.Domain.Customers;
 
-public class Customer : AuditableAggregateRoot<Guid>
+public class Customer : AuditableAggregateRoot<CustomerId>
 {
     private Customer()
-        : base(Guid.Empty)
+        : base(new CustomerId(Guid.Empty))
     {
     }
 
     private Customer(
-        Guid id,
+        CustomerId id,
         string name,
         string taxId,
         string address,
@@ -71,7 +71,7 @@ public class Customer : AuditableAggregateRoot<Guid>
         }
 
         return new Customer(
-            Guid.NewGuid(),
+            new CustomerId(Guid.NewGuid()),
             name,
             taxId,
             address,
@@ -92,7 +92,7 @@ public class Customer : AuditableAggregateRoot<Guid>
         ICustomerNameUniquenessChecker customerNameUniquenessService,
         ICustomerTaxIdUniquenessChecker customerTaxIdUniquenessChecker)
     {
-        var rulesToCheck = new List<IBussinesRule>()
+        var rulesToCheck = new List<IBusinessRule>()
         {
             new CannotUpdateDeletedCustomerRule(IsDeleted),
         };

@@ -13,7 +13,7 @@ internal class DeleteUserCommandHandler : ICommandHandler<DeleteUserCommand>
 
     public Task Handle(DeleteUserCommand request, CancellationToken cancellationToken)
     {
-        userRepository.Delete(request.UserId);
+        userRepository.Delete(new UserId(request.UserId));
 
         return Task.CompletedTask;
     }

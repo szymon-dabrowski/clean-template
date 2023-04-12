@@ -1,5 +1,5 @@
 ﻿namespace Clean.Modules.Shared.Domain;
-public interface IBussinesRule
+public interface IBusinessRule
 {
     public string Message { get; }
 

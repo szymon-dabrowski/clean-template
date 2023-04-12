@@ -27,7 +27,7 @@ internal class UpdateOrderCommandHandler : ICommandHandler<UpdateOrderCommand, E
 
     public async Task<ErrorOr<Unit>> Handle(UpdateOrderCommand request, CancellationToken cancellationToken)
     {
-        var order = await orderRepository.GetById(request.OrderId);
+        var order = await orderRepository.GetById(new OrderId(request.OrderId));
 
         if (order == null)
         {

@@ -33,6 +33,6 @@ internal class CreateItemCommandHandler : ICommandHandler<CreateItemCommand, Err
 
         await itemRepository.Add(item.Value);
 
-        return item.Value.Id;
+        return item.Value.Id.Value;
     }
 }

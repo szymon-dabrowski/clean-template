@@ -41,7 +41,7 @@ public class Entity<TId> : IEquatable<Entity<TId>>
         return !EqualOperator(left, right);
     }
 
-    protected static async Task<ErrorOr<bool>> Check(params IBussinesRule[] rules)
+    protected static async Task<ErrorOr<bool>> Check(params IBusinessRule[] rules)
     {
         foreach (var rule in rules)
         {

@@ -17,7 +17,7 @@ internal class RoleRepository : IRoleRepository
         await userAccessContext.Roles.AddAsync(role);
     }
 
-    public void Delete(Guid roleId)
+    public void Delete(RoleId roleId)
     {
         var toDelete = userAccessContext.Roles
             .Where(r => r.Id == roleId);
@@ -25,7 +25,7 @@ internal class RoleRepository : IRoleRepository
         userAccessContext.Roles.RemoveRange(toDelete);
     }
 
-    public async Task<Role?> GetById(Guid roleId)
+    public async Task<Role?> GetById(RoleId roleId)
     {
         return await userAccessContext.Roles
             .SingleOrDefaultAsync(r => r.Id == roleId);

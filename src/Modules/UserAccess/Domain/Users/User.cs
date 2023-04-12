@@ -2,30 +2,31 @@
 using Clean.Modules.Shared.Domain;
 using Clean.Modules.UserAccess.Domain.Permissions;
 using Clean.Modules.UserAccess.Domain.Permissions.Services;
+using Clean.Modules.UserAccess.Domain.Roles;
 using Clean.Modules.UserAccess.Domain.Users.Errors;
 using Clean.Modules.UserAccess.Domain.Users.Rules;
 using Clean.Modules.UserAccess.Domain.Users.Services;
 
 namespace Clean.Modules.UserAccess.Domain.Users;
 
-public class User : AggregateRoot<Guid>
+public class User : AggregateRoot<UserId>
 {
     private readonly List<Permission> permissions = new();
 
     private readonly List<UserRole> roles = new();
 
     private User()
-        : base(Guid.Empty)
+        : base(new UserId(Guid.Empty))
     {
     }
 
     private User(
-        Guid id,
+        UserId userId,
         string firstName,
         string lastName,
         string email,
         string passwordHash)
-        : base(id)
+        : base(userId)
     {
         FirstName = firstName;
         LastName = lastName;
@@ -64,7 +65,7 @@ public class User : AggregateRoot<Guid>
         }
 
         return new User(
-            Guid.NewGuid(),
+            new UserId(Guid.NewGuid()),
             firstName,
             lastName,
             email,
@@ -118,8 +119,8 @@ public class User : AggregateRoot<Guid>
         permissions.RemoveAll(p => p.Name == permission);
     }
 
-    public async Task<ErrorOr<Guid>> AddRole(
-        Guid roleId,
+    public async Task<ErrorOr<RoleId>> AddRole(
+        RoleId roleId,
         IRoleExistenceChecker roleExistenceChecker)
     {
         var toAdd = new UserRole(roleId);
@@ -129,7 +130,9 @@ public class User : AggregateRoot<Guid>
             return roleId;
         }
 
-        var result = await Check(new RoleMustExistRule(roleId, roleExistenceChecker));
+        var result = await Check(new RoleMustExistRule(
+            roleId,
+            roleExistenceChecker));
 
         if (result.IsError)
         {
@@ -141,7 +144,7 @@ public class User : AggregateRoot<Guid>
         return roleId;
     }
 
-    public void RemoveRole(Guid roleId)
+    public void RemoveRole(RoleId roleId)
     {
         roles.RemoveAll(r => r.RoleId == roleId);
     }

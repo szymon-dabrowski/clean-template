@@ -1,10 +1,10 @@
-﻿using Clean.Modules.Shared.Domain;
+﻿using Clean.Modules.Crm.Domain.Items;
 
 namespace Clean.Modules.Crm.Domain.Orders;
-public class OrderItem : ValueObject
+public record OrderItem
 {
     private OrderItem(
-        Guid itemId,
+        ItemId itemId,
         decimal quantity,
         decimal pricePerUnit)
     {
@@ -13,14 +13,14 @@ public class OrderItem : ValueObject
         PricePerUnit = pricePerUnit;
     }
 
-    public Guid ItemId { get; private set; }
+    public ItemId ItemId { get; private set; }
 
     public decimal Quantity { get; private set; }
 
     public decimal PricePerUnit { get; private set; }
 
     public static OrderItem Create(
-        Guid itemId,
+        ItemId itemId,
         decimal quanity,
         decimal pricePerUnit)
     {
@@ -28,12 +28,5 @@ public class OrderItem : ValueObject
             itemId,
             quanity,
             pricePerUnit);
-    }
-
-    protected override IEnumerable<object> GetEqualityComponents()
-    {
-        yield return ItemId;
-        yield return Quantity;
-        yield return PricePerUnit;
     }
 }

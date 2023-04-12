@@ -1,13 +1,14 @@
 ﻿using Clean.Modules.Shared.Domain;
+using Clean.Modules.UserAccess.Domain.Roles;
 using Clean.Modules.UserAccess.Domain.Users.Services;
 
 namespace Clean.Modules.UserAccess.Domain.Users.Rules;
-internal class RoleMustExistRule : IBussinesRule
+internal class RoleMustExistRule : IBusinessRule
 {
-    private readonly Guid roleId;
+    private readonly RoleId roleId;
     private readonly IRoleExistenceChecker roleExistenceChecker;
 
-    public RoleMustExistRule(Guid roleId, IRoleExistenceChecker roleExistenceChecker)
+    public RoleMustExistRule(RoleId roleId, IRoleExistenceChecker roleExistenceChecker)
     {
         this.roleId = roleId;
         this.roleExistenceChecker = roleExistenceChecker;

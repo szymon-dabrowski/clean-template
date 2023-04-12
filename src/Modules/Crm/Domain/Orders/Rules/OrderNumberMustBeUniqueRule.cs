@@ -2,7 +2,7 @@
 using Clean.Modules.Shared.Domain;
 
 namespace Clean.Modules.Crm.Domain.Orders.Rules;
-internal class OrderNumberMustBeUniqueRule : IBussinesRule
+internal class OrderNumberMustBeUniqueRule : IBusinessRule
 {
     private readonly string orderNumber;
     private readonly IOrderNumberUniquenessChecker orderNumberUniquenessChecker;

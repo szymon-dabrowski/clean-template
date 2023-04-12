@@ -1,5 +1,6 @@
 ﻿using Clean.Modules.Shared.Application.Interfaces.Messaging;
 using Clean.Modules.Shared.Common.Errors;
+using Clean.Modules.UserAccess.Domain.Roles;
 using Clean.Modules.UserAccess.Domain.Users;
 using Clean.Modules.UserAccess.Domain.Users.Services;
 using MediatR;
@@ -20,14 +21,16 @@ internal class AddUserRoleCommandHandler : ICommandHandler<AddUserRoleCommand, E
 
     public async Task<ErrorOr<Unit>> Handle(AddUserRoleCommand request, CancellationToken cancellationToken)
     {
-        var user = await userRepository.GetById(request.UserId);
+        var user = await userRepository.GetById(new UserId(request.UserId));
 
         if (user == null)
         {
             return Error.EntityNotFound(request.UserId);
         }
 
-        var result = await user.AddRole(request.RoleId, roleExistenceChecker);
+        var result = await user.AddRole(
+            new RoleId(request.RoleId),
+            roleExistenceChecker);
 
         return result.Match<ErrorOr<Unit>>(
             _ => Unit.Value,

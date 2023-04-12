@@ -2,7 +2,7 @@
 using Clean.Modules.UserAccess.Domain.Permissions;
 
 namespace Clean.Modules.UserAccess.Domain.Users.Rules;
-internal class UserCannotHaveDuplicatedPermissionsRule : IBussinesRule
+internal class UserCannotHaveDuplicatedPermissionsRule : IBusinessRule
 {
     private readonly string permission;
     private readonly List<Permission> existingPermissions;

@@ -16,7 +16,7 @@ internal class OrderRepository : IOrderRepository
         await crmContext.Orders.AddAsync(order);
     }
 
-    public async Task<Order?> GetById(Guid id)
+    public async Task<Order?> GetById(OrderId id)
     {
         return await crmContext.Orders.FindAsync(id);
     }

@@ -1,7 +1,7 @@
 ﻿using Clean.Modules.Shared.Domain;
 
 namespace Clean.Modules.UserAccess.Domain.Roles.Rules;
-internal class RoleCannotHaveDuplicatedPermissionsRule : IBussinesRule
+internal class RoleCannotHaveDuplicatedPermissionsRule : IBusinessRule
 {
     private readonly List<string> permissions;
 

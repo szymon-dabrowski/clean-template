@@ -14,7 +14,7 @@ internal class DeleteOrderCommandHandler : ICommandHandler<DeleteOrderCommand>
 
     public async Task Handle(DeleteOrderCommand request, CancellationToken cancellationToken)
     {
-        var order = await orderRepository.GetById(request.OrderId);
+        var order = await orderRepository.GetById(new OrderId(request.OrderId));
 
         order?.Delete();
     }

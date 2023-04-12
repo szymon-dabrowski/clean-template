@@ -18,7 +18,7 @@ internal class UserRepository : IUserRepository
         await userAccessContext.AddAsync(user);
     }
 
-    public void Delete(Guid userId)
+    public void Delete(UserId userId)
     {
         var toRemove = userAccessContext.Users
             .Where(u => u.Id == userId);
@@ -32,7 +32,7 @@ internal class UserRepository : IUserRepository
             .SingleOrDefaultAsync(u => u.Email == email);
     }
 
-    public async Task<User?> GetById(Guid userId)
+    public async Task<User?> GetById(UserId userId)
     {
         return await userAccessContext.Users
             .SingleOrDefaultAsync(u => u.Id == userId);

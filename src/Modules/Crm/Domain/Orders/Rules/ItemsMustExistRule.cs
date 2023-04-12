@@ -1,14 +1,15 @@
-﻿using Clean.Modules.Crm.Domain.Orders.Services;
+﻿using Clean.Modules.Crm.Domain.Items;
+using Clean.Modules.Crm.Domain.Orders.Services;
 using Clean.Modules.Shared.Domain;
 
 namespace Clean.Modules.Crm.Domain.Orders.Rules;
-internal class ItemsMustExistRule : IBussinesRule
+internal class ItemsMustExistRule : IBusinessRule
 {
-    private readonly IEnumerable<Guid> itemIds;
+    private readonly IEnumerable<ItemId> itemIds;
     private readonly IItemExistenceChecker itemsExistenceChecker;
 
     public ItemsMustExistRule(
-        IEnumerable<Guid> itemIds,
+        IEnumerable<ItemId> itemIds,
         IItemExistenceChecker itemsExistenceChecker)
     {
         this.itemIds = itemIds;

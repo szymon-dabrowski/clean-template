@@ -19,7 +19,7 @@ internal class GetCustomerQueryHandler : IQueryHandler<GetCustomerQuery, Custome
         CancellationToken cancellationToken)
     {
         var customer = await dbContext.Set<Customer>()
-            .FirstOrDefaultAsync(c => c.Id == request.CustomerId, cancellationToken);
+            .FirstOrDefaultAsync(c => c.Id == new CustomerId(request.CustomerId), cancellationToken);
 
         return customer == null
             ? null

@@ -23,7 +23,7 @@ internal class GetOrdersDetailsQueryHandler : IQueryHandler<GetOrdersDetailsQuer
         return await dbContext.Set<Order>()
             .Join(
                 dbContext.Set<Customer>(),
-                o => o.CustomerId,
+                o => new CustomerId(o.CustomerId),
                 c => c.Id,
                 (o, c) => new
                 {
@@ -36,7 +36,10 @@ internal class GetOrdersDetailsQueryHandler : IQueryHandler<GetOrdersDetailsQuer
                             .Contains(i.Id))
                             .ToList(),
                 })
-            .Where(row => !request.OrderIds.Any() || request.OrderIds.Contains(row.order.Id))
+            .Where(row => !request.OrderIds.Any() ||
+                request.OrderIds
+                    .Select(id => new OrderId(id))
+                    .Contains(row.order.Id))
             .Select(row => MapToDto(row.order, row.customer, row.items))
             .ToListAsync(cancellationToken);
     }

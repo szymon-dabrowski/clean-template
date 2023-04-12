@@ -42,6 +42,6 @@ internal class CreateCustomerCommandHandler : ICommandHandler<CreateCustomerComm
 
         await customerRepository.Add(customer.Value);
 
-        return customer.Value.Id;
+        return customer.Value.Id.Value;
     }
 }

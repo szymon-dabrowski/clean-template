@@ -1,4 +1,6 @@
-﻿using Clean.Modules.Crm.Domain.Orders;
+﻿using Clean.Modules.Crm.Domain.Customers;
+using Clean.Modules.Crm.Domain.Items;
+using Clean.Modules.Crm.Domain.Orders;
 using Clean.Modules.Crm.Domain.Orders.Services;
 using Clean.Modules.Shared.Common.Errors;
 using FluentAssertions;
@@ -11,13 +13,13 @@ public class OrderTests
     [Fact]
     public async Task CreateOrder_OrderNumberIsUnique_OrderCreated()
     {
-        var orderItem1id = Guid.NewGuid();
+        var orderItem1id = new ItemId(Guid.NewGuid());
         var orderItem1 = OrderItem.Create(
             orderItem1id,
             quanity: 100,
             pricePerUnit: 100);
 
-        var orderItem2id = Guid.NewGuid();
+        var orderItem2id = new ItemId(Guid.NewGuid());
         var orderItem2 = OrderItem.Create(
             orderItem2id,
             quanity: 200,
@@ -80,7 +82,7 @@ public class OrderTests
         var orderNumberGenerator = MockOrderNumberGenerator(withResult: "generatedOrder");
 
         var orderItem = OrderItem.Create(
-            itemId: Guid.NewGuid(),
+            itemId: new ItemId(Guid.NewGuid()),
             quanity: 100,
             pricePerUnit: 100);
 
@@ -167,13 +169,13 @@ public class OrderTests
             itemExistenceChecker,
             orderNumberGenerator);
 
-        var orderItem1id = Guid.NewGuid();
+        var orderItem1id = new ItemId(Guid.NewGuid());
         var orderItem1 = OrderItem.Create(
             orderItem1id,
             quanity: 100,
             pricePerUnit: 100);
 
-        var orderItem2id = Guid.NewGuid();
+        var orderItem2id = new ItemId(Guid.NewGuid());
         var orderItem2 = OrderItem.Create(
             orderItem2id,
             quanity: 200,
@@ -247,7 +249,7 @@ public class OrderTests
             orderNumberGenerator);
 
         var orderItem = OrderItem.Create(
-            itemId: Guid.NewGuid(),
+            itemId: new ItemId(Guid.NewGuid()),
             quanity: 100,
             pricePerUnit: 100);
 
@@ -356,8 +358,8 @@ public class OrderTests
         var customerExistenceChecker = new Mock<ICustomerExistenceChecker>();
 
         customerExistenceChecker
-            .Setup(c => c.CustomerExists(It.IsAny<Guid>()))
-            .Returns<Guid>(_ => Task.FromResult(withResult));
+            .Setup(c => c.CustomerExists(It.IsAny<CustomerId>()))
+            .Returns<CustomerId>(_ => Task.FromResult(withResult));
 
         return customerExistenceChecker.Object;
     }
@@ -367,8 +369,8 @@ public class OrderTests
         var itemExistenceChecker = new Mock<IItemExistenceChecker>();
 
         itemExistenceChecker
-            .Setup(c => c.ItemsExists(It.IsAny<IEnumerable<Guid>>()))
-            .Returns<IEnumerable<Guid>>(_ => Task.FromResult(withResult));
+            .Setup(c => c.ItemsExists(It.IsAny<IEnumerable<ItemId>>()))
+            .Returns<IEnumerable<ItemId>>(_ => Task.FromResult(withResult));
 
         return itemExistenceChecker.Object;
     }
@@ -403,7 +405,7 @@ public class OrderTests
         string orderNumber = "test")
     {
         var orderItem = OrderItem.Create(
-            itemId: Guid.NewGuid(),
+            itemId: new ItemId(Guid.NewGuid()),
             quanity: 10,
             pricePerUnit: 10);
 

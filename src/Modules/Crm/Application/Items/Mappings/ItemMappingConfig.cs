@@ -7,6 +7,7 @@ internal class ItemMappingConfig : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        config.NewConfig<Item, ItemDto>();
+        config.NewConfig<Item, ItemDto>()
+            .Map(d => d.Id, s => s.Id.Value);
     }
 }

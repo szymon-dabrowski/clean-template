@@ -21,7 +21,7 @@ internal class AddUserPermissionCommandHandler
 
     public async Task<ErrorOr<Unit>> Handle(AddUserPermissionCommand request, CancellationToken cancellationToken)
     {
-        var user = await userRepository.GetById(request.UserId);
+        var user = await userRepository.GetById(new UserId(request.UserId));
 
         if (user == null)
         {

@@ -1,5 +1,7 @@
-﻿namespace Clean.Modules.UserAccess.Domain.Users.Services;
+﻿using Clean.Modules.UserAccess.Domain.Roles;
+
+namespace Clean.Modules.UserAccess.Domain.Users.Services;
 public interface IRoleExistenceChecker
 {
-    Task<bool> Exists(Guid roleId);
+    Task<bool> Exists(RoleId roleId);
 }

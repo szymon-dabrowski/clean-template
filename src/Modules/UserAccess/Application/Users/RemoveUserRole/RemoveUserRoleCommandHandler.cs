@@ -1,5 +1,6 @@
 ﻿using Clean.Modules.Shared.Application.Interfaces.Messaging;
 using Clean.Modules.Shared.Common.Errors;
+using Clean.Modules.UserAccess.Domain.Roles;
 using Clean.Modules.UserAccess.Domain.Users;
 using MediatR;
 
@@ -17,14 +18,14 @@ internal class RemoveUserRoleCommandHandler : ICommandHandler<RemoveUserRoleComm
         RemoveUserRoleCommand request,
         CancellationToken cancellationToken)
     {
-        var user = await userRepository.GetById(request.UserId);
+        var user = await userRepository.GetById(new UserId(request.UserId));
 
         if (user == null)
         {
             return Error.EntityNotFound(request.UserId);
         }
 
-        user.RemoveRole(request.RoleId);
+        user.RemoveRole(new RoleId(request.RoleId));
 
         return Unit.Value;
     }

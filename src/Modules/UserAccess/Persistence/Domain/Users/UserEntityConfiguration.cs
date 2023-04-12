@@ -11,6 +11,12 @@ internal class UserEntityConfiguration : IEntityTypeConfiguration<User>
     {
         builder.ToTable("Users", Constants.UserAccessSchemaName);
 
+        builder.Property(o => o.Id)
+            .ValueGeneratedNever()
+            .HasConversion(
+                id => id.Value,
+                value => new UserId(value));
+
         builder.Property(u => u.FirstName)
             .HasMaxLength(256)
             .IsRequired();

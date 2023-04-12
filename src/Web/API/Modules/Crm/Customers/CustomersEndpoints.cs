@@ -46,7 +46,7 @@ internal class CustomersEndpoints : IEndpointsModule
                 request.Adapt<CreateCustomerCommand>());
 
             return result.Match(
-                customerId => Results.Ok(new CreateCustomerResponse(customerId.Value)),
+                customerId => Results.Ok(new CreateCustomerResponse(customerId)),
                 errors => errors.AsProblem());
         })
             .RequirePermission(CustomersPermissions.Write);

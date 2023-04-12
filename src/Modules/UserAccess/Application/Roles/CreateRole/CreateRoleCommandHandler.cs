@@ -38,6 +38,6 @@ internal class CreateRoleCommandHandler : ICommandHandler<CreateRoleCommand, Err
 
         await roleRepository.Add(role.Value);
 
-        return role.Value.Id;
+        return role.Value.Id.Value;
     }
 }

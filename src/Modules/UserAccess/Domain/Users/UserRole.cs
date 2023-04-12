@@ -6,12 +6,12 @@ public record UserRole
 {
     private readonly Role role = null!;
 
-    public UserRole(Guid roleId)
+    public UserRole(RoleId roleId)
     {
         RoleId = roleId;
     }
 
-    public Guid RoleId { get; }
+    public RoleId RoleId { get; }
 
     public IReadOnlyCollection<Permission> Permissions => role.Permissions;
 }

@@ -49,10 +49,8 @@ public sealed class OrdersTestsFixture : IDisposable
 
         var result = await crmModule.ExecuteCommand(command);
 
-        var orderId = result.Value;
-
         return new CustomerDto(
-            orderId.Value,
+            result.Value,
             command.Name,
             command.TaxId,
             command.Address,
@@ -72,10 +70,8 @@ public sealed class OrdersTestsFixture : IDisposable
 
         var result = await crmModule.ExecuteCommand(command);
 
-        var orderId = result.Value;
-
         return new ItemDto(
-            orderId.Value,
+            result.Value,
             command.Name,
             command.Description,
             command.BasePrice,
@@ -92,10 +88,8 @@ public sealed class OrdersTestsFixture : IDisposable
 
         var result = await crmModule.ExecuteCommand(command);
 
-        var orderId = result.Value;
-
         return new ItemDto(
-            orderId.Value,
+            result.Value,
             command.Name,
             command.Description,
             command.BasePrice,

@@ -8,7 +8,6 @@ using Clean.Modules.Crm.Application.Orders.GetOrderDetails;
 using Clean.Modules.Crm.Application.Orders.GetOrders;
 using Clean.Modules.Crm.Application.Orders.GetOrdersDetails;
 using Clean.Modules.Crm.Application.Orders.UpdateOrder;
-using Clean.Modules.Crm.Domain.Orders;
 using Clean.Modules.Crm.Infrastructure.Module;
 using Clean.Modules.Crm.IntegrationTests.SeedWork;
 using FluentAssertions;
@@ -57,10 +56,8 @@ public class OrdersTests : IClassFixture<CrmStartupFixture>, IClassFixture<Order
             expectedOrder.Currency,
             expectedOrder.OrderItems));
 
-        var orderId = result.Value;
-
         var orders = await crmModule.ExecuteQuery(new GetOrdersQuery());
-        var order = orders.First(o => o.Id == orderId.Value);
+        var order = orders.First(o => o.Id == result.Value);
 
         result.IsError.Should().BeFalse();
         order.ShouldBe(expectedOrder);
@@ -79,12 +76,10 @@ public class OrdersTests : IClassFixture<CrmStartupFixture>, IClassFixture<Order
             Currency: "EUR",
             OrderItems: new() { orderItem1, orderItem2 }));
 
-        var orderId = result.Value;
-
         var updatedOrderItem1 = new OrderItemDto(item1.Id, Quantity: 11, PricePerUnit: 101);
 
         var expectedOrder = new OrderDto(
-            Id: orderId.Value,
+            Id: result.Value,
             CustomerId: customer.Id,
             OrderNumber: "Updated Order Number",
             OrderDate: new DateTime(2023, 12, 12),
@@ -99,7 +94,7 @@ public class OrdersTests : IClassFixture<CrmStartupFixture>, IClassFixture<Order
             expectedOrder.Currency,
             expectedOrder.OrderItems));
 
-        var order = await crmModule.ExecuteQuery(new GetOrderQuery(orderId.Value));
+        var order = await crmModule.ExecuteQuery(new GetOrderQuery(result.Value));
 
         updateResult.IsError.Should().BeFalse();
         order.ShouldBe(expectedOrder);
@@ -117,11 +112,9 @@ public class OrdersTests : IClassFixture<CrmStartupFixture>, IClassFixture<Order
             Currency: "EUR",
             OrderItems: new() { orderItem1 }));
 
-        var orderId = result.Value;
+        await crmModule.ExecuteCommand(new DeleteOrderCommand(result.Value));
 
-        await crmModule.ExecuteCommand(new DeleteOrderCommand(orderId.Value));
-
-        var order = await crmModule.ExecuteQuery(new GetOrderQuery(orderId.Value));
+        var order = await crmModule.ExecuteQuery(new GetOrderQuery(result.Value));
 
         order.Should().BeNull();
     }
@@ -157,9 +150,7 @@ public class OrdersTests : IClassFixture<CrmStartupFixture>, IClassFixture<Order
             expectedOrderDetails.Currency,
             new() { orderItem1, orderItem2 }));
 
-        var orderId = result.Value;
-
-        var orderDetails = await crmModule.ExecuteQuery(new GetOrderDetailsQuery(orderId.Value));
+        var orderDetails = await crmModule.ExecuteQuery(new GetOrderDetailsQuery(result.Value));
 
         orderDetails.ShouldBe(expectedOrderDetails);
     }
@@ -203,8 +194,6 @@ public class OrdersTests : IClassFixture<CrmStartupFixture>, IClassFixture<Order
             expectedOrderDetails1.Currency,
             new() { orderItem1, orderItem2 }));
 
-        var orderId1 = result1.Value;
-
         var result2 = await crmModule.ExecuteCommand(new CreateOrderCommand(
             expectedOrderDetails2.Customer.CustomerId,
             expectedOrderDetails2.OrderNumber,
@@ -212,10 +201,8 @@ public class OrdersTests : IClassFixture<CrmStartupFixture>, IClassFixture<Order
             expectedOrderDetails2.Currency,
             new() { orderItem1 }));
 
-        var orderId2 = result2.Value;
-
         var ordersDetails = await crmModule.ExecuteQuery(
-            new GetOrdersDetailsQuery(new[] { orderId1.Value, orderId2.Value }));
+            new GetOrdersDetailsQuery(new[] { result1.Value, result2.Value }));
 
         ordersDetails = ordersDetails
             .OrderBy(x => x.OrderNumber)

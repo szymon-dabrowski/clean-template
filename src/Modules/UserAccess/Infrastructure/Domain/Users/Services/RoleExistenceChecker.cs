@@ -1,4 +1,5 @@
-﻿using Clean.Modules.UserAccess.Domain.Users.Services;
+﻿using Clean.Modules.UserAccess.Domain.Roles;
+using Clean.Modules.UserAccess.Domain.Users.Services;
 using Clean.Modules.UserAccess.Persistence.Database;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,7 +13,7 @@ public class RoleExistenceChecker : IRoleExistenceChecker
         this.userAccessContext = userAccessContext;
     }
 
-    public async Task<bool> Exists(Guid roleId)
+    public async Task<bool> Exists(RoleId roleId)
     {
         return await userAccessContext.Roles.AnyAsync(r => r.Id == roleId);
     }

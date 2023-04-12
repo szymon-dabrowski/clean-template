@@ -6,20 +6,20 @@ using Clean.Modules.UserAccess.Domain.Roles.Rules;
 using Clean.Modules.UserAccess.Domain.Roles.Services;
 
 namespace Clean.Modules.UserAccess.Domain.Roles;
-public class Role : AggregateRoot<Guid>
+public class Role : AggregateRoot<RoleId>
 {
     private List<Permission> permissions = new();
 
     private Role()
-        : base(Guid.Empty)
+        : base(new RoleId(Guid.Empty))
     {
     }
 
     private Role(
-        Guid id,
+        RoleId roleId,
         string name,
         List<Permission> permissions)
-        : base(id)
+        : base(roleId)
     {
         Name = name;
         this.permissions = permissions;
@@ -55,7 +55,10 @@ public class Role : AggregateRoot<Guid>
                 .ToArray();
         }
 
-        return new Role(Guid.NewGuid(), name, rolePermissions.Select(p => p.Value).ToList());
+        return new Role(
+            new RoleId(Guid.NewGuid()),
+            name,
+            rolePermissions.Select(p => p.Value).ToList());
     }
 
     public async Task<ErrorOr<Role>> Update(

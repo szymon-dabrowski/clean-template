@@ -14,6 +14,12 @@ internal class RoleEntityConfiguration : IEntityTypeConfiguration<Role>
             .HasMaxLength(256)
             .IsRequired();
 
+        builder.Property(o => o.Id)
+            .ValueGeneratedNever()
+            .HasConversion(
+                id => id.Value,
+                value => new RoleId(value));
+
         builder.OwnsMany(r => r.Permissions, r =>
         {
             r.WithOwner().HasForeignKey("RoleId");

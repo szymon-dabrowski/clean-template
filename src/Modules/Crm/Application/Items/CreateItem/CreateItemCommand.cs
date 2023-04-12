@@ -8,4 +8,4 @@ public record CreateItemCommand(
     string Description,
     decimal BasePrice,
     string BaseCurrency)
-    : ICommand<ErrorOr<ItemId>>;
+    : ICommand<ErrorOr<Guid>>;

@@ -26,7 +26,7 @@ internal class UpdateRoleCommandHandler : ICommandHandler<UpdateRoleCommand, Err
         UpdateRoleCommand request,
         CancellationToken cancellationToken)
     {
-        var role = await roleRepository.GetById(request.RoleId);
+        var role = await roleRepository.GetById(new RoleId(request.RoleId));
 
         if (role == null)
         {

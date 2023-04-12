@@ -11,7 +11,8 @@ internal class AuthResultMappingConfig : IRegister
     {
         config.NewConfig<User, AuthResultDto>()
             .Map(
-                dest => dest.Token,
-                _ => MapContext.Current!.Parameters[TokenParameter]);
+                d => d.Token,
+                _ => MapContext.Current!.Parameters[TokenParameter])
+            .Map(d => d.Id, s => s.Id.Value);
     }
 }

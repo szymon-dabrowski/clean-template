@@ -37,7 +37,7 @@ public class OrderTests
         var orderNumberGenerator = MockOrderNumberGenerator(withResult: orderNumber);
 
         var order = await Order.Create(
-            customerId,
+            new CustomerId(customerId),
             orderDate,
             orderNumber,
             currency,
@@ -50,7 +50,7 @@ public class OrderTests
         order.IsError.Should().BeFalse();
         order.Value.OrderNumber.Should().Be(orderNumber);
         order.Value.OrderDate.Should().Be(orderDate);
-        order.Value.CustomerId.Should().Be(customerId);
+        order.Value.CustomerId.Value.Should().Be(customerId);
         order.Value.OrderItems.Should().HaveCount(orderItems.Count);
         AssertOrderItem(order.Value.OrderItems.Single(i => i.ItemId == orderItem1id), orderItem1);
         AssertOrderItem(order.Value.OrderItems.Single(i => i.ItemId == orderItem2id), orderItem2);
@@ -89,7 +89,7 @@ public class OrderTests
         var orderItems = new List<OrderItem>() { orderItem, orderItem };
 
         var order = await Order.Create(
-            customerId: Guid.NewGuid(),
+            customerId: new CustomerId(Guid.NewGuid()),
             orderDate: DateTime.Now,
             orderNumber: "TestOrderNumber",
             currency: "eur",
@@ -188,7 +188,7 @@ public class OrderTests
         var orderItems = new List<OrderItem>() { orderItem1, orderItem2 };
 
         var updateResult = await order.Value.Update(
-            customerId,
+            new CustomerId(customerId),
             orderDate,
             orderNumber,
             currency,
@@ -200,7 +200,7 @@ public class OrderTests
         updateResult.IsError.Should().BeFalse();
         updateResult.Value.OrderNumber.Should().Be(orderNumber);
         updateResult.Value.OrderDate.Should().Be(orderDate);
-        updateResult.Value.CustomerId.Should().Be(customerId);
+        updateResult.Value.CustomerId.Value.Should().Be(customerId);
         updateResult.Value.OrderItems.Should().HaveCount(orderItems.Count);
         AssertOrderItem(updateResult.Value.OrderItems.Single(i => i.ItemId == orderItem1id), orderItem1);
         AssertOrderItem(updateResult.Value.OrderItems.Single(i => i.ItemId == orderItem2id), orderItem2);
@@ -410,7 +410,7 @@ public class OrderTests
             pricePerUnit: 10);
 
         var order = await Order.Create(
-            customerId: Guid.NewGuid(),
+            customerId: new CustomerId(Guid.NewGuid()),
             orderDate: DateTime.Now,
             orderNumber,
             currency: "eur",

@@ -1,4 +1,5 @@
-﻿using Clean.Modules.Crm.Domain.Orders;
+﻿using Clean.Modules.Crm.Domain.Customers;
+using Clean.Modules.Crm.Domain.Orders;
 using Clean.Modules.Crm.Domain.Orders.Services;
 using Clean.Modules.Shared.Application.Interfaces.Messaging;
 using Clean.Modules.Shared.Common.Errors;
@@ -35,7 +36,7 @@ internal class UpdateOrderCommandHandler : ICommandHandler<UpdateOrderCommand, E
         }
 
         var updateResult = await order.Update(
-            request.CustomerId,
+            new CustomerId(request.CustomerId),
             request.OrderDate,
             request.OrderNumber,
             request.Currency,

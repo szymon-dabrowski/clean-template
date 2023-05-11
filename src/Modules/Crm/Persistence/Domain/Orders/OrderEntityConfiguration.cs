@@ -1,4 +1,5 @@
-﻿using Clean.Modules.Crm.Domain.Items;
+﻿using Clean.Modules.Crm.Domain.Customers;
+using Clean.Modules.Crm.Domain.Items;
 using Clean.Modules.Crm.Domain.Orders;
 using Clean.Modules.Crm.Persistence.Database;
 using Clean.Modules.Shared.Persistence.EntityConfiguration;
@@ -19,6 +20,12 @@ internal class OrderEntityConfiguration : IEntityTypeConfiguration<Order>
             .HasConversion(
                 id => id.Value,
                 value => new OrderId(value));
+
+        builder.Property(o => o.CustomerId)
+            .ValueGeneratedNever()
+            .HasConversion(
+                id => id.Value,
+                value => new CustomerId(value));
 
         builder.Property(o => o.OrderNumber)
             .HasMaxLength(25)

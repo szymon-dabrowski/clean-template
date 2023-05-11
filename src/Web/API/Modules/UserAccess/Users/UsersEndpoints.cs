@@ -21,7 +21,9 @@ internal class UsersEndpoints : IEndpointsModule
 
     public void RegisterEndpoints(WebApplication app)
     {
-        app.MapPost($"{UsersRoute}/register", async (
+        var usersEndpoints = app.MapGroup(UsersRoute);
+
+        usersEndpoints.MapPost("/register", async (
             IUserAccessModule userAccessModule,
             RegisterRequest request) =>
         {
@@ -34,7 +36,7 @@ internal class UsersEndpoints : IEndpointsModule
         })
             .AllowAnonymous();
 
-        app.MapPost($"{UsersRoute}/login", async (
+        usersEndpoints.MapPost("/login", async (
             IUserAccessModule userAccessModule,
             LoginRequest request) =>
         {
@@ -47,7 +49,7 @@ internal class UsersEndpoints : IEndpointsModule
         })
             .AllowAnonymous();
 
-        app.MapDelete($"{UsersRoute}/{{userId}}", async (
+        usersEndpoints.MapDelete("/{userId}", async (
             IUserAccessModule userAccessModule,
             Guid userId) =>
         {
@@ -55,7 +57,7 @@ internal class UsersEndpoints : IEndpointsModule
         })
             .RequirePermission(UsersPermissions.Admin);
 
-        app.MapPost($"{UsersRoute}/{{userId}}/permissions", async (
+        usersEndpoints.MapPost("/{userId}/permissions", async (
             IUserAccessModule userAccessModule,
             Guid userId,
             AddUserPermissionRequest request) =>
@@ -69,7 +71,7 @@ internal class UsersEndpoints : IEndpointsModule
         })
             .RequirePermission(UsersPermissions.Admin);
 
-        app.MapDelete($"{UsersRoute}/{{userId}}/permissions/{{permission}}", async (
+        usersEndpoints.MapDelete("/{userId}/permissions/{permission}", async (
             IUserAccessModule userAccessModule,
             Guid userId,
             string permission) =>
@@ -79,7 +81,7 @@ internal class UsersEndpoints : IEndpointsModule
         })
             .RequirePermission(UsersPermissions.Admin);
 
-        app.MapPost($"{UsersRoute}/{{userId}}/roles", async (
+        usersEndpoints.MapPost("/{userId}/roles", async (
             IUserAccessModule userAccessModule,
             Guid userId,
             AddUserRoleRequest request) =>
@@ -93,7 +95,7 @@ internal class UsersEndpoints : IEndpointsModule
         })
             .RequirePermission(UsersPermissions.Admin);
 
-        app.MapDelete($"{UsersRoute}/{{userId}}/roles/{{roleId}}", async (
+        usersEndpoints.MapDelete("/{userId}/roles/{roleId}", async (
             IUserAccessModule userAccessModule,
             Guid userId,
             Guid roleId) =>

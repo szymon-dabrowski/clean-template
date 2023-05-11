@@ -8,6 +8,7 @@ internal class OrderMappingConfig : IRegister
     public void Register(TypeAdapterConfig config)
     {
         config.NewConfig<Order, OrderDto>()
-            .Map(d => d.Id, s => s.Id.Value);
+            .Map(d => d.Id, s => s.Id.Value)
+            .Map(d => d.CustomerId, s => s.CustomerId.Value);
     }
 }

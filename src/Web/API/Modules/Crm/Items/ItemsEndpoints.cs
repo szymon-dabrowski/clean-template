@@ -20,7 +20,9 @@ internal class ItemsEndpoints : IEndpointsModule
 
     public void RegisterEndpoints(WebApplication app)
     {
-        app.MapGet(ItemsRoute, async (ICrmModule crmModule) =>
+        var itemsEndpoints = app.MapGroup(ItemsRoute);
+
+        itemsEndpoints.MapGet("/", async (ICrmModule crmModule) =>
         {
             var items = await crmModule.ExecuteQuery(new GetItemsQuery());
 
@@ -30,7 +32,7 @@ internal class ItemsEndpoints : IEndpointsModule
         })
             .RequirePermission(ItemsPermissions.Read);
 
-        app.MapGet($"{ItemsRoute}/{{itemId}}", async (ICrmModule crmModule, Guid itemId) =>
+        itemsEndpoints.MapGet("/{itemId}", async (ICrmModule crmModule, Guid itemId) =>
         {
             var item = await crmModule.ExecuteQuery(new GetItemQuery(itemId));
 
@@ -38,7 +40,7 @@ internal class ItemsEndpoints : IEndpointsModule
         })
             .RequirePermission(ItemsPermissions.Read);
 
-        app.MapPost(ItemsRoute, async (ICrmModule crmModule, CreateItemRequest request) =>
+        itemsEndpoints.MapPost("/", async (ICrmModule crmModule, CreateItemRequest request) =>
         {
             var result = await crmModule.ExecuteCommand(
                 request.Adapt<CreateItemCommand>());
@@ -49,7 +51,7 @@ internal class ItemsEndpoints : IEndpointsModule
         })
             .RequirePermission(ItemsPermissions.Write);
 
-        app.MapPut($"{ItemsRoute}/{{itemId}}", async (
+        itemsEndpoints.MapPut("/{itemId}", async (
             ICrmModule crmModule,
             Guid itemId,
             UpdateItemRequest request) =>
@@ -65,7 +67,7 @@ internal class ItemsEndpoints : IEndpointsModule
         })
             .RequirePermission(ItemsPermissions.Write);
 
-        app.MapDelete($"{ItemsRoute}/{{itemId}}", async (ICrmModule crmModule, Guid itemId) =>
+        itemsEndpoints.MapDelete("/{itemId}", async (ICrmModule crmModule, Guid itemId) =>
         {
             await crmModule.ExecuteCommand(new DeleteItemCommand(itemId));
         })

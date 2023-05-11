@@ -19,14 +19,16 @@ internal class RolesEndpoints : IEndpointsModule
 
     public void RegisterEndpoints(WebApplication app)
     {
-        app.MapGet(RolesRoute, async (IUserAccessModule userAccessModule) =>
+        var rolesEndpoints = app.MapGroup(RolesRoute);
+
+        rolesEndpoints.MapGet("/", async (IUserAccessModule userAccessModule) =>
         {
             return (await userAccessModule.ExecuteQuery(new GetRolesQuery()))
                 .Select(r => r.Adapt<RoleDto>());
         })
             .RequirePermission(RolesPermissions.Read);
 
-        app.MapPost(RolesRoute, async (
+        rolesEndpoints.MapPost("/", async (
             IUserAccessModule userAccessModule,
             CreateRoleRequest request) =>
         {
@@ -39,7 +41,7 @@ internal class RolesEndpoints : IEndpointsModule
         })
             .RequirePermission(RolesPermissions.Write);
 
-        app.MapPut($"{RolesRoute}/{{roleId}}", async (
+        rolesEndpoints.MapPut("/{roleId}", async (
             IUserAccessModule userAccessModule,
             Guid roleId,
             UpdateRoleRequest request) =>
@@ -53,7 +55,7 @@ internal class RolesEndpoints : IEndpointsModule
         })
             .RequirePermission(RolesPermissions.Write);
 
-        app.MapDelete($"{RolesRoute}/{{roleId}}", async (
+        rolesEndpoints.MapDelete("/{roleId}", async (
             IUserAccessModule userAcccessModule,
             Guid roleId) =>
         {

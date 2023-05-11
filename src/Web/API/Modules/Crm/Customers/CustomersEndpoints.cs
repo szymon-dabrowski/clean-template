@@ -20,7 +20,9 @@ internal class CustomersEndpoints : IEndpointsModule
 
     public void RegisterEndpoints(WebApplication app)
     {
-        app.MapGet(CustomersRoute, async (ICrmModule crmModule) =>
+        var customersEndpoints = app.MapGroup(CustomersRoute);
+
+        customersEndpoints.MapGet("/", async (ICrmModule crmModule) =>
         {
             var customers = await crmModule.ExecuteQuery(new GetCustomersQuery());
 
@@ -30,7 +32,7 @@ internal class CustomersEndpoints : IEndpointsModule
         })
             .RequirePermission(CustomersPermissions.Read);
 
-        app.MapGet($"{CustomersRoute}/{{customerId}}", async (
+        customersEndpoints.MapGet("/{customerId}", async (
             ICrmModule crmModule,
             Guid customerId) =>
         {
@@ -40,7 +42,7 @@ internal class CustomersEndpoints : IEndpointsModule
         })
             .RequirePermission(CustomersPermissions.Read);
 
-        app.MapPost(CustomersRoute, async (ICrmModule crmModule, CreateCustomerRequest request) =>
+        customersEndpoints.MapPost("/", async (ICrmModule crmModule, CreateCustomerRequest request) =>
         {
             var result = await crmModule.ExecuteCommand(
                 request.Adapt<CreateCustomerCommand>());
@@ -51,7 +53,7 @@ internal class CustomersEndpoints : IEndpointsModule
         })
             .RequirePermission(CustomersPermissions.Write);
 
-        app.MapPost($"{CustomersRoute}/{{customerId}}", async (
+        customersEndpoints.MapPost("/{customerId}", async (
             ICrmModule crmModule,
             Guid customerId,
             UpdateCustomerRequest request) =>
@@ -67,7 +69,7 @@ internal class CustomersEndpoints : IEndpointsModule
         })
             .RequirePermission(CustomersPermissions.Write);
 
-        app.MapDelete($"{CustomersRoute}/{{customerId}}", async (
+        customersEndpoints.MapDelete("/{customerId}", async (
             ICrmModule crmModule,
             Guid customerId) =>
         {

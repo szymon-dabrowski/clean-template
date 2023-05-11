@@ -17,7 +17,7 @@ public sealed class UserAccessStartupFixture : IDisposable
         {
             { $"{JwtOptions.Jwt}:Audience", "user-access-tests-aud" },
             { $"{JwtOptions.Jwt}:Issuer", "user-access-tests-iss" },
-            { $"{JwtOptions.Jwt}:Secret", "super-secret-key" },
+            { $"{JwtOptions.Jwt}:Secret", "my-super-super-super-super-secret" },
             { $"{JwtOptions.Jwt}:Expiration", "120" },
         };
 

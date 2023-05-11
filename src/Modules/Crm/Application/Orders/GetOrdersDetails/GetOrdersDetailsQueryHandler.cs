@@ -23,7 +23,7 @@ internal class GetOrdersDetailsQueryHandler : IQueryHandler<GetOrdersDetailsQuer
         return await dbContext.Set<Order>()
             .Join(
                 dbContext.Set<Customer>(),
-                o => new CustomerId(o.CustomerId),
+                o => o.CustomerId,
                 c => c.Id,
                 (o, c) => new
                 {

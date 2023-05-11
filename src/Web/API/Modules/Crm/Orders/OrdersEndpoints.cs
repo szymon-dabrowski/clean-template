@@ -25,7 +25,9 @@ internal class OrdersEndpoints : IEndpointsModule
 
     public void RegisterEndpoints(WebApplication app)
     {
-        app.MapGet(OrdersRoute, async (ICrmModule crmModule) =>
+        var ordersEndpoints = app.MapGroup(OrdersRoute);
+
+        ordersEndpoints.MapGet("/", async (ICrmModule crmModule) =>
         {
             var orders = await crmModule.ExecuteQuery(new GetOrdersQuery());
 
@@ -35,7 +37,7 @@ internal class OrdersEndpoints : IEndpointsModule
         })
             .RequirePermission(OrdersPermissions.Read);
 
-        app.MapGet($"{OrdersRoute}/{{orderId}}", async (ICrmModule crmModule, Guid orderId) =>
+        ordersEndpoints.MapGet("/{orderId}", async (ICrmModule crmModule, Guid orderId) =>
         {
             var order = await crmModule.ExecuteQuery(new GetOrderQuery(orderId));
 
@@ -43,7 +45,7 @@ internal class OrdersEndpoints : IEndpointsModule
         })
             .RequirePermission(OrdersPermissions.Read);
 
-        app.MapGet($"{OrdersRoute}/details", async (ICrmModule crmModule, Guid[] orderId) =>
+        ordersEndpoints.MapGet("/details", async (ICrmModule crmModule, Guid[] orderId) =>
         {
             var orders = await crmModule.ExecuteQuery(new GetOrdersDetailsQuery(orderId));
 
@@ -53,7 +55,7 @@ internal class OrdersEndpoints : IEndpointsModule
         })
             .RequirePermission(OrdersPermissions.Read);
 
-        app.MapGet($"{OrdersRoute}/detials/{{orderId}}", async (
+        ordersEndpoints.MapGet("/detials/{orderId}", async (
             ICrmModule crmModule,
             Guid orderId) =>
         {
@@ -63,7 +65,7 @@ internal class OrdersEndpoints : IEndpointsModule
         })
             .RequirePermission(OrdersPermissions.Read);
 
-        app.MapPost(OrdersRoute, async (ICrmModule crmModule, CreateOrderRequest request) =>
+        ordersEndpoints.MapPost("/", async (ICrmModule crmModule, CreateOrderRequest request) =>
         {
             var result = await crmModule.ExecuteCommand(
                 request.Adapt<CreateOrderCommand>());
@@ -74,7 +76,7 @@ internal class OrdersEndpoints : IEndpointsModule
         })
             .RequirePermission(OrdersPermissions.Write);
 
-        app.MapPut($"{OrdersRoute}/{{orderId}}", async (
+        ordersEndpoints.MapPut("/{orderId}", async (
             ICrmModule crmModule,
             Guid orderId,
             UpdateOrderRequest request) =>
@@ -90,25 +92,25 @@ internal class OrdersEndpoints : IEndpointsModule
         })
             .RequirePermission(OrdersPermissions.Write);
 
-        app.MapDelete($"{OrdersRoute}/{{orderId}}", async (ICrmModule crmModule, Guid orderId) =>
+        ordersEndpoints.MapDelete("/{orderId}", async (ICrmModule crmModule, Guid orderId) =>
         {
             await crmModule.ExecuteCommand(new DeleteOrderCommand(orderId));
         })
             .RequirePermission(OrdersPermissions.Write);
 
-        app.MapPut($"{OrdersRoute}/{{orderId}}/cancel", async (ICrmModule crmModule, Guid orderId) =>
+        ordersEndpoints.MapPut("/{orderId}/cancel", async (ICrmModule crmModule, Guid orderId) =>
         {
             await crmModule.ExecuteCommand(new CancelOrderCommand(orderId));
         })
             .RequirePermission(OrdersPermissions.Write);
 
-        app.MapPut($"{OrdersRoute}/{{orderId}}/confirm", async (ICrmModule crmModule, Guid orderId) =>
+        ordersEndpoints.MapPut("/{orderId}/confirm", async (ICrmModule crmModule, Guid orderId) =>
         {
             await crmModule.ExecuteCommand(new ConfirmOrderCommand(orderId));
         })
             .RequirePermission(OrdersPermissions.Write);
 
-        app.MapPut($"{OrdersRoute}/{{orderId}}/complete", async (ICrmModule crmModule, Guid orderId) =>
+        ordersEndpoints.MapPut("/{orderId}/complete", async (ICrmModule crmModule, Guid orderId) =>
         {
             await crmModule.ExecuteCommand(new CompleteOrderCommand(orderId));
         })

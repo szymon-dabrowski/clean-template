@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <PackageReference Include="OneOf" Version="3.0.223" />
+    <PackageReference Include="OneOf" Version="3.0.243" />
   </ItemGroup>
 	
 </Project>

@@ -8,8 +8,9 @@ internal class RoleMappingConfig : IRegister
     public void Register(TypeAdapterConfig config)
     {
         config.NewConfig<Role, RoleDto>()
-            .Map(
-                r => r.Permissions,
-                r => r.Permissions.Select(p => p.Name).ToList());
+            .MapWith(r => new RoleDto(
+                r.Id.Value,
+                r.Name,
+                r.Permissions.Select(p => p.Name).ToList()));
     }
 }
